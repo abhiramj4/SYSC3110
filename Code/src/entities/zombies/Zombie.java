@@ -7,7 +7,6 @@ import board.Coordinate;
  * @author Liam Murphy
  *
  */
-
 abstract public class Zombie {
 	private int damage;
 	private int health;
