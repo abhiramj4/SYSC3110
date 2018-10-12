@@ -2,16 +2,16 @@ package entities.plants;
 
 public class Sunflower extends Plant{
 
-	private Integer sunPerTurn;
+	private int sunPerTurn;
 	
-	Sunflower(String name, Integer damage, Integer coolDown, Integer cost, Integer sun, Integer health) {
+	public Sunflower(String name, int damage, int coolDown, int cost, int sun, int health) {
 		super(name, damage, coolDown, cost, health);
 		// TODO Auto-generated constructor stub
 		this.sunPerTurn = sun;
 	}
 
 	@Override
-	public void setDamage(Integer damage) {
+	public void setDamage(int damage) {
 		// TODO Auto-generated method stub
 		this.damage = 0;
 		
@@ -19,7 +19,7 @@ public class Sunflower extends Plant{
 	
 	public String toString() {
 		
-		return (this.getName() + "Sun flower");
+		return ("Sun flower");
 	}
 	
 	

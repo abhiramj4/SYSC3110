@@ -2,18 +2,18 @@ package entities.plants;
 
 public abstract class Plant {
 
-	protected Integer cost;
-	protected Integer coolDown;
-	protected Integer damage;
+	protected int cost;
+	protected int coolDown;
+	protected int damage;
 	protected String  name;
 	//protected Coordinate coordinate;
-	protected Integer health; //in number of turns
+	protected int health; //in number of turns
 	
 	Plant(String name){
 		
 	}
 	
-	Plant (String name, Integer damage, Integer coolDown, Integer cost, Integer health){
+	Plant (String name, int damage, int coolDown, int cost, int health){
 		this.name = name;
 		this.damage = damage;
 		this.coolDown = coolDown;
@@ -21,60 +21,59 @@ public abstract class Plant {
 		this.health = health;
 	}
 
-	
 	/**
 	 * @return the health
 	 */
-	public Integer getHealth() {
+	public int getHealth() {
 		return health;
 	}
 
 	/**
 	 * @param health the health to set
 	 */
-	public void setHealth(Integer health) {
+	public void setHealth(int health) {
 		this.health = health;
 	}
 
 	/**
 	 * @return the cost
 	 */
-	public Integer getCost() {
+	public int getCost() {
 		return cost;
 	}
 
 	/**
 	 * @param cost the cost to set
 	 */
-	public void setCost(Integer cost) {
+	public void setCost(int cost) {
 		this.cost = cost;
 	}
 
 	/**
 	 * @return the coolDown
 	 */
-	public Integer getCoolDown() {
+	public int getCoolDown() {
 		return coolDown;
 	}
 
 	/**
 	 * @param coolDown the coolDown to set
 	 */
-	public void setCoolDown(Integer coolDown) {
+	public void setCoolDown(int coolDown) {
 		this.coolDown = coolDown;
 	}
 
 	/**
 	 * @return the damage
 	 */
-	public Integer getDamage() {
+	public int getDamage() {
 		return damage;
 	}
 
 	/**
 	 * @param damage the damage to set
 	 */
-	public abstract void setDamage(Integer damage);
+	public abstract void setDamage(int damage);
 	/**
 	 * @return the name
 	 */
@@ -101,9 +100,6 @@ public abstract class Plant {
 	 */
 	//public void setCoordinate(Coordinate coordinate) {
 	//	this.coordinate = coordinate;
-	//}
-	
-	
-	
+	//}	
 	
 }

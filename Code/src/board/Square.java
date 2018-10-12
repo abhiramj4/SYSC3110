@@ -47,4 +47,13 @@ public class Square {
 	public boolean isEmpty() {
 		return (this.entity == null);
 	}
+	
+	@Override
+	public String toString() {
+		if (this.isEmpty()) {
+			return this.getType().getName();
+		} else {
+			return this.getEntity().toString();
+		}
+ 	}
 }
