@@ -1,4 +1,4 @@
-package Enumerations;
+package enumerations;
 
 public enum SquareType {
 	LAWN,

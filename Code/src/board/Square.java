@@ -1,7 +1,7 @@
 package board;
 
-import Enumerations.SquareType;
 import entities.Entity;
+import enumerations.SquareType;
 
 public class Square {
 
@@ -12,6 +12,11 @@ public class Square {
 	public Square(Coordinate coordinate, Entity entity, SquareType type) {
 		this.coordinate = coordinate;
 		this.entity = entity;
+		this.type = type;
+	}
+	
+	public Square(Coordinate coordinate, SquareType type) {
+		this.coordinate = coordinate;
 		this.type = type;
 	}
 	

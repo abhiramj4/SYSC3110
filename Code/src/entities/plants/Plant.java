@@ -1,3 +1,4 @@
+package entities.plants;
 
 public abstract class Plant {
 

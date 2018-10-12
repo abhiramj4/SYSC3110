@@ -1,4 +1,4 @@
-
+package entities.plants;
 public class PeaShooter extends Plant{
 
 	PeaShooter(String name, Integer damage, Integer coolDown, Integer cost, Integer health) {
