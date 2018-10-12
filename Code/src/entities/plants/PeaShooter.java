@@ -1,9 +1,11 @@
-package entities.plants;
+
 public class PeaShooter extends Plant{
 
 	PeaShooter(String name, Integer damage, Integer coolDown, Integer cost, Integer health) {
 		super(name, damage, coolDown, cost, health);
 		// TODO Auto-generated constructor stub
+		
+		this.setDamage(10); //change this as you see fit
 	}
 
 	@Override
