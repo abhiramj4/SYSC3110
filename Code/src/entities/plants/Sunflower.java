@@ -10,24 +10,18 @@ public class Sunflower extends Plant{
 	private final static int SUN = 10;
 	private final static int HEALTH = 3;
 	
-	public Sunflower(String name, int damage, int coolDown, int cost, int sun, int health) {
+	public Sunflower() {
 		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH);
-		// TODO Auto-generated constructor stub
 		this.sunPerTurn = SUN;
-	}
-	
+	}	
 
 	@Override
 	public void setDamage(int damage) {
 		// TODO Auto-generated method stub
 		this.damage = 0;
-		
 	}
 	
 	public String toString() {
-		
-		return ("Sun flower");
+		return NAME;
 	}
-	
-	
 }

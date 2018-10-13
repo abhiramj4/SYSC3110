@@ -1,6 +1,6 @@
 package entities;
 
-abstract public class Entity {
+public abstract class Entity {
 	private int health;
 	private String name;
 	

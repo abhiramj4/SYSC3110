@@ -1,6 +1,8 @@
 package entities.plants;
 
-public abstract class Plant {
+import entities.Entity;
+
+public abstract class Plant extends Entity{
 
 	protected int cost;
 	protected int coolDown;
@@ -9,11 +11,8 @@ public abstract class Plant {
 	//protected Coordinate coordinate;
 	protected int health; //in number of turns
 	
-	Plant(String name){
-		
-	}
-	
-	Plant (String name, int damage, int coolDown, int cost, int health){
+	public Plant (String name, int damage, int coolDown, int cost, int health) {
+		super(health, name);
 		this.name = name;
 		this.damage = damage;
 		this.coolDown = coolDown;

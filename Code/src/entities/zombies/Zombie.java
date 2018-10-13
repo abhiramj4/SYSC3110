@@ -1,23 +1,23 @@
 package entities.zombies;
 
 import board.Coordinate;
+import entities.Entity;
 
 
 /**
  * @author Liam Murphy
  *
  */
-abstract public class Zombie {
+public abstract class Zombie extends Entity{
 	private int damage;
 	private int health;
 	private String name;
-	private Coordinate coordinate;
 	
-	public Zombie(int health, String name, int damage, Coordinate coordinate) {
+	public Zombie(int health, String name, int damage) {
+		super(health, name);
 		this.health = health;
 		this.name = name;
 		this.damage = damage;
-		this.coordinate = coordinate;
 	}
 	
 	/**
@@ -56,20 +56,4 @@ abstract public class Zombie {
 	public void setName(String name) {
 		this.name = name;
 	}
-	/**
-	 * @return
-	 */
-	public Coordinate getCoordinate() {
-		return coordinate;
-	}
-
-	/**
-	 * @param coordinate
-	 */
-	public void setCoordinate(Coordinate coordinate) {
-		this.coordinate = coordinate;
-	}
-	
-	public abstract void move();
-	
 }

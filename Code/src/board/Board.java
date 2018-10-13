@@ -3,6 +3,7 @@ package board;
 import entities.Entity;
 import entities.plants.Plant;
 import entities.plants.Sunflower;
+import entities.zombies.BaseZombie;
 import enumerations.SquareType;
 
 public class Board {
@@ -13,7 +14,9 @@ public class Board {
 	public static void main(String args[]) {
 		Board b = new Board();
 		System.out.println(b.toString());
-		b.addPlant(new Sunflower("", 0, 0, 0, 0, 0), new Coordinate(0, 2));
+		b.addEntity(new Sunflower(), new Coordinate(2, 0));
+		System.out.println(b.toString());
+		b.addEntity(new BaseZombie(), new Coordinate(2, 9));
 		System.out.println(b.toString());
 	}
 	
@@ -30,8 +33,8 @@ public class Board {
 		}
 	}
 	
-	public void addPlant(Plant plant, Coordinate coordinate) {
-		
+	public void addEntity(Entity entity, Coordinate coordinate) {
+		board[coordinate.getX()][coordinate.getY()].setEntity(entity);
 	}
 	
 	public Square[][] getBoard() {

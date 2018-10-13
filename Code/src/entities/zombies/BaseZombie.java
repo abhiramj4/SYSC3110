@@ -7,26 +7,16 @@ import board.Coordinate;
  *
  */
 public class BaseZombie extends Zombie{
-	private final static int health = 100;
-	private final static String name = "Base_Zombie";
-	private final static int damage = 10;
-	private final static int movement = 1;
+	private final static int HEALTH = 100;
+	private final static String NAME = "Base Zombie";
+	private final static int DAMAGE = 10;
+	private final static int MOVEMENT = 1;
 	
 	/**
 	 * @param coordinate
 	 */
-	public BaseZombie(Coordinate coordinate) {
-		super(health, name, damage, coordinate);
-	}
-	
-	/* (non-Javadoc)
-	 * @see entities.zombies.Zombie#move()
-	 */
-	public void move() {
-		Coordinate c =  super.getCoordinate();
-		//decrement the x coordinate by movement value
-		//super.setCoordinate();  set new coordinate
-		
+	public BaseZombie() {
+		super(HEALTH, NAME, DAMAGE);
 	}
 	
 	/* (non-Javadoc)
@@ -34,6 +24,6 @@ public class BaseZombie extends Zombie{
 	 */
 	@Override
 	public String toString() {
-		return "Z/Base";
+		return NAME;
 	}
 }
