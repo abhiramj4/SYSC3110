@@ -3,11 +3,13 @@ package board;
 public class Coordinate {
 	private int x;
 	private int y;
-	
+
 	public Coordinate(int x, int y) throws IndexOutOfBoundsException {
-		if ( (x<0)|| (x>4)) throw new IndexOutOfBoundsException("x must be between 0 and 4,inclusive");
-        if ( (y<0)|| (y>9)) throw new IndexOutOfBoundsException("y must be between 0 and 9,inclusive");
-		
+		if ((x < 0) || (x > 4))
+			throw new IndexOutOfBoundsException("x must be between 0 and 4,inclusive");
+		if ((y < 0) || (y > 9))
+			throw new IndexOutOfBoundsException("y must be between 0 and 9,inclusive");
+
 		this.x = x;
 		this.y = y;
 	}

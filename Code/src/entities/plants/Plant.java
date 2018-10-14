@@ -2,16 +2,16 @@ package entities.plants;
 
 import entities.Entity;
 
-public abstract class Plant extends Entity{
+public abstract class Plant extends Entity {
 
 	protected int cost;
 	protected int coolDown;
 	protected int damage;
-	protected String  name;
-	//protected Coordinate coordinate;
-	protected int health; //in number of turns
-	
-	public Plant (String name, int damage, int coolDown, int cost, int health) {
+	protected String name;
+	// protected Coordinate coordinate;
+	protected int health; // in number of turns
+
+	public Plant(String name, int damage, int coolDown, int cost, int health) {
 		super(health, name);
 		this.name = name;
 		this.damage = damage;
@@ -73,6 +73,7 @@ public abstract class Plant extends Entity{
 	 * @param damage the damage to set
 	 */
 	public abstract void setDamage(int damage);
+
 	/**
 	 * @return the name
 	 */
@@ -90,15 +91,15 @@ public abstract class Plant extends Entity{
 	/**
 	 * @return the coordinate
 	 */
-	//public Coordinate getCoordinate() {
-	//	return coordinate;
-	//}
+	// public Coordinate getCoordinate() {
+	// return coordinate;
+	// }
 
 	/**
 	 * @param coordinate the coordinate to set
 	 */
-	//public void setCoordinate(Coordinate coordinate) {
-	//	this.coordinate = coordinate;
-	//}	
-	
+	// public void setCoordinate(Coordinate coordinate) {
+	// this.coordinate = coordinate;
+	// }
+
 }
