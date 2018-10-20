@@ -35,6 +35,12 @@ public class Square {
 	public void setEntity(Entity entity) {
 		this.entity = entity;
 	}
+	
+	public Entity removeEntity(Coordinate coordinate) {
+		Entity temp = this.entity;
+		this.entity = null;
+		return temp;
+	}
 
 	public SquareType getType() {
 		return type;

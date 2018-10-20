@@ -1,5 +1,7 @@
 package entities.zombies;
 
+import java.util.Observable;
+
 /**
  * @author Liam Murphy
  *
@@ -25,5 +27,11 @@ public class BaseZombie extends Zombie {
 	@Override
 	public String toString() {
 		return NAME;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+
 	}
 }

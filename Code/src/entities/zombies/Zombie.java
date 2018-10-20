@@ -1,5 +1,7 @@
 package entities.zombies;
 
+import java.util.Observer;
+
 import board.Coordinate;
 import entities.Entity;
 
@@ -7,7 +9,7 @@ import entities.Entity;
  * @author Liam Murphy
  *
  */
-public abstract class Zombie extends Entity {
+public abstract class Zombie extends Entity implements Observer {
 	private int damage;
 	private int health;
 	private String name;

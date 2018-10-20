@@ -9,15 +9,15 @@ public class Board {
 	private static final int height = 5;
 
 	public Board() {
-		this.board = new Square[height][length];
+		this.board = new Square[length][height];
 		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < length - 1; j++) {
-				board[i][j] = new Square(new Coordinate(i, j), SquareType.LAWN);
+			for (int j = 0; j < length; j++) {
+				board[j][i] = new Square(new Coordinate(j, i), SquareType.LAWN);
 			}
 		}
 
 		for (int i = 0; i < height; i++) {
-			board[i][length - 1] = new Square(new Coordinate(i, length - 1), SquareType.SPAWN);
+			board[length - 1][i] = new Square(new Coordinate(length - 1, i), SquareType.SPAWN);
 		}
 	}
 
@@ -40,9 +40,9 @@ public class Board {
 			result += "{";
 			for (int j = 0; j < length; j++) {
 				if (j == length - 1) {
-					result += this.board[i][j].toString();
+					result += this.board[j][i].toString();
 				} else {
-					result += this.board[i][j].toString() + ", ";
+					result += this.board[j][i].toString() + ", ";
 				}
 			}
 			result += "}\n";
