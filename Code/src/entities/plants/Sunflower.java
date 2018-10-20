@@ -2,7 +2,6 @@ package entities.plants;
 
 public class Sunflower extends Plant {
 
-	private int sunPerTurn;
 	private final static String NAME = "SunFlower";
 	private final static int DAMAGE = 0;
 	private final static int COOLDOWN = 2;
@@ -13,7 +12,6 @@ public class Sunflower extends Plant {
 
 	public Sunflower() {
 		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH);
-		this.sunPerTurn = SUN;
 	}
 
 	@Override

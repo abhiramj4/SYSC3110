@@ -62,6 +62,9 @@ public class Game implements Runnable{
 	
 	public void tick() {
 		tick++;
+		if (tick % 2 == 0) {
+			this.sun += 25;
+		}
 	}
 
 	@Override
@@ -71,7 +74,8 @@ public class Game implements Runnable{
 		int tick = 0;
 		
 		while(running) {
-			System.out.println("You have: " + this.sun + " Sun. These are the available plants for purchase: " + availablePlants[0] + ", " + availablePlants[1] +".");
+			System.out.println(this.gameboard.toString());
+			System.out.println("You have: " + this.sun + " sun. These are the available plants for purchase: " + availablePlants[0] + ", " + availablePlants[1] +".");
 			System.out.println("What would you like to do?");
 			Scanner scanner = new Scanner(System.in);
 			String option = scanner.nextLine();
@@ -80,13 +84,31 @@ public class Game implements Runnable{
 	}
 	
 	private void handle(String option) {
-		if (option.equals("Nothing")) {
+		if (option.equals("Nothing") || option.equals("nothing")) {
 			tick();
-		} else if (option.equals("Exit")) {
+		} else if (option.equals("Exit") || option.equals("exit")) {
 			System.out.println("Exiting...");
 			stop();
+		} else {
+			Plant currPlant = null;
+			String[] words = option.split("\\W+");
+			if (words[0].equals("Plant") || words[0].equals("plant")) {
+				if (words[1].equals("Sunflower") || words[1].equals("sunflower")) {
+					currPlant = new Sunflower();
+				} else if (words[1].equals("Peashooter") || words[1].equals("peashooter")) {
+					currPlant = new PeaShooter();
+				}
+				if (currPlant.getCost() > this.sun) {
+					System.out.println("Sorry, you don't have enough sun to purchase this plant.");
+				} else {
+					this.sun -= currPlant.getCost();
+					int x = Integer.parseInt(words[3]);
+					int y = Integer.parseInt(words[4]);
+					Coordinate thiscoord = new Coordinate(x, y);
+					this.gameboard.addEntity(currPlant, thiscoord);
+				}	
+			}
 		}
-		
 	}
 
 	public static void main (String args[]) {

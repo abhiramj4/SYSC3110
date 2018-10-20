@@ -6,11 +6,11 @@ public class PeaShooter extends Plant{
 	
 	private final static String NAME = "peaShooter";
 	private final static int DAMAGE = 1;
-	private final static int COOLDOWN = 3;
-	private final static int COST = 10;
+	private final static int COOLDOWN = 2;
+	private final static int COST = 100;
 	private final static int HEALTH = 3;
 	
-	PeaShooter(String name, Integer damage, Integer coolDown, Integer cost, Integer health) {
+	public PeaShooter() {
 		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH);
 		// TODO Auto-generated constructor stub
 	}
