@@ -1,8 +1,6 @@
 package board;
 
 import entities.Entity;
-import entities.plants.Sunflower;
-import entities.zombies.BaseZombie;
 import enumerations.SquareType;
 
 public class Board {
