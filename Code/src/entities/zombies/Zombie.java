@@ -11,6 +11,7 @@ import entities.Entity;
  */
 public abstract class Zombie extends Entity implements Observer {
 	private int damage;
+	private Coordinate position;
 	private int health;
 	private String name;
 
@@ -19,6 +20,14 @@ public abstract class Zombie extends Entity implements Observer {
 		this.health = health;
 		this.name = name;
 		this.damage = damage;
+	}
+
+	public Coordinate getPosition() {
+		return position;
+	}
+
+	public void setPosition(Coordinate position) {
+		this.position = position;
 	}
 
 	/**

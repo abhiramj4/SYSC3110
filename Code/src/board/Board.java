@@ -32,6 +32,19 @@ public class Board {
 	public void setBoard(Square[][] board) {
 		this.board = board;
 	}
+	
+	public Square getSquare(Coordinate c) {
+		return (board[c.getX()][c.getY()]);
+    }
+	
+	public boolean move(Coordinate src, Coordinate dest) {
+		Square srcsqr = getSquare(src);
+		Square destsqr = getSquare(dest);
+		if (srcsqr.isEmpty()) return false;
+		destsqr.setEntity(srcsqr.getEntity());
+		srcsqr.setEntity(null);
+		return true;
+	}
 
 	@Override
 	public String toString() {

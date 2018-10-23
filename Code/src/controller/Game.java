@@ -1,8 +1,8 @@
 package controller;
 
-import java.util.List;
 import java.util.Observable;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import board.*;
 import entities.plants.*;
@@ -16,6 +16,14 @@ public class Game extends Observable implements Runnable {
 	private int currlevel;
 	private int sun;
 
+	public Board getGameboard() {
+		return gameboard;
+	}
+
+	public void setGameboard(Board gameboard) {
+		this.gameboard = gameboard;
+	}
+
 	private Thread thread;
 	private int tick;
 
@@ -26,7 +34,7 @@ public class Game extends Observable implements Runnable {
 	};
 
 	public void init() {
-		this.currlevel = 0;
+		this.currlevel = 1;
 		this.gameboard = new Board();
 		this.sun = 50;
 		this.tick = 0;
@@ -73,9 +81,61 @@ public class Game extends Observable implements Runnable {
 		init();
 		long timer = System.currentTimeMillis();
 		int tick = 0;
+		
+		System.out.println("Welcome to Plants Vs. Zombies: The Bootleg Edition");
+		try {
+			TimeUnit.SECONDS.sleep(4);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("This is a turn based game, not real time. Each 'turn', you can call multiple commands as to what you want to do.");
+		try {
+			TimeUnit.SECONDS.sleep(5);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("To plant, follow this command: Plant <PLANTTYPE> at (<x>, <y>). It is a grid system with 0 to 8 for x, 0 to 4 for y.");
+		try {
+			TimeUnit.SECONDS.sleep(5);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("To dig up an existing plant, follow this command: Dig at (<x>, <y>)");
+		try {
+			TimeUnit.SECONDS.sleep(3);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Enjoy your game, and good luck.");
+		try {
+			TimeUnit.SECONDS.sleep(2);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(); System.out.println();
+		
+		System.out.println("Welcome to LEVEL " + this.currlevel);
+		try {
+			TimeUnit.SECONDS.sleep(3);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(); 
 
 		while (running) {
-//			zombieSpawn(); // Zombie spawn based on level info
+			zombieSpawn(2, new BaseZombie()); // Zombie spawn based on level info
+						
 			System.out.println("TURN " + (this.tick + 1));
 			System.out.println();
 			System.out.println("GAME BOARD:");
@@ -86,14 +146,14 @@ public class Game extends Observable implements Runnable {
 			System.out.println("What would you like to do?");
 			Scanner scanner = new Scanner(System.in);
 			String option = scanner.nextLine();
-			handle(option);
+			handleCommand(option);
 			System.out.println();
 			System.out.println();
 			System.out.println();
 		}
 	}
 
-	private void handle(String option) {
+	private void handleCommand(String option) {
 		if (option.equals("Nothing") || option.equals("nothing")) {
 			tick();
 		} else if (option.equals("Exit") || option.equals("exit")) {
@@ -138,14 +198,39 @@ public class Game extends Observable implements Runnable {
 			this.gameboard.addEntity(zombies[i], thiscoord);
 		}
 	}
+	
+	private void zombieSpawn(int row, Zombie zombie) {
+		Zombie spawn = zombie;
+		addObserver(spawn);
+		getGameboard().addEntity(zombie, new Coordinate (9, row));
+	}
 
-	public static void main(String args[]) {
-//		System.out.println("Welcome to Plants Vs. Zombies. Please select a menu option:");
-//		System.out.println("ABOUT    PLAY    CONTROLS");
-//		Scanner scanner = new Scanner(System.in);
-
-		Game game = new Game();
-		game.start();
+	public static void main(String args[]) throws InterruptedException {		
+		boolean ismenu = true;
+		while (ismenu) {
+			System.out.println("Welcome to Plants Vs. Zombies. Please select a menu option:");
+			System.out.println("ABOUT    PLAY    CONTROLS");
+			Scanner scanner = new Scanner(System.in);
+			String result = scanner.nextLine();
+			switch (result) {
+			case ("ABOUT"): {
+				TimeUnit.SECONDS.sleep(1);
+				System.out.println();
+				break;
+			} case ("PLAY"): {
+				System.out.println("Loading...");
+				ismenu = false;
+				TimeUnit.SECONDS.sleep(2);
+				Game game = new Game();
+				game.start();
+				break;
+			} case ("CONTROLS"): {
+				TimeUnit.SECONDS.sleep(1);
+				System.out.println();
+				break;
+			}
+			}
+		}
 	}
 }
 
