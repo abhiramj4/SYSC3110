@@ -162,11 +162,21 @@ public class Game extends Observable implements Runnable {
 		} else {
 			Plant currPlant = null;
 			String[] words = option.split("\\W+");
-			if (words[0].equals("Plant") || words[0].equals("plant")) {
-				if (words[1].equals("Sunflower") || words[1].equals("sunflower")) {
+			
+			
+			//check for empty command, 
+			
+			if(words.length != 5) {
+				System.out.println("Need to enter a correct command!");
+				return;
+			} else {
+			
+			
+			if (words[0].toLowerCase().equals("plant")) {
+				if (words[1].toLowerCase().equals("sunflower")) {
 					currPlant = new Sunflower();
 					addObserver(currPlant);
-				} else if (words[1].equals("Peashooter") || words[1].equals("peashooter")) {
+				} else if (words[1].toLowerCase().equals("peashooter")) {
 					currPlant = new PeaShooter();
 					addObserver(currPlant);
 				}
@@ -174,12 +184,16 @@ public class Game extends Observable implements Runnable {
 					System.out.println("Sorry, you don't have enough sun to purchase this plant.");
 				} else {
 					this.sun -= currPlant.getCost();
+					
+					
+					
 					int x = Integer.parseInt(words[3]);
 					int y = Integer.parseInt(words[4]);
 					Coordinate thiscoord = new Coordinate(x, y);
 					this.gameboard.addEntity(currPlant, thiscoord);
 					tick();
 				}
+			}
 			}
 		}
 	}
@@ -207,29 +221,37 @@ public class Game extends Observable implements Runnable {
 
 	public static void main(String args[]) throws InterruptedException {		
 		boolean ismenu = true;
+		
+		final String casePlay = "play";
+		final String caseAbout = "about";
+		final String caseControls = "controls";
+		
 		while (ismenu) {
 			System.out.println("Welcome to Plants Vs. Zombies. Please select a menu option:");
 			System.out.println("ABOUT    PLAY    CONTROLS");
 			Scanner scanner = new Scanner(System.in);
-			String result = scanner.nextLine();
+			String result = scanner.nextLine().toLowerCase();
 			switch (result) {
-			case ("ABOUT"): {
+			case (caseAbout): {
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println();
 				break;
-			} case ("PLAY"): {
+			} case (casePlay): {
 				System.out.println("Loading...");
 				ismenu = false;
 				TimeUnit.SECONDS.sleep(2);
 				Game game = new Game();
 				game.start();
 				break;
-			} case ("CONTROLS"): {
+			} case (caseControls): {
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println();
 				break;
 			}
+				
 			}
+			
+			
 		}
 	}
 }
