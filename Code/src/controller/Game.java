@@ -79,8 +79,6 @@ public class Game extends Observable implements Runnable {
 	@Override
 	public void run() {
 		init();
-		long timer = System.currentTimeMillis();
-		int tick = 0;
 		
 		System.out.println("Welcome to Plants Vs. Zombies: The Bootleg Edition");
 		try {
@@ -161,6 +159,7 @@ public class Game extends Observable implements Runnable {
 			stop();
 		} else {
 			Plant currPlant = null;
+			//plant <TYPE> at (x, y)
 			String[] words = option.split("\\W+");
 			if (words[0].equals("Plant") || words[0].equals("plant")) {
 				if (words[1].equals("Sunflower") || words[1].equals("sunflower")) {
