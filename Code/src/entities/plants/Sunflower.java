@@ -29,6 +29,8 @@ public class Sunflower extends Plant {
 
 	/**
 	 * Update method for sunflower
+	 * 
+	 * Gets sun every so often
 	 */
 	@Override
 	public void update(Game g, String type) {

@@ -29,6 +29,8 @@ public class PeaShooter extends Plant {
 
 	/**
 	 * Update method for peashooter
+	 * 
+	 * Shoots a pea at the zombie in its lane every turn or just continues shooting
 	 */
 	@Override
 	public void update(Game g, String type) {

@@ -13,15 +13,26 @@ public class BaseZombie extends Zombie {
 	private final static int DAMAGE = 1;
 	private final static int MOVEMENT = 1;
 
+	/**
+	 * Base zombie constructor
+	 */
 	public BaseZombie() {
 		super(HEALTH, NAME, DAMAGE);
 	}
 
+	/**
+	 * String representation of this
+	 */
 	@Override
 	public String toString() {
 		return NAME;
 	}
 
+	/**
+	 * Update method for the base zombie
+	 * 
+	 * On every tick the zombie either moves forward (if there is room to move) or attacks (if a plant is in front)
+	 */
 	@Override
 	public void update(Game g, String type) {
 		if (type == "TICK") {
