@@ -24,10 +24,18 @@ public class Game implements Runnable {
 
 	private boolean running = false;
 
+	/**
+	 * Diffrent states of the game
+	 * 
+	 *
+	 */
 	public enum State {
 		ABOUT, CONTROLS, PLAY, SETTINGS, PROFILES, MENU
 	};
 
+	/**
+	 * Initialize the game
+	 */
 	public void init() {
 		this.currlevel = 1;
 		this.gameboard = new Board();
@@ -40,6 +48,9 @@ public class Game implements Runnable {
 		availablePlants[1] = "PeaShooter";
 	}
 
+	/**
+	 * Start the game
+	 */
 	private void start() {
 		if (running) {
 			return;
@@ -50,6 +61,9 @@ public class Game implements Runnable {
 		thread.start();
 	}
 
+	/**
+	 * Stop the game
+	 */
 	private synchronized void stop() {
 		if (!running)
 			return;
@@ -63,6 +77,9 @@ public class Game implements Runnable {
 		System.exit(1);
 	}
 
+	/**
+	 * "Tick" the game forward and update everything
+	 */
 	public void tick() {
 		tick++;
 		for (int i = 0; i < gameListeners.size(); i++) {
@@ -73,6 +90,9 @@ public class Game implements Runnable {
 		}
 	}
 
+	/**
+	 * Run the game
+	 */
 	@Override
 	public void run() {
 		init();
@@ -128,6 +148,9 @@ public class Game implements Runnable {
 		}
 	}
 
+	/**
+	 * Check if the game is over
+	 */
 	private void gameoverCheck() {
 		for (int i = 0; i < 5; i++) {
 			Coordinate curr = new Coordinate(0, i);
@@ -139,6 +162,10 @@ public class Game implements Runnable {
 		}
 	}
 
+	/**
+	 * Handle a command
+	 * @param option passed 
+	 */
 	private void handleCommand(String option) {
 		if (option.equals("nothing")) {
 			tick();
@@ -171,10 +198,18 @@ public class Game implements Runnable {
 		}
 	}
 
+	/**
+	 * Get how much sun the player has
+	 * @return the sun the player has
+	 */
 	public int getSun() {
 		return sun;
 	}
 
+	/**
+	 * Set how much sun the player has
+	 * @param sun the player will have
+	 */
 	public void setSun(int sun) {
 		this.sun = sun;
 	}
@@ -185,18 +220,34 @@ public class Game implements Runnable {
 		getGameboard().addEntity(zombie, new Coordinate(9, row));
 	}
 
+	/**
+	 * Get the game listeners of this game
+	 * @return the gamelisteners
+	 */
 	public List<GameListener> getGameListeners() {
 		return gameListeners;
 	}
 
+	/**
+	 * Set the game listeners of this game by passing a list
+	 * @param gameListeners that this game will have
+	 */
 	public void setGameListeners(List<GameListener> gameListeners) {
 		this.gameListeners = gameListeners;
 	}
 
+	/**
+	 * Get the gameboard as a Board object
+	 * @return the gameBoard
+	 */
 	public Board getGameboard() {
 		return gameboard;
 	}
 
+	/**
+	 * Set the game board by passing a gameboard
+	 * @param gameboard to be set 
+	 */
 	public void setGameboard(Board gameboard) {
 		this.gameboard = gameboard;
 	}
@@ -231,6 +282,9 @@ public class Game implements Runnable {
 		}
 	}
 
+	/**
+	 * Game over method
+	 */
 	public void GameOver() {
 		System.out.println("Game over!! A Zombie got to your house");
 		stop();
