@@ -151,10 +151,20 @@ public class Game implements Runnable {
 
 	private void gameoverCheck() {
 		for (int i = 0; i < 5; i++) {
+<<<<<<< HEAD
 			Coordinate curr = new Coordinate(0, i);
 			if (!(this.gameboard.getSquare(curr).isEmpty())) {
 				if(this.gameboard.getSquare(curr).getEntity().getClass().getSuperclass().getName().toLowerCase().contains("zombie")) {
+=======
+			Coordinate coordinatetoCheck = new Coordinate(0, i);
+			if (!(this.gameboard.getSquare(coordinatetoCheck).isEmpty())) {
+				
+				//is not empty
+				
+				if(this.gameboard.getSquare(coordinatetoCheck).getEntity().getClass().getSuperclass().getName().toLowerCase().contains("zombie")) {
+>>>>>>> ca0d11c94b807560047a3b8c7177c91bb4f2153e
 					this.GameOver();
+					//this.stop();
 				}
 			}
 		}	
@@ -251,7 +261,13 @@ public class Game implements Runnable {
 	}
 
 	public void GameOver() {
+<<<<<<< HEAD
 		System.out.println("GAME OVER BITCH");
 		stop();
+=======
+		System.out.println("Game over!! A Zombie got to your house");
+		stop();
+		
+>>>>>>> ca0d11c94b807560047a3b8c7177c91bb4f2153e
 	}
 }
