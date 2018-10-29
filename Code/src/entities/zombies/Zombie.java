@@ -9,14 +9,14 @@ import entities.Entity;
  * @author Liam Murphy
  *
  */
-public abstract class Zombie extends Entity implements Observer {
+public abstract class Zombie extends Entity {
 	private int damage;
 	private Coordinate position;
 	private int health;
 	private String name;
 
 	public Zombie(int health, String name, int damage) {
-		super(health, name);
+		super(health, name, EntityType.ZOMBIE);
 		this.health = health;
 		this.name = name;
 		this.damage = damage;

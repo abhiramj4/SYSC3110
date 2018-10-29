@@ -5,7 +5,7 @@ import java.util.Observer;
 
 import entities.Entity;
 
-public abstract class Plant extends Entity implements Observer {
+public abstract class Plant extends Entity {
 
 	private int cost;
 	private int coolDown;
@@ -14,7 +14,7 @@ public abstract class Plant extends Entity implements Observer {
 	private int health; // in number of turns
 
 	public Plant(String name, int damage, int coolDown, int cost, int health) {
-		super(health, name);
+		super(health, name, EntityType.PLANT);
 		this.name = name;
 		this.damage = damage;
 		this.coolDown = coolDown;

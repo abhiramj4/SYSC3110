@@ -2,6 +2,7 @@ package entities.plants;
 
 import java.util.Observable;
 
+import controller.Game;
 import entities.plants.Plant;
 
 public class PeaShooter extends Plant {
@@ -22,13 +23,8 @@ public class PeaShooter extends Plant {
 	}
 
 	@Override
-	public void setDamage(int damage) {
+	public void update(Game g, String type) {
 		// TODO Auto-generated method stub
-		// for more complex damage algorithms
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-
+		
 	}
 }

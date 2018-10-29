@@ -1,5 +1,6 @@
 package board;
 
+import controller.Game;
 import entities.Entity;
 import enumerations.SquareType;
 
@@ -23,6 +24,12 @@ public class Board {
 
 	public void addEntity(Entity entity, Coordinate coordinate) {
 		board[coordinate.getX()][coordinate.getY()].setEntity(entity);
+	}
+	
+	public void removeEntity(Game g, Coordinate coordinate) {
+		Entity toRemove = g.getGameboard().getSquare(coordinate).getEntity();
+		g.getGameListeners().remove(toRemove);
+		g.getGameboard().getSquare(coordinate).setEntity(null);
 	}
 
 	public Square[][] getBoard() {
