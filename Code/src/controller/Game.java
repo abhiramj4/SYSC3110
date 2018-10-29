@@ -176,6 +176,12 @@ public class Game implements Runnable {
 			Plant currPlant = null;
 			// plant <TYPE> at (x, y)
 			String[] words = option.split("\\W+");
+			
+			if(words.length < 4) {
+				System.out.println("Invalid command, try again!");
+				return;
+			}
+			
 			if (words[0].equals("plant")) {
 				if (words[1].equals("sunflower")) {
 					currPlant = new Sunflower();
