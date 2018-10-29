@@ -16,6 +16,8 @@ public class PeaShooter extends Plant {
 		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH);
 		// TODO Auto-generated constructor stub 
 	}
+	
+	//this better fucking work
 
 	public String toString() {
 		return this.getName();
