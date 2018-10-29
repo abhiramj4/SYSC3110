@@ -6,7 +6,7 @@ import controller.Game;
 
 public class Sunflower extends Plant {
 
-	private final static String NAME = "SunFlower";
+	private final static String NAME = "FLWR";
 	private final static int DAMAGE = 0;
 	private final static int COOLDOWN = 2;
 	private final static int COST = 50;
