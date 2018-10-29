@@ -10,6 +10,7 @@ public abstract class Entity implements GameListener {
 		PLANT, ZOMBIE
 	};
 
+	//just testing
 	private EntityType entityType;
 
 	public Entity(int health, String name, EntityType entityType) {
