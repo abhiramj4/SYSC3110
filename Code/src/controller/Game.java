@@ -130,8 +130,7 @@ public class Game implements Runnable {
 		
 		zombieSpawn(2, new BaseZombie()); // Zombie spawn based on level info
 
-		while (running) {
-			gameoverCheck();						
+		while (running) {						
 			System.out.println("TURN " + (this.tick + 1));
 			System.out.println();
 			System.out.println("GAME BOARD:");
@@ -139,6 +138,7 @@ public class Game implements Runnable {
 			System.out.println(this.gameboard.toString());
 			System.out.println("You have: " + this.sun + " sun. These are the available plants for purchase: "
 					+ availablePlants[0] + ", " + availablePlants[1] + ".");
+			gameoverCheck();
 			System.out.println("What would you like to do?");
 			Scanner scanner = new Scanner(System.in);
 			String option = scanner.nextLine().toLowerCase();
@@ -153,7 +153,7 @@ public class Game implements Runnable {
 		for (int i = 0; i < 5; i++) {
 			Coordinate curr = new Coordinate(0, i);
 			if (!(this.gameboard.getSquare(curr).isEmpty())) {
-				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE) {
+				if(this.gameboard.getSquare(curr).getEntity().getClass().getSuperclass().getName().toLowerCase().contains("zombie")) {
 					this.GameOver();
 				}
 			}
@@ -251,7 +251,7 @@ public class Game implements Runnable {
 	}
 
 	public void GameOver() {
-		stop();
 		System.out.println("GAME OVER BITCH");
+		stop();
 	}
 }
