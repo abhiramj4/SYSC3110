@@ -12,7 +12,7 @@ public class Sunflower extends Plant {
 	private final static int COST = 50;
 	private final static int SUNFREQ = 3;
 	private final static int SUN = 25;
-	private final static int HEALTH = 100;
+	private final static int HEALTH = 4;
 	private Integer tick;
 
 	public Sunflower() {

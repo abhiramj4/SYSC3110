@@ -2,7 +2,6 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -11,7 +10,7 @@ import entities.Entity.EntityType;
 import entities.plants.*;
 import entities.zombies.*;
 
-public class Game extends Observable implements Runnable {
+public class Game implements Runnable {
 
 	private Board gameboard;
 	private int plantcount;
@@ -32,7 +31,7 @@ public class Game extends Observable implements Runnable {
 	public void init() {
 		this.currlevel = 1;
 		this.gameboard = new Board();
-		this.sun = 50;
+		this.sun = 500;
 		this.tick = 0;
 		this.plantcount = 2;
 		availablePlants = new String[plantcount];
@@ -176,7 +175,7 @@ public class Game extends Observable implements Runnable {
 					currPlant = new Sunflower();
 					gameListeners.add(currPlant);
 				} else if (words[1].equals("peashooter")) {
-					currPlant = new PeaShooter(Integer.parseInt(words[3]));
+					currPlant = new PeaShooter();
 					gameListeners.add(currPlant);
 				}
 				if (currPlant.getCost() > this.sun) {
