@@ -6,6 +6,7 @@ public class Coordinate {
 
 	/**
 	 * Instantiate a Coordinate with an x and y position
+	 * 
 	 * @param x
 	 * @param y
 	 * @throws IndexOutOfBoundsException
@@ -22,6 +23,7 @@ public class Coordinate {
 
 	/**
 	 * Get the x of this coordinate
+	 * 
 	 * @return the x value of this coordinate
 	 */
 	public int getX() {
@@ -30,6 +32,7 @@ public class Coordinate {
 
 	/**
 	 * Set the x of this coordinate
+	 * 
 	 * @param x value to be set of this coordinate
 	 */
 	public void setX(int x) {

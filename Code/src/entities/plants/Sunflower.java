@@ -1,7 +1,5 @@
 package entities.plants;
 
-import java.util.Observable;
-
 import controller.Game;
 
 public class Sunflower extends Plant {
@@ -36,6 +34,6 @@ public class Sunflower extends Plant {
 				g.setSun(g.getSun() + SUN);
 				tick = 0;
 			}
-		}	
+		}
 	}
 }

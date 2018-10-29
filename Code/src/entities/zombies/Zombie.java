@@ -15,8 +15,9 @@ public abstract class Zombie extends Entity {
 
 	/**
 	 * Constructor of class Zombie
+	 * 
 	 * @param health of the zombie
-	 * @param name of the zombie
+	 * @param name   of the zombie
 	 * @param damage this zombie deals
 	 */
 	public Zombie(int health, String name, int damage) {
@@ -28,6 +29,7 @@ public abstract class Zombie extends Entity {
 
 	/**
 	 * get the position of this zombie
+	 * 
 	 * @return the position of this zombie
 	 */
 	public Coordinate getPosition() {
@@ -36,6 +38,7 @@ public abstract class Zombie extends Entity {
 
 	/**
 	 * Set the position of this zombie
+	 * 
 	 * @param position of this zombie
 	 */
 	public void setPosition(Coordinate position) {
@@ -44,6 +47,7 @@ public abstract class Zombie extends Entity {
 
 	/**
 	 * get the damage this zombie deals
+	 * 
 	 * @return the damage this zombie deals
 	 */
 	public int getDamage() {
@@ -52,6 +56,7 @@ public abstract class Zombie extends Entity {
 
 	/**
 	 * Set the damage this zombie does
+	 * 
 	 * @param damage this zombie does
 	 */
 	public void setDamage(int damage) {
@@ -60,7 +65,8 @@ public abstract class Zombie extends Entity {
 
 	/**
 	 * Return the health of this zombie
-	 * @return 
+	 * 
+	 * @return
 	 */
 	public int getHealth() {
 		return health;
@@ -68,6 +74,7 @@ public abstract class Zombie extends Entity {
 
 	/**
 	 * set the health of this zombie
+	 * 
 	 * @param set the health of the zombie
 	 */
 	public void setHealth(int health) {
@@ -76,6 +83,7 @@ public abstract class Zombie extends Entity {
 
 	/**
 	 * get the name of the zombie
+	 * 
 	 * @return the name of this zombie
 	 */
 	public String getName() {
@@ -84,6 +92,7 @@ public abstract class Zombie extends Entity {
 
 	/**
 	 * Set the name of this zombie
+	 * 
 	 * @param name of this zombie to be set
 	 */
 	public void setName(String name) {

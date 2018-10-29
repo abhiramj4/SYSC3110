@@ -26,12 +26,14 @@ public class BaseZombie extends Zombie {
 	public void update(Game g, String type) {
 		if (type == "TICK") {
 			Coordinate curr = this.getPosition();
-			Coordinate toCheck = new Coordinate(curr.getX() -1, curr.getY());
-			
+			Coordinate toCheck = new Coordinate(curr.getX() - 1, curr.getY());
+
 			if (g.getGameboard().getSquare(toCheck).isEmpty() && !(getPosition().getX() == 0)) {
 				System.out.println("move");
 				g.getGameboard().move(curr, new Coordinate(curr.getX() - 1, curr.getY()));
-			} if (g.getGameboard().getSquare(toCheck).getEntity().getClass().getSuperclass().getName().toLowerCase().contains("plant")) {
+			}
+			if (g.getGameboard().getSquare(toCheck).getEntity().getClass().getSuperclass().getName().toLowerCase()
+					.contains("plant")) {
 				System.out.println("attack");
 				int orighealth = g.getGameboard().getSquare(toCheck).getEntity().getHealth();
 				System.out.println(orighealth);

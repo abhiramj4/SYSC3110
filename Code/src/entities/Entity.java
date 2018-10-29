@@ -5,7 +5,11 @@ import controller.GameListener;
 public abstract class Entity implements GameListener {
 	private int health;
 	private String name;
-	public enum EntityType { PLANT, ZOMBIE };
+
+	public enum EntityType {
+		PLANT, ZOMBIE
+	};
+
 	private EntityType entityType;
 
 	public Entity(int health, String name, EntityType entityType) {

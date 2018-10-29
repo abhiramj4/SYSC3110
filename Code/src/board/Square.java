@@ -13,9 +13,10 @@ public class Square {
 
 	/**
 	 * Constructor for class square
+	 * 
 	 * @param coordinate of this square
-	 * @param entity on this square
-	 * @param type of square
+	 * @param entity     on this square
+	 * @param type       of square
 	 */
 	public Square(Coordinate coordinate, Entity entity, SquareType type) {
 		this.coordinate = coordinate;
@@ -25,8 +26,9 @@ public class Square {
 
 	/**
 	 * Constructor for class square
+	 * 
 	 * @param coordinate of this square
-	 * @param type of square
+	 * @param type       of square
 	 */
 	public Square(Coordinate coordinate, SquareType type) {
 		this.coordinate = coordinate;
@@ -35,14 +37,16 @@ public class Square {
 
 	/**
 	 * Get the coordinate of this square
+	 * 
 	 * @return the coordinate
 	 */
 	public Coordinate getCoordinate() {
 		return coordinate;
 	}
-	
+
 	/**
 	 * Set the coordinate of this square
+	 * 
 	 * @param coordinate of this square to be set
 	 */
 	public void setCoordinate(Coordinate coordinate) {
@@ -51,6 +55,7 @@ public class Square {
 
 	/**
 	 * Get the entity on this square
+	 * 
 	 * @return the entity on this square
 	 */
 	public Entity getEntity() {
@@ -59,6 +64,7 @@ public class Square {
 
 	/**
 	 * Set the entity on this square
+	 * 
 	 * @param entity to be placed on this square
 	 */
 	public void setEntity(Entity entity) {
@@ -69,9 +75,10 @@ public class Square {
 			((Plant) entity).setPosition(this.coordinate);
 		}
 	}
-	
+
 	/**
 	 * Remove an entity from a square
+	 * 
 	 * @param coordinate to be removed from
 	 * @return the removed entity
 	 */
@@ -83,6 +90,7 @@ public class Square {
 
 	/**
 	 * Get the type of this square
+	 * 
 	 * @return the type of this square
 	 */
 	public SquareType getType() {
@@ -95,6 +103,7 @@ public class Square {
 
 	/**
 	 * Check if this square is empty
+	 * 
 	 * @return true if the square is empty
 	 */
 	public boolean isEmpty() {

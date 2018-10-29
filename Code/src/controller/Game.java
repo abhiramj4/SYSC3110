@@ -77,60 +77,39 @@ public class Game implements Runnable {
 	public void run() {
 		init();
 		/*
-		System.out.println("Welcome to Plants Vs. Zombies: The Bootleg Edition");
-		try {
-			TimeUnit.SECONDS.sleep(4);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println("This is a turn based game, not real time. Each 'turn', you can call multiple commands as to what you want to do.");
-		try {
-			TimeUnit.SECONDS.sleep(5);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println("To plant, follow this command: Plant <PLANTTYPE> at (<x>, <y>). It is a grid system with 0 to 8 for x, 0 to 4 for y.");
-		try {
-			TimeUnit.SECONDS.sleep(5);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println("To dig up an existing plant, follow this command: Dig at (<x>, <y>)");
-		try {
-			TimeUnit.SECONDS.sleep(3);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println("Enjoy your game, and good luck.");
-		try {
-			TimeUnit.SECONDS.sleep(2);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println(); System.out.println();
-		
-		System.out.println("Welcome to LEVEL " + this.currlevel);
-		try {
-			TimeUnit.SECONDS.sleep(3);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(); */
-		
+		 * System.out.println("Welcome to Plants Vs. Zombies: The Bootleg Edition"); try
+		 * { TimeUnit.SECONDS.sleep(4); } catch (InterruptedException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); }
+		 * 
+		 * System.out.
+		 * println("This is a turn based game, not real time. Each 'turn', you can call multiple commands as to what you want to do."
+		 * ); try { TimeUnit.SECONDS.sleep(5); } catch (InterruptedException e) { //
+		 * TODO Auto-generated catch block e.printStackTrace(); }
+		 * 
+		 * System.out.
+		 * println("To plant, follow this command: Plant <PLANTTYPE> at (<x>, <y>). It is a grid system with 0 to 8 for x, 0 to 4 for y."
+		 * ); try { TimeUnit.SECONDS.sleep(5); } catch (InterruptedException e) { //
+		 * TODO Auto-generated catch block e.printStackTrace(); }
+		 * 
+		 * System.out.
+		 * println("To dig up an existing plant, follow this command: Dig at (<x>, <y>)"
+		 * ); try { TimeUnit.SECONDS.sleep(3); } catch (InterruptedException e) { //
+		 * TODO Auto-generated catch block e.printStackTrace(); }
+		 * 
+		 * System.out.println("Enjoy your game, and good luck."); try {
+		 * TimeUnit.SECONDS.sleep(2); } catch (InterruptedException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); }
+		 * 
+		 * System.out.println(); System.out.println();
+		 * 
+		 * System.out.println("Welcome to LEVEL " + this.currlevel); try {
+		 * TimeUnit.SECONDS.sleep(3); } catch (InterruptedException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); } System.out.println();
+		 */
+
 		zombieSpawn(2, new BaseZombie()); // Zombie spawn based on level info
 
-		while (running) {						
+		while (running) {
 			System.out.println("TURN " + (this.tick + 1));
 			System.out.println();
 			System.out.println("GAME BOARD:");
@@ -151,23 +130,13 @@ public class Game implements Runnable {
 
 	private void gameoverCheck() {
 		for (int i = 0; i < 5; i++) {
-<<<<<<< HEAD
 			Coordinate curr = new Coordinate(0, i);
 			if (!(this.gameboard.getSquare(curr).isEmpty())) {
-				if(this.gameboard.getSquare(curr).getEntity().getClass().getSuperclass().getName().toLowerCase().contains("zombie")) {
-=======
-			Coordinate coordinatetoCheck = new Coordinate(0, i);
-			if (!(this.gameboard.getSquare(coordinatetoCheck).isEmpty())) {
-				
-				//is not empty
-				
-				if(this.gameboard.getSquare(coordinatetoCheck).getEntity().getClass().getSuperclass().getName().toLowerCase().contains("zombie")) {
->>>>>>> ca0d11c94b807560047a3b8c7177c91bb4f2153e
-					this.GameOver();
-					//this.stop();
-				}
+				if (this.gameboard.getSquare(curr).getEntity().getClass().getSuperclass().getName().toLowerCase()
+						.contains("zombie"))
+					;
 			}
-		}	
+		}
 	}
 
 	private void handleCommand(String option) {
@@ -178,7 +147,7 @@ public class Game implements Runnable {
 			stop();
 		} else {
 			Plant currPlant = null;
-			//plant <TYPE> at (x, y)
+			// plant <TYPE> at (x, y)
 			String[] words = option.split("\\W+");
 			if (words[0].equals("plant")) {
 				if (words[1].equals("sunflower")) {
@@ -209,13 +178,13 @@ public class Game implements Runnable {
 	public void setSun(int sun) {
 		this.sun = sun;
 	}
-	
+
 	private void zombieSpawn(int row, Zombie zombie) {
 		Zombie spawn = zombie;
 		gameListeners.add(spawn);
-		getGameboard().addEntity(zombie, new Coordinate (9, row));
+		getGameboard().addEntity(zombie, new Coordinate(9, row));
 	}
-	
+
 	public List<GameListener> getGameListeners() {
 		return gameListeners;
 	}
@@ -223,7 +192,7 @@ public class Game implements Runnable {
 	public void setGameListeners(List<GameListener> gameListeners) {
 		this.gameListeners = gameListeners;
 	}
-	
+
 	public Board getGameboard() {
 		return gameboard;
 	}
@@ -232,7 +201,7 @@ public class Game implements Runnable {
 		this.gameboard = gameboard;
 	}
 
-	public static void main(String args[]) throws InterruptedException {		
+	public static void main(String args[]) throws InterruptedException {
 		boolean ismenu = true;
 		while (ismenu) {
 			System.out.println("Welcome to Plants Vs. Zombies. Please select a menu option:");
@@ -244,14 +213,16 @@ public class Game implements Runnable {
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println();
 				break;
-			} case ("play"): {
+			}
+			case ("play"): {
 				System.out.println("Loading...");
 				ismenu = false;
 				TimeUnit.SECONDS.sleep(2);
 				Game game = new Game();
 				game.start();
 				break;
-			} case ("controls"): {
+			}
+			case ("controls"): {
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println();
 				break;
@@ -261,13 +232,7 @@ public class Game implements Runnable {
 	}
 
 	public void GameOver() {
-<<<<<<< HEAD
-		System.out.println("GAME OVER BITCH");
-		stop();
-=======
 		System.out.println("Game over!! A Zombie got to your house");
 		stop();
-		
->>>>>>> ca0d11c94b807560047a3b8c7177c91bb4f2153e
 	}
 }

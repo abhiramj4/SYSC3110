@@ -14,10 +14,8 @@ public class PeaShooter extends Plant {
 
 	public PeaShooter() {
 		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH);
-		// TODO Auto-generated constructor stub 
+		// TODO Auto-generated constructor stub
 	}
-	
-	//this better fucking work
 
 	public String toString() {
 		return this.getName();
@@ -28,8 +26,9 @@ public class PeaShooter extends Plant {
 		for (int i = getPosition().getX() + 1; i < 9; i++) {
 			Coordinate temp = new Coordinate(i, getPosition().getY());
 			if (g.getGameboard().getSquare(temp).isEmpty()) {
-				
-			} else if (g.getGameboard().getSquare(temp).getEntity().getClass().getSuperclass().getName().toLowerCase().contains("zombie")) {
+
+			} else if (g.getGameboard().getSquare(temp).getEntity().getClass().getSuperclass().getName().toLowerCase()
+					.contains("zombie")) {
 				int orighealth = g.getGameboard().getSquare(temp).getEntity().getHealth();
 				System.out.println(orighealth);
 				if ((orighealth - getDamage()) < 0) {
