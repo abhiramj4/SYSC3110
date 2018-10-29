@@ -13,14 +13,23 @@ public class Sunflower extends Plant {
 	private final static int HEALTH = 4;
 	private Integer tick;
 
+	/**
+	 * Constructor for sunflowers
+	 */
 	public Sunflower() {
 		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH);
 	}
 
+	/**
+	 * String representation of this 
+	 */
 	public String toString() {
 		return NAME;
 	}
 
+	/**
+	 * Update method for sunflower
+	 */
 	@Override
 	public void update(Game g, String type) {
 		if (type == "TICK") {

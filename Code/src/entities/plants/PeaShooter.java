@@ -12,15 +12,24 @@ public class PeaShooter extends Plant {
 	private final static int COST = 100;
 	private final static int HEALTH = 4;
 
+	/**
+	 * Constructor of peashooter
+	 */
 	public PeaShooter() {
 		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH);
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * String representation of this
+	 */
 	public String toString() {
 		return this.getName();
 	}
 
+	/**
+	 * Update method for peashooter
+	 */
 	@Override
 	public void update(Game g, String type) {
 		for (int i = getPosition().getX() + 1; i < 9; i++) {
