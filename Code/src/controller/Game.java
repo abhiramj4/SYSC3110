@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -15,14 +17,7 @@ public class Game extends Observable implements Runnable {
 	private String availablePlants[];
 	private int currlevel;
 	private int sun;
-
-	public Board getGameboard() {
-		return gameboard;
-	}
-
-	public void setGameboard(Board gameboard) {
-		this.gameboard = gameboard;
-	}
+	private List<GameListener> gameListeners;
 
 	private Thread thread;
 	private int tick;
@@ -40,6 +35,7 @@ public class Game extends Observable implements Runnable {
 		this.tick = 0;
 		this.plantcount = 2;
 		availablePlants = new String[plantcount];
+		this.gameListeners = new ArrayList<GameListener>();
 		availablePlants[0] = "Sunflower";
 		availablePlants[1] = "PeaShooter";
 	}
@@ -69,8 +65,9 @@ public class Game extends Observable implements Runnable {
 
 	public void tick() {
 		tick++;
-		setChanged();
-		notifyObservers();
+		for (int i = 0; i < gameListeners.size(); i++) {
+			gameListeners.get(i).update(this, "TICK");
+		}
 		if (tick % 2 == 0) {
 //			this.sun += 25;
 		}
@@ -79,7 +76,7 @@ public class Game extends Observable implements Runnable {
 	@Override
 	public void run() {
 		init();
-		
+		/*
 		System.out.println("Welcome to Plants Vs. Zombies: The Bootleg Edition");
 		try {
 			TimeUnit.SECONDS.sleep(4);
@@ -129,7 +126,7 @@ public class Game extends Observable implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(); 
+		System.out.println(); */
 
 		while (running) {
 			zombieSpawn(2, new BaseZombie()); // Zombie spawn based on level info
@@ -143,7 +140,7 @@ public class Game extends Observable implements Runnable {
 					+ availablePlants[0] + ", " + availablePlants[1] + ".");
 			System.out.println("What would you like to do?");
 			Scanner scanner = new Scanner(System.in);
-			String option = scanner.nextLine();
+			String option = scanner.nextLine().toLowerCase();
 			handleCommand(option);
 			System.out.println();
 			System.out.println();
@@ -152,22 +149,22 @@ public class Game extends Observable implements Runnable {
 	}
 
 	private void handleCommand(String option) {
-		if (option.equals("Nothing") || option.equals("nothing")) {
+		if (option.equals("nothing")) {
 			tick();
-		} else if (option.equals("Exit") || option.equals("exit")) {
+		} else if (option.equals("exit")) {
 			System.out.println("Exiting...");
 			stop();
 		} else {
 			Plant currPlant = null;
 			//plant <TYPE> at (x, y)
 			String[] words = option.split("\\W+");
-			if (words[0].equals("Plant") || words[0].equals("plant")) {
-				if (words[1].equals("Sunflower") || words[1].equals("sunflower")) {
+			if (words[0].equals("plant")) {
+				if (words[1].equals("sunflower")) {
 					currPlant = new Sunflower();
-					addObserver(currPlant);
-				} else if (words[1].equals("Peashooter") || words[1].equals("peashooter")) {
+					gameListeners.add(currPlant);
+				} else if (words[1].equals("peashooter")) {
 					currPlant = new PeaShooter();
-					addObserver(currPlant);
+					gameListeners.add(currPlant);
 				}
 				if (currPlant.getCost() > this.sun) {
 					System.out.println("Sorry, you don't have enough sun to purchase this plant.");
@@ -200,8 +197,25 @@ public class Game extends Observable implements Runnable {
 	
 	private void zombieSpawn(int row, Zombie zombie) {
 		Zombie spawn = zombie;
-		addObserver(spawn);
+		gameListeners.add(spawn);
+//		addObserver(spawn);
 		getGameboard().addEntity(zombie, new Coordinate (9, row));
+	}
+	
+	public List<GameListener> getGameListeners() {
+		return gameListeners;
+	}
+
+	public void setGameListeners(List<GameListener> gameListeners) {
+		this.gameListeners = gameListeners;
+	}
+	
+	public Board getGameboard() {
+		return gameboard;
+	}
+
+	public void setGameboard(Board gameboard) {
+		this.gameboard = gameboard;
 	}
 
 	public static void main(String args[]) throws InterruptedException {		
@@ -210,20 +224,20 @@ public class Game extends Observable implements Runnable {
 			System.out.println("Welcome to Plants Vs. Zombies. Please select a menu option:");
 			System.out.println("ABOUT    PLAY    CONTROLS");
 			Scanner scanner = new Scanner(System.in);
-			String result = scanner.nextLine();
+			String result = scanner.nextLine().toLowerCase();
 			switch (result) {
-			case ("ABOUT"): {
+			case ("about"): {
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println();
 				break;
-			} case ("PLAY"): {
+			} case ("play"): {
 				System.out.println("Loading...");
 				ismenu = false;
 				TimeUnit.SECONDS.sleep(2);
 				Game game = new Game();
 				game.start();
 				break;
-			} case ("CONTROLS"): {
+			} case ("controls"): {
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println();
 				break;
@@ -231,30 +245,9 @@ public class Game extends Observable implements Runnable {
 			}
 		}
 	}
+
+	public void GameOver() {
+		this.stop();
+		System.out.println("GAME OVER BITCH");
+	}
 }
-
-//"This is the best game you will ever fucking play you twat.\nMade by: Sai Vikranth, Liam, Abhi, and Everett";
-
-//public Menu() {
-//	System.out.println("Welcome to Plants Vs. Zombies. Please select a menu option:");
-//	System.out.println("ABOUT    PLAY    CONTROLS");
-//}
-//
-//public void setState(String option) {
-//	if (option == "MENU" || option == "Menu" || option == "menu") {
-//		this.setChanged();
-//		this.notifyObservers(State.MENU);
-//	} else if (option == "PLAY" || option == "Play" || option == "play") {
-//		this.setChanged();
-//		this.notifyObservers(State.PLAY);
-//	} else if (option == "CONTROLS" || option == "Controls" || option == "controls") {
-//		this.setChanged();
-//		this.notifyObservers(State.CONTROLS);
-//	} else if (option.equals("ABOUT") || option == "About" || option == "about") {
-//		this.setChanged();
-//		this.notifyObservers(State.ABOUT);
-//	} else {
-//		this.setChanged();
-//		this.notifyObservers(State.MENU);
-//	}
-//}
