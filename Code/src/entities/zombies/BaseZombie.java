@@ -28,12 +28,15 @@ public class BaseZombie extends Zombie {
 			Coordinate curr = this.getPosition();
 			Coordinate toCheck = new Coordinate(curr.getX() -1, curr.getY());
 			
-			if (g.getGameboard().getSquare(toCheck).isEmpty()) {
-				g.getGameboard().move(curr, new Coordinate(curr.getX() - 1, curr.getY()));
-			} else if (g.getGameboard().getSquare(toCheck).getEntity().getEntityType() == EntityType.PLANT) {
+			if (g.getGameboard().getSquare(toCheck).isEmpty() && !(getPosition().getX() == 0)) {
+				System.out.println("move");
+				g.getGameboard().move(curr, new Coordinate(curr.getX() - MOVEMENT, curr.getY()));
+			} if (g.getGameboard().getSquare(toCheck).getEntity().getClass().getSuperclass().getName().toLowerCase().contains("plant")) {
+				System.out.println("attack");
 				int orighealth = g.getGameboard().getSquare(toCheck).getEntity().getHealth();
+				System.out.println(orighealth);
 				if ((orighealth - getDamage()) < 0) {
-					g.getGameboard().removeEntity(g, curr);
+					g.getGameboard().removeEntity(g, toCheck);
 				} else {
 					g.getGameboard().getSquare(toCheck).getEntity().setHealth(orighealth - getDamage());
 				}

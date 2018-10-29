@@ -1,8 +1,5 @@
 package entities.plants;
 
-import java.util.Observable;
-import java.util.Observer;
-
 import entities.Entity;
 
 public abstract class Plant extends Entity {

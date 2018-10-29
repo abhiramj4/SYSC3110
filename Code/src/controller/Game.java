@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import board.*;
+import entities.Entity.EntityType;
 import entities.plants.*;
 import entities.zombies.*;
 
@@ -69,7 +70,7 @@ public class Game extends Observable implements Runnable {
 			gameListeners.get(i).update(this, "TICK");
 		}
 		if (tick % 2 == 0) {
-//			this.sun += 25;
+			this.sun += 25;
 		}
 	}
 
@@ -131,8 +132,7 @@ public class Game extends Observable implements Runnable {
 		zombieSpawn(2, new BaseZombie()); // Zombie spawn based on level info
 
 		while (running) {
-			
-						
+			gameoverCheck();						
 			System.out.println("TURN " + (this.tick + 1));
 			System.out.println();
 			System.out.println("GAME BOARD:");
@@ -150,6 +150,17 @@ public class Game extends Observable implements Runnable {
 		}
 	}
 
+	private void gameoverCheck() {
+		for (int i = 0; i < 5; i++) {
+			Coordinate curr = new Coordinate(0, i);
+			if (!(this.gameboard.getSquare(curr).isEmpty())) {
+				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE) {
+					this.GameOver();
+				}
+			}
+		}	
+	}
+
 	private void handleCommand(String option) {
 		if (option.equals("nothing")) {
 			tick();
@@ -165,7 +176,7 @@ public class Game extends Observable implements Runnable {
 					currPlant = new Sunflower();
 					gameListeners.add(currPlant);
 				} else if (words[1].equals("peashooter")) {
-					currPlant = new PeaShooter();
+					currPlant = new PeaShooter(Integer.parseInt(words[3]));
 					gameListeners.add(currPlant);
 				}
 				if (currPlant.getCost() > this.sun) {
@@ -248,7 +259,7 @@ public class Game extends Observable implements Runnable {
 	}
 
 	public void GameOver() {
-		this.stop();
+		stop();
 		System.out.println("GAME OVER BITCH");
 	}
 }

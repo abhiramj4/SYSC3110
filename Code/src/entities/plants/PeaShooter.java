@@ -1,7 +1,5 @@
 package entities.plants;
 
-import java.util.Observable;
-
 import controller.Game;
 import entities.plants.Plant;
 
@@ -12,8 +10,9 @@ public class PeaShooter extends Plant {
 	private final static int COOLDOWN = 2;
 	private final static int COST = 100;
 	private final static int HEALTH = 3;
+	private int xcoord;
 
-	public PeaShooter() {
+	public PeaShooter(int xcoord) {
 		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH);
 		// TODO Auto-generated constructor stub
 	}
