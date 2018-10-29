@@ -8,9 +8,9 @@ import controller.Game;
  *
  */
 public class BaseZombie extends Zombie {
-	private final static int HEALTH = 100;
+	private final static int HEALTH = 3;
 	private final static String NAME = "BZMB";
-	private final static int DAMAGE = 50;
+	private final static int DAMAGE = 1;
 	private final static int MOVEMENT = 1;
 
 	public BaseZombie() {
@@ -30,7 +30,7 @@ public class BaseZombie extends Zombie {
 			
 			if (g.getGameboard().getSquare(toCheck).isEmpty() && !(getPosition().getX() == 0)) {
 				System.out.println("move");
-				g.getGameboard().move(curr, new Coordinate(curr.getX() - MOVEMENT, curr.getY()));
+				g.getGameboard().move(curr, new Coordinate(curr.getX() - 1, curr.getY()));
 			} if (g.getGameboard().getSquare(toCheck).getEntity().getClass().getSuperclass().getName().toLowerCase().contains("plant")) {
 				System.out.println("attack");
 				int orighealth = g.getGameboard().getSquare(toCheck).getEntity().getHealth();

@@ -1,5 +1,6 @@
 package entities.plants;
 
+import board.Coordinate;
 import controller.Game;
 import entities.plants.Plant;
 
@@ -9,12 +10,11 @@ public class PeaShooter extends Plant {
 	private final static int DAMAGE = 1;
 	private final static int COOLDOWN = 2;
 	private final static int COST = 100;
-	private final static int HEALTH = 3;
-	private int xcoord;
+	private final static int HEALTH = 4;
 
-	public PeaShooter(int xcoord) {
+	public PeaShooter() {
 		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH);
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub 
 	}
 
 	public String toString() {
@@ -23,7 +23,17 @@ public class PeaShooter extends Plant {
 
 	@Override
 	public void update(Game g, String type) {
-		// TODO Auto-generated method stub
-		
+		for (int i = getPosition().getY(); i < 9; i++) {
+			if (g.getGameboard().getSquare(getPosition()).getEntity().getClass().getSuperclass().getName().toLowerCase().contains("zombie")) {
+				Coordinate toCheck = new Coordinate(getPosition().getX(), i);
+				int orighealth = g.getGameboard().getSquare(toCheck).getEntity().getHealth();
+				System.out.println(orighealth);
+				if ((orighealth - getDamage()) < 0) {
+					g.getGameboard().removeEntity(g, toCheck);
+				} else {
+					g.getGameboard().getSquare(toCheck).getEntity().setHealth(orighealth - getDamage());
+				}
+			}
+		}
 	}
 }

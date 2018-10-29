@@ -1,7 +1,5 @@
 package entities.zombies;
 
-import java.util.Observer;
-
 import board.Coordinate;
 import entities.Entity;
 

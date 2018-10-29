@@ -1,6 +1,7 @@
 package board;
 
 import entities.Entity;
+import entities.plants.Plant;
 import entities.zombies.Zombie;
 import enumerations.SquareType;
 
@@ -64,6 +65,8 @@ public class Square {
 		this.entity = entity;
 		if (entity instanceof Zombie) {
 			((Zombie) entity).setPosition(this.coordinate);
+		} else if (entity instanceof Zombie) {
+			((Plant) entity).setPosition(this.coordinate);
 		}
 	}
 	

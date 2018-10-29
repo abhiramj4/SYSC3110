@@ -1,5 +1,6 @@
 package entities.plants;
 
+import board.Coordinate;
 import entities.Entity;
 
 public abstract class Plant extends Entity {
@@ -9,6 +10,15 @@ public abstract class Plant extends Entity {
 	private int damage;
 	private String name;
 	private int health; // in number of turns
+	private Coordinate position;
+	
+	public Coordinate getPosition() {
+		return position;
+	}
+
+	public void setPosition(Coordinate position) {
+		this.position = position;
+	}
 
 	/**
 	 * Constructor for class Plant
