@@ -127,9 +127,11 @@ public class Game extends Observable implements Runnable {
 			e.printStackTrace();
 		}
 		System.out.println(); */
+		
+		zombieSpawn(2, new BaseZombie()); // Zombie spawn based on level info
 
 		while (running) {
-			zombieSpawn(2, new BaseZombie()); // Zombie spawn based on level info
+			
 						
 			System.out.println("TURN " + (this.tick + 1));
 			System.out.println();
@@ -187,18 +189,17 @@ public class Game extends Observable implements Runnable {
 	public void setSun(int sun) {
 		this.sun = sun;
 	}
-
-	private void zombieSpawn(int rows[], Zombie zombies[]) {
-		for (int i = 0; i < rows.length; i++) {
-			Coordinate thiscoord = new Coordinate(9, rows[i]);
-			this.gameboard.addEntity(zombies[i], thiscoord);
-		}
-	}
+//
+//	private void zombieSpawn(int rows[], Zombie zombies[]) {
+//		for (int i = 0; i < rows.length; i++) {
+//			Coordinate thiscoord = new Coordinate(9, rows[i]);
+//			this.gameboard.addEntity(zombies[i], thiscoord);
+//		}
+//	}
 	
 	private void zombieSpawn(int row, Zombie zombie) {
 		Zombie spawn = zombie;
 		gameListeners.add(spawn);
-//		addObserver(spawn);
 		getGameboard().addEntity(zombie, new Coordinate (9, row));
 	}
 	
