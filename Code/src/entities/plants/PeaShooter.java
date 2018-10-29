@@ -23,7 +23,7 @@ public class PeaShooter extends Plant {
 
 	@Override
 	public void update(Game g, String type) {
-		for (int i = getPosition().getY(); i < 9; i++) {
+		for (int i = getPosition().getY() + 1; i < 9; i++) {
 			if (g.getGameboard().getSquare(getPosition()).getEntity().getClass().getSuperclass().getName().toLowerCase().contains("zombie")) {
 				Coordinate toCheck = new Coordinate(getPosition().getX(), i);
 				int orighealth = g.getGameboard().getSquare(toCheck).getEntity().getHealth();

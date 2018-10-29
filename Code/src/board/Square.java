@@ -38,7 +38,7 @@ public class Square {
 		this.entity = entity;
 		if (entity instanceof Zombie) {
 			((Zombie) entity).setPosition(this.coordinate);
-		} else if (entity instanceof Zombie) {
+		} else if (entity instanceof Plant) {
 			((Plant) entity).setPosition(this.coordinate);
 		}
 	}

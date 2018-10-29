@@ -199,13 +199,6 @@ public class Game implements Runnable {
 	public void setSun(int sun) {
 		this.sun = sun;
 	}
-//
-//	private void zombieSpawn(int rows[], Zombie zombies[]) {
-//		for (int i = 0; i < rows.length; i++) {
-//			Coordinate thiscoord = new Coordinate(9, rows[i]);
-//			this.gameboard.addEntity(zombies[i], thiscoord);
-//		}
-//	}
 	
 	private void zombieSpawn(int row, Zombie zombie) {
 		Zombie spawn = zombie;
