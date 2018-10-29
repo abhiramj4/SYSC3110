@@ -7,7 +7,7 @@ import entities.plants.Plant;
 
 public class PeaShooter extends Plant {
 
-	private final static String NAME = "peaShooter";
+	private final static String NAME = "PEAS";
 	private final static int DAMAGE = 1;
 	private final static int COOLDOWN = 2;
 	private final static int COST = 100;
@@ -19,7 +19,7 @@ public class PeaShooter extends Plant {
 	}
 
 	public String toString() {
-		return (this.getName() + "pea shooter");
+		return this.getName();
 	}
 
 	@Override
