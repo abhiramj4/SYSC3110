@@ -1,0 +1,8 @@
+[
+	{ "levelNum": 1,
+	 "rounds": 10,
+	 "numZombies": 5, 
+	 "plants": [ "Sunflower", "Peashooter"], 
+	 "zombies": [ "BaseZombie"]
+	}
+]

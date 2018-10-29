@@ -104,7 +104,11 @@ public class Square {
 	@Override
 	public String toString() {
 		if (this.isEmpty()) {
-			return this.getType().getName();
+			if (this.getType() == SquareType.LAWN) {
+				return "LAWN";
+			} else {
+				return "SPWN";
+			}
 		} else {
 			return this.getEntity().toString();
 		}
