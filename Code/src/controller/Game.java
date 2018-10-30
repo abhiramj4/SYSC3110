@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -23,9 +22,8 @@ public class Game implements Runnable {
 	private List<GameListener> gameListeners;
 
 	private Level level;
-	private String[] availableZombies;
 	private int[] zombieSpawn;
-	
+
 	private int numZombies;
 
 	private Thread thread;
@@ -33,8 +31,7 @@ public class Game implements Runnable {
 	private boolean running = false;
 
 	/**
-	 * Diffrent states of the game
-	 * 
+	 * Different states of the game
 	 *
 	 */
 	public enum State {
@@ -49,10 +46,9 @@ public class Game implements Runnable {
 		this.gameListeners = new ArrayList<GameListener>();
 		this.sun = 50;
 		this.tick = 0;
-		
 		this.level = new Level(1);
-		this.availablePlants  = level.getPlants();
-		this.currlevel = level.getLevelNum();		
+		this.availablePlants = level.getPlants();
+		this.currlevel = level.getLevelNum();
 		this.zombieSpawn = level.getZombieSpawn();
 		this.numZombies = this.zombieSpawn.length;
 	}
@@ -98,7 +94,7 @@ public class Game implements Runnable {
 			this.sun += 25;
 			zombieSpawn(this.zombieSpawn[this.numZombies - 1], new BaseZombie()); // Zombie spawn based on level info
 			numZombies -= 1;
-					
+
 		}
 	}
 
@@ -108,36 +104,48 @@ public class Game implements Runnable {
 	@Override
 	public void run() {
 		init();
-		/*
-		 * System.out.println("Welcome to Plants Vs. Zombies: The Bootleg Edition"); try
-		 * { TimeUnit.SECONDS.sleep(4); } catch (InterruptedException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); }
-		 * 
-		 * System.out.
-		 * println("This is a turn based game, not real time. Each 'turn', you can call multiple commands as to what you want to do."
-		 * ); try { TimeUnit.SECONDS.sleep(5); } catch (InterruptedException e) { //
-		 * TODO Auto-generated catch block e.printStackTrace(); }
-		 * 
-		 * System.out.
-		 * println("To plant, follow this command: Plant <PLANTTYPE> at (<x>, <y>). It is a grid system with 0 to 8 for x, 0 to 4 for y."
-		 * ); try { TimeUnit.SECONDS.sleep(5); } catch (InterruptedException e) { //
-		 * TODO Auto-generated catch block e.printStackTrace(); }
-		 * 
-		 * System.out.
-		 * println("To dig up an existing plant, follow this command: Dig at (<x>, <y>)"
-		 * ); try { TimeUnit.SECONDS.sleep(3); } catch (InterruptedException e) { //
-		 * TODO Auto-generated catch block e.printStackTrace(); }
-		 * 
-		 * System.out.println("Enjoy your game, and good luck."); try {
-		 * TimeUnit.SECONDS.sleep(2); } catch (InterruptedException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); }
-		 * 
-		 * System.out.println(); System.out.println();
-		 * 
-		 * System.out.println("Welcome to LEVEL " + this.currlevel); try {
-		 * TimeUnit.SECONDS.sleep(3); } catch (InterruptedException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } System.out.println();
-		 */
+
+		System.out.println("Welcome to Plants Vs. Zombies: The Bootleg Edition");
+		try {
+			TimeUnit.SECONDS.sleep(4);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(
+				"This is a turn based game, not real time. Each 'turn', you can call multiple commands as to what you want to do.");
+		try {
+			TimeUnit.SECONDS.sleep(5);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(
+				"To plant, follow this command: Plant <PLANTTYPE> at (<x>, <y>). It is a grid system with 0 to 8 for x, 0 to 4 for y.");
+		try {
+			TimeUnit.SECONDS.sleep(5);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("Enjoy your game, and good luck.");
+		try {
+			TimeUnit.SECONDS.sleep(2);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println();
+		System.out.println();
+
+		System.out.println("Welcome to LEVEL " + this.currlevel);
+		try {
+			TimeUnit.SECONDS.sleep(3);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println();
 
 		while (running) {
 			System.out.println("TURN " + (this.tick + 1));
@@ -165,10 +173,11 @@ public class Game implements Runnable {
 		for (int i = 0; i < 5; i++) {
 			Coordinate curr = new Coordinate(0, i);
 			if (!(this.gameboard.getSquare(curr).isEmpty())) {
-				if (this.gameboard.getSquare(curr).getEntity().getClass().getSuperclass().getName().toLowerCase().contains("zombie")) {
+				if (this.gameboard.getSquare(curr).getEntity().getClass().getSuperclass().getName().toLowerCase()
+						.contains("zombie")) {
 					GameOver();
 				}
-				
+
 				;
 			}
 		}
@@ -176,44 +185,44 @@ public class Game implements Runnable {
 
 	/**
 	 * Handle a command
-	 * @param option passed 
+	 * 
+	 * @param option passed
 	 */
 	private void handleCommand(String option) {
+		String[] words = option.split("\\W+");
 		if (option.equals("nothing")) {
 			tick();
 		} else if (option.equals("exit")) {
 			System.out.println("Exiting...");
 			stop();
-		} else {
+		} else if (option.equals("advance")) {
+			tick();
+		} else if (words[0].equals("plant")) {
 			Plant currPlant = null;
-			// plant <TYPE> at (x, y)
-			String[] words = option.split("\\W+");
 
+			if (words[1].equals("sunflower")) {
+				currPlant = new Sunflower();
+				// gameListeners.add(currPlant);
+			} else if (words[1].equals("peashooter")) {
+				currPlant = new PeaShooter();
+			}
 			
-			if (words[0].equals("plant")) {
-				if (words[1].equals("sunflower")) {
-					currPlant = new Sunflower();
-					//gameListeners.add(currPlant);
-				} else if (words[1].equals("peashooter")) {
-					currPlant = new PeaShooter();	
-				}
-				if (currPlant.getCost() > this.sun) {
-					System.out.println("Sorry, you don't have enough sun to purchase this plant.");
-				} else {
-					gameListeners.add(currPlant);
-					this.sun -= currPlant.getCost();
-					int x = Integer.parseInt(words[3]);
-					int y = Integer.parseInt(words[4]);
-					Coordinate thiscoord = new Coordinate(x, y);
-					this.gameboard.addEntity(currPlant, thiscoord);
-					tick();
-				}
+			if (currPlant.getCost() > this.sun) {
+				System.out.println("Sorry, you don't have enough sun to purchase this plant.");
+			} else {
+				gameListeners.add(currPlant);
+				this.sun -= currPlant.getCost();
+				int x = Integer.parseInt(words[3]);
+				int y = Integer.parseInt(words[4]);
+				Coordinate thiscoord = new Coordinate(x, y);
+				this.gameboard.addEntity(currPlant, thiscoord);
 			}
 		}
 	}
 
 	/**
 	 * Get how much sun the player has
+	 * 
 	 * @return the sun the player has
 	 */
 	public int getSun() {
@@ -222,6 +231,7 @@ public class Game implements Runnable {
 
 	/**
 	 * Set how much sun the player has
+	 * 
 	 * @param sun the player will have
 	 */
 	public void setSun(int sun) {
@@ -236,6 +246,7 @@ public class Game implements Runnable {
 
 	/**
 	 * Get the game listeners of this game
+	 * 
 	 * @return the gamelisteners
 	 */
 	public List<GameListener> getGameListeners() {
@@ -244,6 +255,7 @@ public class Game implements Runnable {
 
 	/**
 	 * Set the game listeners of this game by passing a list
+	 * 
 	 * @param gameListeners that this game will have
 	 */
 	public void setGameListeners(List<GameListener> gameListeners) {
@@ -252,6 +264,7 @@ public class Game implements Runnable {
 
 	/**
 	 * Get the gameboard as a Board object
+	 * 
 	 * @return the gameBoard
 	 */
 	public Board getGameboard() {
@@ -260,7 +273,8 @@ public class Game implements Runnable {
 
 	/**
 	 * Set the game board by passing a gameboard
-	 * @param gameboard to be set 
+	 * 
+	 * @param gameboard to be set
 	 */
 	public void setGameboard(Board gameboard) {
 		this.gameboard = gameboard;
@@ -277,12 +291,14 @@ public class Game implements Runnable {
 			case ("about"): {
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println();
-				
-				  System.out.println("Welcome to Plants Vs. Zombies: The Bootleg Edition");
-				  
-				  System.out.println("This is a turn based game, not real time. Each 'turn', you can call multiple commands as to what you want to do."); 
-				  
-				  System.out.println(); System.out.println();
+
+				System.out.println("Welcome to Plants Vs. Zombies: The Bootleg Edition");
+
+				System.out.println(
+						"This is a turn based game, not real time. Each 'turn', you can call multiple commands as to what you want to do.");
+
+				System.out.println();
+				System.out.println();
 
 				break;
 			}
@@ -297,13 +313,13 @@ public class Game implements Runnable {
 			case ("controls"): {
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println();
-				  
-				  System.out.println("To plant, follow this command: Plant <PLANTTYPE> at (<x>, <y>). It is a grid system with 0 to 8 for x, 0 to 4 for y."); 
-				  
-				  System.out.println("To dig up an existing plant, follow this command: Dig at (<x>, <y>)");
-				  
-				  System.out.println(); System.out.println();
-				  
+
+				System.out.println(
+						"To plant, follow this command: Plant <PLANTTYPE> at (<x>, <y>). It is a grid system with 0 to 8 for x, 0 to 4 for y.");
+
+				System.out.println();
+				System.out.println();
+
 				break;
 			}
 			}
@@ -314,7 +330,6 @@ public class Game implements Runnable {
 	 * Game over method
 	 */
 	public void GameOver() {
-		
 		System.out.println();
 		System.out.println("Game over!! A Zombie got to your house");
 		stop();
