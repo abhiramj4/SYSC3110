@@ -2,6 +2,10 @@ package entities;
 
 import controller.GameListener;
 
+/**
+ * @author Everett Soldaat
+ *
+ */
 public abstract class Entity implements GameListener {
 	private int health;
 	private String name;

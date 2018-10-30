@@ -6,10 +6,13 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import board.*;
-import entities.Entity.EntityType;
 import entities.plants.*;
 import entities.zombies.*;
 
+/**
+ * @author Liam Murphy, Sai Vikranth Desu, Abhi Santhosh
+ *
+ */
 public class Game implements Runnable {
 
 	private Board gameboard;

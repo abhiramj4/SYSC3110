@@ -1,5 +1,9 @@
 package enumerations;
 
+/**
+ * @author Sai Vikranth Desu
+ *
+ */
 public enum SquareType {
 	LAWN("Lawn"), SPAWN("Spawn");
 

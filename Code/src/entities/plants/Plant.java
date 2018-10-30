@@ -3,6 +3,10 @@ package entities.plants;
 import board.Coordinate;
 import entities.Entity;
 
+/**
+ * @author Everett Soldaat
+ *
+ */
 public abstract class Plant extends Entity {
 
 	private int cost;

@@ -5,6 +5,10 @@ import entities.plants.Plant;
 import entities.zombies.Zombie;
 import enumerations.SquareType;
 
+/**
+ * @author Sai Vikranth Desu
+ *
+ */
 public class Square {
 
 	private Coordinate coordinate;

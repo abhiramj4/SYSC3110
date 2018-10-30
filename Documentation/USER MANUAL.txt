@@ -1,0 +1,14 @@
+USER MANUAL
+-----------
+
+INTRO
+-----
+
+
+RULES
+-----
+Zombies have invaded your neighborhood. You've been developing cutting-edge biological plants in your basement and you think you can put them to the test to keep your house safe from these zombies.
+
+VALID COMMANDS
+
+

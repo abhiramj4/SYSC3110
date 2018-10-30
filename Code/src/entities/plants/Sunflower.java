@@ -2,6 +2,10 @@ package entities.plants;
 
 import controller.Game;
 
+/**
+ * @author Everett Soldaat
+ *
+ */
 public class Sunflower extends Plant {
 
 	private final static String NAME = "FLWR";

@@ -4,6 +4,10 @@ import board.Coordinate;
 import controller.Game;
 import entities.plants.Plant;
 
+/**
+ * @author Everett Soldaat
+ *
+ */
 public class PeaShooter extends Plant {
 
 	private final static String NAME = "PEAS";

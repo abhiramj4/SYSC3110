@@ -1,5 +1,9 @@
 package board;
 
+/**
+ * @author Sai Vikranth Desu
+ *
+ */
 public class Coordinate {
 	private int x;
 	private int y;

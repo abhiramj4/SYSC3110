@@ -4,6 +4,10 @@ import controller.Game;
 import entities.Entity;
 import enumerations.SquareType;
 
+/**
+ * @author Sai Vikranth Desu
+ *
+ */
 public class Board {
 	private Square board[][];
 	private static final int length = 10;
