@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -18,7 +19,6 @@ public class Game implements Runnable {
 	private int currlevel;
 	private int sun;
 	private List<GameListener> gameListeners;
-
 	private Thread thread;
 	private int tick;
 
@@ -46,6 +46,7 @@ public class Game implements Runnable {
 		this.gameListeners = new ArrayList<GameListener>();
 		availablePlants[0] = "Sunflower";
 		availablePlants[1] = "PeaShooter";
+
 	}
 
 	/**
@@ -178,11 +179,7 @@ public class Game implements Runnable {
 			Plant currPlant = null;
 			// plant <TYPE> at (x, y)
 			String[] words = option.split("\\W+");
-			
-			if(words.length < 4 || words.length > 5) {
-				System.out.println("Invalid command, try again!");
-				return;
-			}
+
 			
 			if (words[0].equals("plant")) {
 				if (words[1].equals("sunflower")) {
