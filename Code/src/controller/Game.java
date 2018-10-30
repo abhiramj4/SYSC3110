@@ -39,7 +39,7 @@ public class Game implements Runnable {
 	public void init() {
 		this.currlevel = 1;
 		this.gameboard = new Board();
-		this.sun = 500;
+		this.sun = 50;
 		this.tick = 0;
 		this.plantcount = 2;
 		availablePlants = new String[plantcount];
@@ -185,14 +185,14 @@ public class Game implements Runnable {
 			if (words[0].equals("plant")) {
 				if (words[1].equals("sunflower")) {
 					currPlant = new Sunflower();
-					gameListeners.add(currPlant);
+					//gameListeners.add(currPlant);
 				} else if (words[1].equals("peashooter")) {
-					currPlant = new PeaShooter();
-					gameListeners.add(currPlant);
+					currPlant = new PeaShooter();	
 				}
 				if (currPlant.getCost() > this.sun) {
 					System.out.println("Sorry, you don't have enough sun to purchase this plant.");
 				} else {
+					gameListeners.add(currPlant);
 					this.sun -= currPlant.getCost();
 					int x = Integer.parseInt(words[3]);
 					int y = Integer.parseInt(words[4]);
