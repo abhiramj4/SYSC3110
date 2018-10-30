@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -16,15 +17,19 @@ import entities.zombies.*;
 public class Game implements Runnable {
 
 	private Board gameboard;
-	private int plantcount;
 	private String availablePlants[];
 	private int currlevel;
 	private int sun;
 	private List<GameListener> gameListeners;
 
+	private Level level;
+	private String[] availableZombies;
+	private int[] zombieSpawn;
+	
+	private int numZombies;
+
 	private Thread thread;
 	private int tick;
-
 	private boolean running = false;
 
 	/**
@@ -40,15 +45,16 @@ public class Game implements Runnable {
 	 * Initialize the game
 	 */
 	public void init() {
-		this.currlevel = 1;
 		this.gameboard = new Board();
+		this.gameListeners = new ArrayList<GameListener>();
 		this.sun = 50;
 		this.tick = 0;
-		this.plantcount = 2;
-		availablePlants = new String[plantcount];
-		this.gameListeners = new ArrayList<GameListener>();
-		availablePlants[0] = "Sunflower";
-		availablePlants[1] = "PeaShooter";
+		
+		this.level = new Level(1);
+		this.availablePlants  = level.getPlants();
+		this.currlevel = level.getLevelNum();		
+		this.zombieSpawn = level.getZombieSpawn();
+		this.numZombies = this.zombieSpawn.length;
 	}
 
 	/**
@@ -90,6 +96,9 @@ public class Game implements Runnable {
 		}
 		if (tick % 2 == 0) {
 			this.sun += 25;
+			zombieSpawn(this.zombieSpawn[this.numZombies - 1], new BaseZombie()); // Zombie spawn based on level info
+			numZombies -= 1;
+					
 		}
 	}
 
@@ -129,8 +138,6 @@ public class Game implements Runnable {
 		 * TimeUnit.SECONDS.sleep(3); } catch (InterruptedException e) { // TODO
 		 * Auto-generated catch block e.printStackTrace(); } System.out.println();
 		 */
-
-		zombieSpawn(2, new BaseZombie()); // Zombie spawn based on level info
 
 		while (running) {
 			System.out.println("TURN " + (this.tick + 1));
@@ -181,11 +188,7 @@ public class Game implements Runnable {
 			Plant currPlant = null;
 			// plant <TYPE> at (x, y)
 			String[] words = option.split("\\W+");
-			
-			if(words.length < 4 || words.length > 5) {
-				System.out.println("Invalid command, try again!");
-				return;
-			}
+
 			
 			if (words[0].equals("plant")) {
 				if (words[1].equals("sunflower")) {
@@ -311,6 +314,8 @@ public class Game implements Runnable {
 	 * Game over method
 	 */
 	public void GameOver() {
+		
+		System.out.println();
 		System.out.println("Game over!! A Zombie got to your house");
 		stop();
 	}
