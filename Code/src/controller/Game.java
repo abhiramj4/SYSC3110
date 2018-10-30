@@ -13,15 +13,18 @@ import entities.zombies.*;
 public class Game implements Runnable {
 
 	private Board gameboard;
-	private int plantcount;
 	private String availablePlants[];
 	private int currlevel;
 	private int sun;
 	private List<GameListener> gameListeners;
-
-	private Thread thread;
+	private Level level;
+	private String[] availableZombies;
+	private int[] zombieSpawn;
+	
+	private int numZombies;
 	private int tick;
-
+	
+	private Thread thread;
 	private boolean running = false;
 
 	/**
@@ -37,15 +40,16 @@ public class Game implements Runnable {
 	 * Initialize the game
 	 */
 	public void init() {
-		this.currlevel = 1;
 		this.gameboard = new Board();
+		this.gameListeners = new ArrayList<GameListener>();
 		this.sun = 500;
 		this.tick = 0;
-		this.plantcount = 2;
-		availablePlants = new String[plantcount];
-		this.gameListeners = new ArrayList<GameListener>();
-		availablePlants[0] = "Sunflower";
-		availablePlants[1] = "PeaShooter";
+		
+		this.level = new Level(1);
+		this.availablePlants  = level.getPlants();
+		this.currlevel = level.getLevelNum();		
+		this.zombieSpawn = level.getZombieSpawn();
+		this.numZombies = this.zombieSpawn.length;
 	}
 
 	/**
@@ -87,6 +91,9 @@ public class Game implements Runnable {
 		}
 		if (tick % 2 == 0) {
 			this.sun += 25;
+			zombieSpawn(this.zombieSpawn[this.numZombies - 1], new BaseZombie()); // Zombie spawn based on level info
+			numZombies -= 1;
+					
 		}
 	}
 
@@ -126,8 +133,6 @@ public class Game implements Runnable {
 		 * TimeUnit.SECONDS.sleep(3); } catch (InterruptedException e) { // TODO
 		 * Auto-generated catch block e.printStackTrace(); } System.out.println();
 		 */
-
-		zombieSpawn(2, new BaseZombie()); // Zombie spawn based on level info
 
 		while (running) {
 			System.out.println("TURN " + (this.tick + 1));
