@@ -155,9 +155,11 @@ public class Game implements Runnable {
 		for (int i = 0; i < 5; i++) {
 			Coordinate curr = new Coordinate(0, i);
 			if (!(this.gameboard.getSquare(curr).isEmpty())) {
-				if (this.gameboard.getSquare(curr).getEntity().getClass().getSuperclass().getName().toLowerCase()
-						.contains("zombie"))
-					;
+				if (this.gameboard.getSquare(curr).getEntity().getClass().getSuperclass().getName().toLowerCase().contains("zombie")) {
+					GameOver();
+				}
+				
+				;
 			}
 		}
 	}
