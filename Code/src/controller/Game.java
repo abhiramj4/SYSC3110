@@ -308,6 +308,8 @@ public class Game implements Runnable {
 	 * Game over method
 	 */
 	public void GameOver() {
+		
+		System.out.println();
 		System.out.println("Game over!! A Zombie got to your house");
 		stop();
 	}
