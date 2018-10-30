@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -17,14 +18,15 @@ public class Game implements Runnable {
 	private int currlevel;
 	private int sun;
 	private List<GameListener> gameListeners;
+
 	private Level level;
 	private String[] availableZombies;
 	private int[] zombieSpawn;
 	
 	private int numZombies;
-	private int tick;
-	
+
 	private Thread thread;
+	private int tick;
 	private boolean running = false;
 
 	/**
@@ -42,7 +44,7 @@ public class Game implements Runnable {
 	public void init() {
 		this.gameboard = new Board();
 		this.gameListeners = new ArrayList<GameListener>();
-		this.sun = 500;
+		this.sun = 50;
 		this.tick = 0;
 		
 		this.level = new Level(1);
@@ -160,9 +162,11 @@ public class Game implements Runnable {
 		for (int i = 0; i < 5; i++) {
 			Coordinate curr = new Coordinate(0, i);
 			if (!(this.gameboard.getSquare(curr).isEmpty())) {
-				if (this.gameboard.getSquare(curr).getEntity().getClass().getSuperclass().getName().toLowerCase()
-						.contains("zombie"))
-					;
+				if (this.gameboard.getSquare(curr).getEntity().getClass().getSuperclass().getName().toLowerCase().contains("zombie")) {
+					GameOver();
+				}
+				
+				;
 			}
 		}
 	}
@@ -181,17 +185,19 @@ public class Game implements Runnable {
 			Plant currPlant = null;
 			// plant <TYPE> at (x, y)
 			String[] words = option.split("\\W+");
+
+			
 			if (words[0].equals("plant")) {
 				if (words[1].equals("sunflower")) {
 					currPlant = new Sunflower();
-					gameListeners.add(currPlant);
+					//gameListeners.add(currPlant);
 				} else if (words[1].equals("peashooter")) {
-					currPlant = new PeaShooter();
-					gameListeners.add(currPlant);
+					currPlant = new PeaShooter();	
 				}
 				if (currPlant.getCost() > this.sun) {
 					System.out.println("Sorry, you don't have enough sun to purchase this plant.");
 				} else {
+					gameListeners.add(currPlant);
 					this.sun -= currPlant.getCost();
 					int x = Integer.parseInt(words[3]);
 					int y = Integer.parseInt(words[4]);
@@ -268,6 +274,13 @@ public class Game implements Runnable {
 			case ("about"): {
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println();
+				
+				  System.out.println("Welcome to Plants Vs. Zombies: The Bootleg Edition");
+				  
+				  System.out.println("This is a turn based game, not real time. Each 'turn', you can call multiple commands as to what you want to do."); 
+				  
+				  System.out.println(); System.out.println();
+
 				break;
 			}
 			case ("play"): {
@@ -281,6 +294,13 @@ public class Game implements Runnable {
 			case ("controls"): {
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println();
+				  
+				  System.out.println("To plant, follow this command: Plant <PLANTTYPE> at (<x>, <y>). It is a grid system with 0 to 8 for x, 0 to 4 for y."); 
+				  
+				  System.out.println("To dig up an existing plant, follow this command: Dig at (<x>, <y>)");
+				  
+				  System.out.println(); System.out.println();
+				  
 				break;
 			}
 			}
@@ -291,6 +311,8 @@ public class Game implements Runnable {
 	 * Game over method
 	 */
 	public void GameOver() {
+		
+		System.out.println();
 		System.out.println("Game over!! A Zombie got to your house");
 		stop();
 	}
