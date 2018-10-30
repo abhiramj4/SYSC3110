@@ -5,15 +5,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-/**
-<<<<<<< HEAD
- * @author Liam Murphy
- *
-=======
- * 
+/*
  * @author Liam Murphy
  *The class that reads the level json file and converts it into the data the game uses
->>>>>>> eb1b8707b04ad715cf230b1d2d0d4249c94d72e2
  */
 public class Level {
 
