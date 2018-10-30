@@ -17,7 +17,6 @@ DELIVERABLES
 - UML diagram(s)
 - documentation (design choice, user manual, javadocs)
 
-
 KNOWN ISSUES
 ------------
 - One issue we have right now is that in the real game zombies can "pile up" and attack plants together. Our version of the game kind of have the zombies kind of line up behind each other instead of stacking on the same square. This should be something we can fix when we make the game realtime.
@@ -32,6 +31,7 @@ ROADMAP AHEAD
 - Implement the lawnmowers for each row as the original game
 - Make our code more efficient (instantiate fewer objects, maybe design a better controller model).
 - GUI version of the game
+- Save/Load feature
 - Anything else left for the second milestone :)
 
 INSTALLATION 
