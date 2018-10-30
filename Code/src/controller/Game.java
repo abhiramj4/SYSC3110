@@ -177,7 +177,7 @@ public class Game implements Runnable {
 			// plant <TYPE> at (x, y)
 			String[] words = option.split("\\W+");
 			
-			if(words.length < 4) {
+			if(words.length < 4 || words.length > 5) {
 				System.out.println("Invalid command, try again!");
 				return;
 			}
