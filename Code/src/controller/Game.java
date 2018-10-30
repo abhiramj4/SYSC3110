@@ -269,6 +269,13 @@ public class Game implements Runnable {
 			case ("about"): {
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println();
+				
+				  System.out.println("Welcome to Plants Vs. Zombies: The Bootleg Edition");
+				  
+				  System.out.println("This is a turn based game, not real time. Each 'turn', you can call multiple commands as to what you want to do."); 
+				  
+				  System.out.println(); System.out.println();
+
 				break;
 			}
 			case ("play"): {
@@ -282,6 +289,13 @@ public class Game implements Runnable {
 			case ("controls"): {
 				TimeUnit.SECONDS.sleep(1);
 				System.out.println();
+				  
+				  System.out.println("To plant, follow this command: Plant <PLANTTYPE> at (<x>, <y>). It is a grid system with 0 to 8 for x, 0 to 4 for y."); 
+				  
+				  System.out.println("To dig up an existing plant, follow this command: Dig at (<x>, <y>)");
+				  
+				  System.out.println(); System.out.println();
+				  
 				break;
 			}
 			}
