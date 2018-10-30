@@ -44,7 +44,7 @@ public class Game implements Runnable {
 	public void init() {
 		this.gameboard = new Board();
 		this.gameListeners = new ArrayList<GameListener>();
-		this.sun = 50;
+		this.sun = 150;
 		this.tick = 0;
 		this.level = new Level(1);
 		this.availablePlants = level.getPlants();
