@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import board.*;
 import entities.plants.*;
 import entities.zombies.*;
@@ -13,7 +16,7 @@ import entities.zombies.*;
  * @author Liam Murphy, Sai Vikranth Desu, Abhi Santhosh
  *
  */
-public class Game implements Runnable {
+public class Game extends Application implements Runnable {
 
 	private Board gameboard;
 	private String availablePlants[];
@@ -29,7 +32,9 @@ public class Game implements Runnable {
 	private Thread thread;
 	private int tick;
 	private boolean running = false;
-
+	private static final int HEIGHT = 600;
+	private static final int WIDTH = 800;
+	
 	/**
 	 * Different states of the game
 	 *
@@ -52,6 +57,15 @@ public class Game implements Runnable {
 		this.zombieSpawn = level.getZombieSpawn();
 		this.numZombies = this.zombieSpawn.length;
 	}
+	
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		BorderPane root = new BorderPane();
+		Scene scene = new Scene(root, WIDTH, HEIGHT);
+		primaryStage.setTitle("Plants Vs. Zombies");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
 
 	/**
 	 * Start the game
@@ -69,7 +83,7 @@ public class Game implements Runnable {
 	/**
 	 * Stop the game
 	 */
-	private synchronized void stop() {
+	private synchronized void stopGame() {
 		if (!running)
 			return;
 
@@ -194,7 +208,7 @@ public class Game implements Runnable {
 			tick();
 		} else if (option.equals("exit")) {
 			System.out.println("Exiting...");
-			stop();
+			stopGame();
 		} else if (option.equals("advance")) {
 			tick();
 		} else if (words[0].equals("plant")) {
@@ -332,6 +346,6 @@ public class Game implements Runnable {
 	public void GameOver() {
 		System.out.println();
 		System.out.println("Game over!! A Zombie got to your house");
-		stop();
+		stopGame();
 	}
 }
