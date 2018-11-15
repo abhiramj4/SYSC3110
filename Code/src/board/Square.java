@@ -4,12 +4,14 @@ import entities.Entity;
 import entities.plants.Plant;
 import entities.zombies.Zombie;
 import enumerations.SquareType;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 
 /**
  * @author Sai Vikranth Desu
  *
  */
-public class Square {
+public class Square extends Button {
 
 	private Coordinate coordinate;
 	private Entity entity;
@@ -26,6 +28,7 @@ public class Square {
 		this.coordinate = coordinate;
 		this.entity = entity;
 		this.type = type;
+		setImage();
 	}
 
 	/**
@@ -37,6 +40,21 @@ public class Square {
 	public Square(Coordinate coordinate, SquareType type) {
 		this.coordinate = coordinate;
 		this.type = type;
+		setMinSize(100, 100);
+		setImage();
+	}
+
+	public void setImage() {
+		if (entity == null) {
+			if (type == SquareType.LAWN) {
+				this.setStyle("-fx-background-color: #006900;");
+			} else {
+				this.setStyle("-fx-background-color: grey;");
+			}
+
+		} else {
+			this.setGraphic(new ImageView(entity.getImage()));
+		}
 	}
 
 	/**

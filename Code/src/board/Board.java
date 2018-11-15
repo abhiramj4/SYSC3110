@@ -3,12 +3,14 @@ package board;
 import controller.Game;
 import entities.Entity;
 import enumerations.SquareType;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 
 /**
  * @author Sai Vikranth Desu
  *
  */
-public class Board {
+public class Board extends GridPane {
 	private Square board[][];
 	private static final int length = 10;
 	private static final int height = 5;
@@ -18,15 +20,19 @@ public class Board {
 	 * spawn for a zombie
 	 */
 	public Board() {
-		this.board = new Square[length][height];
+		board = new Square[length][height];
 		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < length; j++) {
-				board[j][i] = new Square(new Coordinate(j, i), SquareType.LAWN);
+			for (int j = 0; j < length - 1; j++) {
+				Button square = new Square(new Coordinate(j, i), SquareType.LAWN);
+				board[j][i] = (Square) square;
+				this.add(square, j, i);
 			}
 		}
 
 		for (int i = 0; i < height; i++) {
-			board[length - 1][i] = new Square(new Coordinate(length - 1, i), SquareType.SPAWN);
+			Button square = new Square(new Coordinate(length - 1, i), SquareType.SPAWN);
+			board[length - 1][i] = (Square) square;
+			this.add(square, length - 1, i);
 		}
 	}
 

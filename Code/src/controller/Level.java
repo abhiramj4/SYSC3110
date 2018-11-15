@@ -5,6 +5,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import entities.plants.Plant;
+
 /*
  * @author Liam Murphy
  *The class that reads the level json file and converts it into the data the game uses
@@ -12,6 +14,7 @@ import org.json.simple.parser.JSONParser;
 public class Level {
 
 	private String[] availablePlants;  
+	private Plant available[];
 	private String[] zombieTypes;
 	private int numZombies;
 	private int[] zombieSpawn;  //an array of the y coordinate of the spawn
