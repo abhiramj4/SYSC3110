@@ -54,6 +54,7 @@ public class Game extends Application {
 
 	private PlantCard selectedCard;
 	private Boolean cardSelected;
+	private boolean running = false;
 
 	/**
 	 * Different states of the game
@@ -113,7 +114,12 @@ public class Game extends Application {
 		mainboard.addEntity(new Sunflower(), new Coordinate(2, 2));
 		mainboard.addEntity(new BaseZombie(), new Coordinate(3, 4));
 		boardListenerInit(mainboard);
+
 		
+
+
+		run();
+
 	}
 
 
@@ -135,7 +141,7 @@ public class Game extends Application {
 	}
 
 	public void run() {
-		while (true) {
+		while (running) {
 
 			gameoverCheck();
 		}

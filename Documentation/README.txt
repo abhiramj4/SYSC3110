@@ -1,4 +1,4 @@
-Plants Vs. Zombies: Bootleg Version Version 1.2.0 10/29/2018
+Plants Vs. Zombies: Bootleg Version Version 2.1.0 11/16/2018
 Authors: Sai Vikranth Desu, Abhi Santhosh, Everett Soldaat, Liam Murphy
 Documentation Author: Sai Vikranth Desu
 JAVADOCS Author/Creator: Abhi Santhosh
@@ -15,6 +15,7 @@ DELIVERABLES
 - readme file 
 - code
 - UML diagram(s)
+- JUnit tests
 - documentation (design choice, user manual, javadocs)
 
 KNOWN ISSUES
@@ -25,17 +26,25 @@ KNOWN ISSUES
 
 ROADMAP AHEAD
 -------------
-- We must design more levels using our JSON object level implementation method.
-- We want to make the level implementation a little smarter, and include the "final wave" from the original game.
-- Add more types of zombies and plants, having them unlocked as the user passes levels.
-- Implement the lawnmowers for each row as the original game
-- Make our code more efficient (instantiate fewer objects, maybe design a better controller model).
-- GUI version of the game
-- Save/Load feature
-- Anything else left for the second milestone :)
+Must haves:
+- Code needs to be cleaned up a lot.
+- More levels must be added, perhaps a bar that shows you how far into the current level you are
+- All requriements for milestone 3
+- A lot of hardcoded stuff needs to be automated (plants/zombies)
+- We want to have the sun and peas (from the peashooter) to be their own objects that show up on the screen
+
+Nice to haves:
+- More formatting on the UI (buttons/gameboard, etc)
+- A menu with play/about/controls
+- Lawnmowers
+- Nicer plant cards
+
+AUTHORS
+-------
+We didn't have as organized work distribution amongst our group members as we did for the first milestone. Sai worked on the initial barebones GUI conversion of the game. Abhi and Liam then started modifying all the entities (zombies/plants/sun/turns) to work with the GUI and everyone was participating in debugging and small tasks. Everett and Liam worked on the JUnit tests, Abhi and Sai implemented the turns and action listeners. Liam is our JSON guy so he implemented his Level class within our new GUI based Game.java class to spawn zombies. Everyone worked on the commenting and documentation.
 
 INSTALLATION 
 ------------
-- Can't really run the game since there isn't a GUI (unless you want to do it on command prompt), either way a runnable JAR file was included
+- Run the Game.java class to run the GUI and play the game.
 - Folder "code" contains our project and source code
 - Folder "documentation" contains all the documentation
