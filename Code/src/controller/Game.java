@@ -89,7 +89,7 @@ public class Game extends Application {
 		Scene scene = new Scene(root, WIDTH, HEIGHT);
 		cards = new HBox();
 		
-
+		cardSelected = false;
 		levelinit();
 		
 
