@@ -69,7 +69,7 @@ public class Game extends Application {
 	 */
 	@Override
 	public void init() {
-		this.gameboard = new Board();
+		
 		this.gameListeners = new ArrayList<GameListener>();
 		this.sun = 50;
 		this.tick = 0;
@@ -111,14 +111,17 @@ public class Game extends Application {
 		primaryStage.setTitle("PLANTS VS ZOMBIES: THE BOOTLEG EDITION");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		mainboard.addEntity(new Sunflower(), new Coordinate(2, 2));
+		//mainboard.addEntity(new Sunflower(), new Coordinate(2, 2));
 		mainboard.addEntity(new BaseZombie(), new Coordinate(3, 4));
-		boardListenerInit(mainboard);
-
 		
-
-
-		run();
+		boardListenerInit(mainboard);
+		initNextRoundListener(); //init the next round button
+		this.gameboard = mainboard;
+		gameListeners.add(this.getGameboard().getSquare(new Coordinate(3,4)).getEntity());
+		
+		
+		
+		
 
 	}
 
@@ -140,11 +143,12 @@ public class Game extends Application {
 
 	}
 
-	public void run() {
-		while (running) {
+	public void runRound() {
+		 //call this every time a button is clicked
 
 			gameoverCheck();
-		}
+			update();
+		
 	}
 
 	public void boardListenerInit(Board board) {
@@ -187,6 +191,17 @@ public class Game extends Application {
 		});
 	}
 
+	public void initNextRoundListener() {
+		advance.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				runRound(); //update
+			}
+			
+		});
+	}
 	// on click for the card, hold on temporarily to type of card
 	public void cardClick(PlantCard card) {
 		this.selectedCard = card;
@@ -226,6 +241,7 @@ public class Game extends Application {
 			tempPlant = new PeaShooter();
 		}
 
+		this.gameListeners.add(tempPlant);
 		board.addEntity(tempPlant, square.getCoordinate());
 		setSun(getSun() - tempPlant.getCost());
 		
@@ -241,8 +257,8 @@ public class Game extends Application {
 		}
 		if (tick % 2 == 0) {
 			this.sun += 25;
-			zombieSpawn(this.zombieSpawn[this.numZombies - 1], new BaseZombie()); // Zombie spawn based on level info
-			numZombies -= 1;
+			//zombieSpawn(this.zombieSpawn[this.numZombies - 1], new BaseZombie()); // Zombie spawn based on level info
+			//numZombies -= 1;
 
 		}
 	}
