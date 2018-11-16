@@ -2,7 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.HashMap;
 import board.*;
 import entities.plants.*;
 import entities.zombies.*;
@@ -29,6 +29,7 @@ public class Game extends Application {
 	private int currlevel;
 	private int sun;
 	private List<GameListener> gameListeners;
+	private HashMap<String, Integer>plantCost;
 
 	private Level level;
 	private int[] zombieSpawn;
@@ -61,11 +62,18 @@ public class Game extends Application {
 		this.gameListeners = new ArrayList<GameListener>();
 		this.sun = 150;
 		this.tick = 0;
+		this.plantCost = new HashMap<String, Integer>();
+		
+		this.plantCost.put("Sunflower", 50);
+		this.plantCost.put("Peashooter", 100);
+		
 		this.level = new Level(1);
 		this.availablePlants = level.getPlants();
 		this.currlevel = level.getLevelNum();
 		this.zombieSpawn = level.getZombieSpawn();
 		this.numZombies = this.zombieSpawn.length;
+		
+		
 	}
 
 	@Override
@@ -73,6 +81,7 @@ public class Game extends Application {
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root, WIDTH, HEIGHT);
 		cards = new HBox();
+		
 
 		levelinit();
 
@@ -98,16 +107,9 @@ public class Game extends Application {
 		sunlabel.setGraphic(null);
 
 		for (int i = 0; i < availablePlants.length; i++) {
-			if (i == 0) {
-				PlantCard temp = new PlantCard("SunFlower", 50);
-				cards.getChildren().add(temp);
-				cards.setMargin(temp, new Insets(10, 10, 10, 60));
-			} else {
-
-			}
+			PlantCard temp = new PlantCard(availablePlants[i], this.plantCost.get(availablePlants[i]));
+			cards.getChildren().add(temp);
 		}
-		cards.getChildren().add(new PlantCard("sunflower", 50));
-		cards.getChildren().add(new PlantCard("peashooter", 100));
 	}
 
 	/**

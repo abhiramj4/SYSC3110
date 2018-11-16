@@ -15,12 +15,13 @@ public class PeaShooter extends Plant {
 	private final static int COOLDOWN = 2;
 	private final static int COST = 100;
 	private final static int HEALTH = 4;
+	private final static String IMAGEPATH = "resources/images/plants/peashooter.png";
 
 	/**
 	 * Constructor of peashooter
 	 */
 	public PeaShooter() {
-		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH);
+		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH, IMAGEPATH);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -12,12 +12,13 @@ public class BaseZombie extends Zombie {
 	private final static String NAME = "BZMB";
 	private final static int DAMAGE = 1;
 	private final static int MOVEMENT = 1;
+	private final static String IMAGEPATH = "resources/images/zombies/zombie_tutorial.png";
 
 	/**
 	 * Base zombie constructor
 	 */
 	public BaseZombie() {
-		super(HEALTH, NAME, DAMAGE);
+		super(HEALTH, NAME, DAMAGE, IMAGEPATH);
 	}
 
 	/**

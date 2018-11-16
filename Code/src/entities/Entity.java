@@ -35,7 +35,7 @@ public abstract class Entity implements GameListener {
 		this.health = health;
 		this.name = name;
 		this.imagePath = imagePath;
-		this.image = null;
+		this.image = new Image(this.imagePath);
 	}
 
 	/**
@@ -93,7 +93,7 @@ public abstract class Entity implements GameListener {
 	}
 	
 	public Image getImage() {
-		return image;
+		return this.image;
 	}
 
 	public void setImage(Image image) {
