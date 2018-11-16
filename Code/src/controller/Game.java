@@ -111,12 +111,12 @@ public class Game extends Application {
 		primaryStage.setTitle("PLANTS VS ZOMBIES: THE BOOTLEG EDITION");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		mainboard.addEntity(new BaseZombie(), new Coordinate(8, 4));
+		//mainboard.addEntity(new BaseZombie(), new Coordinate(8, 4));
 
 		boardListenerInit(mainboard);
 		initNextRoundListener(); // init the next round button
 		this.gameboard = mainboard;
-		gameListeners.add(this.getGameboard().getSquare(new Coordinate(8, 4)).getEntity());
+		//gameListeners.add(this.getGameboard().getSquare(new Coordinate(8, 4)).getEntity());
 	}
 
 	// view
@@ -257,6 +257,8 @@ public class Game extends Application {
 		}
 		if (tick % 2 == 0) {
 			setSun(getSun() + 25);
+		}
+		if(tick % 2 ==0 && tick > 5 ) {
 			if(numZombies > 0) {
 				 zombieSpawn(this.zombieSpawn[this.numZombies - 1], new BaseZombie()); //
 				 //Zombie spawn based on level info
