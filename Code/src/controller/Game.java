@@ -232,6 +232,7 @@ public class Game extends Application {
 
 		board.addEntity(tempPlant, square.getCoordinate());
 		setSun(getSun() - tempPlant.getCost());
+		
 	}
 
 	/**
@@ -248,6 +249,12 @@ public class Game extends Application {
 			numZombies -= 1;
 
 		}
+	}
+	
+	
+	public void update() {
+		//update sun and shoot
+		tick();
 	}
 
 	/**
