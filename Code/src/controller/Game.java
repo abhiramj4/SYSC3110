@@ -214,6 +214,7 @@ public class Game extends Application {
 		} 
 		
 		board.addEntity(tempPlant, square.getCoordinate());
+		setSun(getSun() - tempPlant.getCost());
 	}
 	/**
 	 * "Tick" the game forward and update everything
