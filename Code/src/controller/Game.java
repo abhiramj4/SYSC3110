@@ -69,7 +69,7 @@ public class Game extends Application {
 	 */
 	@Override
 	public void init() {
-		
+
 		this.gameListeners = new ArrayList<GameListener>();
 		this.sun = 50;
 		this.tick = 0;
@@ -111,20 +111,15 @@ public class Game extends Application {
 		primaryStage.setTitle("PLANTS VS ZOMBIES: THE BOOTLEG EDITION");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		//mainboard.addEntity(new Sunflower(), new Coordinate(2, 2));
+		// mainboard.addEntity(new Sunflower(), new Coordinate(2, 2));
 		mainboard.addEntity(new BaseZombie(), new Coordinate(3, 4));
-		
+
 		boardListenerInit(mainboard);
-		initNextRoundListener(); //init the next round button
+		initNextRoundListener(); // init the next round button
 		this.gameboard = mainboard;
-		gameListeners.add(this.getGameboard().getSquare(new Coordinate(3,4)).getEntity());
-		
-		
-		
-		
+		gameListeners.add(this.getGameboard().getSquare(new Coordinate(3, 4)).getEntity());
 
 	}
-
 
 	// view
 	public void levelinit() {
@@ -144,11 +139,11 @@ public class Game extends Application {
 	}
 
 	public void runRound() {
-		 //call this every time a button is clicked
+		// call this every time a button is clicked
 
-			gameoverCheck();
-			update();
-		
+		gameoverCheck();
+		update();
+
 	}
 
 	public void boardListenerInit(Board board) {
@@ -197,11 +192,12 @@ public class Game extends Application {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				runRound(); //update
+				runRound(); // update
 			}
-			
+
 		});
 	}
+
 	// on click for the card, hold on temporarily to type of card
 	public void cardClick(PlantCard card) {
 		this.selectedCard = card;
@@ -218,7 +214,7 @@ public class Game extends Application {
 
 		if (!square.isEmpty()) {
 
-			Alert alert = new Alert(AlertType.INFORMATION, "There's a plant here already! ", ButtonType.OK);
+			Alert alert = new Alert(AlertType.INFORMATION, "There's an entity here already! ", ButtonType.OK);
 			alert.showAndWait();
 
 			if (alert.getResult() == ButtonType.OK) {
@@ -248,7 +244,7 @@ public class Game extends Application {
 		this.gameListeners.add(tempPlant);
 		board.addEntity(tempPlant, square.getCoordinate());
 		setSun(getSun() - tempPlant.getCost());
-		
+
 	}
 
 	/**
@@ -261,15 +257,15 @@ public class Game extends Application {
 		}
 		if (tick % 2 == 0) {
 			this.sun += 25;
-			//zombieSpawn(this.zombieSpawn[this.numZombies - 1], new BaseZombie()); // Zombie spawn based on level info
-			//numZombies -= 1;
+			// zombieSpawn(this.zombieSpawn[this.numZombies - 1], new BaseZombie()); //
+			// Zombie spawn based on level info
+			// numZombies -= 1;
 
 		}
 	}
-	
-	
+
 	public void update() {
-		//update sun and shoot
+		// update sun and shoot
 		tick();
 	}
 
@@ -300,7 +296,8 @@ public class Game extends Application {
 	/**
 	 * Set how much sun the player has
 	 * 
-	 * @param sun the player will have
+	 * @param sun
+	 *            the player will have
 	 */
 	public void setSun(int sun) {
 		this.sun = sun;
@@ -310,7 +307,7 @@ public class Game extends Application {
 		Zombie spawn = zombie;
 		gameListeners.add(spawn);
 		getGameboard().addEntity(zombie, new Coordinate(9, row));
-		
+
 	}
 
 	/**
@@ -325,7 +322,8 @@ public class Game extends Application {
 	/**
 	 * Set the game listeners of this game by passing a list
 	 * 
-	 * @param gameListeners that this game will have
+	 * @param gameListeners
+	 *            that this game will have
 	 */
 	public void setGameListeners(List<GameListener> gameListeners) {
 		this.gameListeners = gameListeners;
@@ -343,7 +341,8 @@ public class Game extends Application {
 	/**
 	 * Set the game board by passing a gameboard
 	 * 
-	 * @param gameboard to be set
+	 * @param gameboard
+	 *            to be set
 	 */
 	public void setGameboard(Board gameboard) {
 		this.gameboard = gameboard;
