@@ -112,12 +112,12 @@ public class Game extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		// mainboard.addEntity(new Sunflower(), new Coordinate(2, 2));
-		mainboard.addEntity(new BaseZombie(), new Coordinate(3, 4));
+		//mainboard.addEntity(new BaseZombie(), new Coordinate(3, 4));
 
 		boardListenerInit(mainboard);
 		initNextRoundListener(); // init the next round button
 		this.gameboard = mainboard;
-		gameListeners.add(this.getGameboard().getSquare(new Coordinate(3, 4)).getEntity());
+		//gameListeners.add(this.getGameboard().getSquare(new Coordinate(3, 4)).getEntity());
 
 	}
 
@@ -252,11 +252,15 @@ public class Game extends Application {
 	 */
 	public void tick() {
 		tick++;
+		
+		
+		
 		for (int i = 0; i < gameListeners.size(); i++) {
 			gameListeners.get(i).update(this, "TICK");
 		}
 		if (tick % 2 == 0) {
-			this.sun += 25;
+			setSun(getSun() + 25);
+			
 			// zombieSpawn(this.zombieSpawn[this.numZombies - 1], new BaseZombie()); //
 			// Zombie spawn based on level info
 			// numZombies -= 1;
@@ -301,6 +305,8 @@ public class Game extends Application {
 	 */
 	public void setSun(int sun) {
 		this.sun = sun;
+		Integer tempSun = getSun();
+		sunlabel.setText("Sun: " + tempSun.toString());
 	}
 
 	private void zombieSpawn(int row, Zombie zombie) {
