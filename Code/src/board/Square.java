@@ -55,6 +55,7 @@ public class Square extends Button {
 	public void setImage() {
 		if (entity == null) {
 			if (type == SquareType.LAWN) {
+				this.setGraphic(null);
 				this.setStyle("-fx-background-color: #006900;");
 			} else {
 				this.setStyle("-fx-background-color: grey;");
@@ -115,7 +116,7 @@ public class Square extends Button {
 			((Zombie) entity).setPosition(this.coordinate);
 		} else if (entity instanceof Plant) {
 			((Plant) entity).setPosition(this.coordinate);
-		}
+		} 
 	}
 
 	/**
