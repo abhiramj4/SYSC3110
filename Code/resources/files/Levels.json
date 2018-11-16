@@ -1,0 +1,9 @@
+[
+	{ "levelNum": 1,
+	 "rounds": 10,
+	 "numZombies": 5, 
+	 "plants": [ "Sunflower", "Peashooter"], 
+	 "zombies": [ "BaseZombie"]
+	 "spawnPoints":[0,4,3,2,1]
+	}
+]

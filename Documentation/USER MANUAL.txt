@@ -1,0 +1,27 @@
+USER MANUAL
+-----------
+
+INTRO
+-----
+Zombies have invaded your neighborhood. You've been developing cutting-edge biological plants in your basement and you think you can put them to the test to keep your house safe from these zombies. There will be many levels, each with higher difficulty. As you advance the levels, you unlock new plants with different abilities and the zombies evolve to become stronger and hit you with abilities of their own. As long as you have enough sun, and your army of plants, there is a chance that you can survive the apocalypse!
+
+
+RULES
+-----
+You start off with 150 sun and very few turns, you will be given some more sun as it is daylight. This sun can be used to buy plants and plant them on your lawn. Sunflowers will provide you with more sunlight as the turns go, whereas peashooters are your troops on the battlefield and will shoot any zombie that enters their row on the lawn. Keep in mind that your plants have limited health, so if the zombies get to them, they will start eating the plants until they are gone at which point the zombies can continue advancing towards your house. If even one zombie makes it to your house (at coordinat x = 0 so the first row of lawn), you lose the game. Make good use of your sun and invest wisely to ensure that you can defend yourself and your property from these zombies!
+
+
+VALID COMMANDS
+--------------
+On your turn, these are the valid commands:
+
+"Exit": This will exit you from the game. There is no save feature on this version of the game.
+
+"Nothing": This means you don't want to do anything or you can't do anything (not enough sun), so the turn will advance.
+
+"Advance": This means you have finished what you want to do for this turn and you are ready to advance to the next round of the level
+
+"Plant <PLANTTYPE> at (<x>, <y>)": This command can be used to plant one of the available plants (it will be notified at the beginning of each round which plants are available) at the coordinate (x,y).
+
+PLEASE NOTE: Commands should be made correctly, incorrect commands/spelling mistakes can lead to crashes so please ensure correct commands.
+

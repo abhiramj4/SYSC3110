@@ -1,27 +1,54 @@
 package entities.plants;
 
-public class Sunflower extends Plant{
+import controller.Game;
 
-	private int sunPerTurn;
-	private final static String NAME = "SunFlower";
+/**
+ * @author Everett Soldaat
+ *
+ */
+public class Sunflower extends Plant {
+
+	private final static String NAME = "FLWR";
 	private final static int DAMAGE = 0;
-	private final static int COOLDOWN = 3;
-	private final static int COST = 10;
-	private final static int SUN = 10;
-	private final static int HEALTH = 3;
-	
+	private final static int COOLDOWN = 2;
+	private final static int COST = 50;
+	private final static int SUNFREQ = 3;
+	private final static int SUN = 25;
+	private final static int HEALTH = 4;
+	private Integer tick;
+
+	/**
+	 * Constructor for sunflowers
+	 */
 	public Sunflower() {
 		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH);
-		this.sunPerTurn = SUN;
-	}	
-
-	@Override
-	public void setDamage(int damage) {
-		// TODO Auto-generated method stub
-		this.damage = 0;
 	}
-	
+
+	/**
+	 * String representation of this 
+	 */
 	public String toString() {
 		return NAME;
+	}
+
+	/**
+	 * Update method for sunflower
+	 * 
+	 * Gets sun every so often
+	 */
+	@Override
+	public void update(Game g, String type) {
+		if (type == "TICK") {
+			if (tick == null) {
+				tick = new Integer(0);
+			} else if (tick == 0) {
+				tick++;
+			} else if (tick == 1) {
+				tick++;
+			} else if (tick == 2) {
+				g.setSun(g.getSun() + SUN);
+				tick = 0;
+			}
+		}
 	}
 }
