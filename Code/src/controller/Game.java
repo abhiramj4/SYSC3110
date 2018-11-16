@@ -9,8 +9,11 @@ import board.*;
 import entities.Entity.EntityType;
 import entities.plants.*;
 import entities.zombies.*;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import view.GameView;
 
-public class Game implements Runnable {
+public class Game extends Application implements Runnable {
 
 	private Board gameboard;
 	private int plantcount;
@@ -50,7 +53,7 @@ public class Game implements Runnable {
 		thread.start();
 	}
 
-	private synchronized void stop() {
+	private synchronized void stopGame() {
 		if (!running)
 			return;
 
@@ -169,7 +172,7 @@ public class Game implements Runnable {
 			tick();
 		} else if (option.equals("exit")) {
 			System.out.println("Exiting...");
-			stop();
+			stopGame();
 		} else {
 			Plant currPlant = null;
 			//plant <TYPE> at (x, y)
@@ -234,7 +237,10 @@ public class Game implements Runnable {
 	}
 
 	public static void main(String args[]) throws InterruptedException {		
-		boolean ismenu = true;
+		
+		
+		//GameView view = new GameView();
+	/*	boolean ismenu = true;
 		while (ismenu) {
 			System.out.println("Welcome to Plants Vs. Zombies. Please select a menu option:");
 			System.out.println("ABOUT    PLAY    CONTROLS");
@@ -259,11 +265,18 @@ public class Game implements Runnable {
 			}
 			}
 		}
+		*/
 	}
 
 	public void GameOver() {
 		System.out.println("Game over!! A Zombie got to your house");
-		stop();
+		stopGame();
+		
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
 		
 	}
 }
