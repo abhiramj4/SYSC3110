@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -31,7 +32,7 @@ import javafx.scene.layout.HBox;
 public class Game extends Application {
 
 	private Board gameboard;
-	private String availablePlants[];
+	private String availablePlants[]; 	
 	private int currlevel;
 	private int sun;
 	private List<GameListener> gameListeners;
@@ -55,6 +56,8 @@ public class Game extends Application {
 	private PlantCard selectedCard;
 	private Boolean cardSelected;
 	private boolean running = false;
+	
+	private Stage primaryStage;
 
 	/**
 	 * Different states of the game
@@ -89,6 +92,7 @@ public class Game extends Application {
 	// view
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		this.primaryStage = primaryStage;
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root, WIDTH, HEIGHT);
 		cards = new HBox();
@@ -281,9 +285,23 @@ public class Game extends Application {
 
 			if (!(this.gameboard.getSquare(curr).isEmpty())) {
 				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE) {
-					GameOver();
+					GameOver(false);
 				}
 			}
+		}
+		
+		boolean zombiepresent = false;
+		for (Node child : gameboard.getChildren()) {
+			Square square = (Square) child;
+			if (!(square.isEmpty())) {
+				if (square.getEntity() instanceof Zombie) {
+					zombiepresent = true;
+				}
+			}
+		}
+		
+		if (numZombies == 0 && (!(zombiepresent))) {
+			GameOver(true);
 		}
 	}
 
@@ -361,9 +379,19 @@ public class Game extends Application {
 	/**
 	 * Game over method
 	 */
-	public void GameOver() {
-		Alert alert = new Alert(AlertType.INFORMATION, "A Zombie got to your house! \n You lose! ", ButtonType.OK);
-		alert.showAndWait();
-		this.advance.setDisable(true);
+	public void GameOver(boolean win) {
+		if (win) {
+			Alert alert = new Alert(AlertType.INFORMATION, "Congratulations, you won. More levels to come.", ButtonType.OK);
+			alert.showAndWait();
+			advance.setDisable(true);
+			primaryStage.close();
+			
+		} else {
+			Alert alert = new Alert(AlertType.INFORMATION, "A Zombie got to your house! \n You lose! ", ButtonType.OK);
+			alert.showAndWait();
+			this.advance.setDisable(true);
+			primaryStage.close();
+		}
+		
 	}
 }
