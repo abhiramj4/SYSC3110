@@ -82,7 +82,6 @@ public class Game extends Application {
 		this.zombieSpawn = level.getZombieSpawn();
 		this.numZombies = this.zombieSpawn.length;
 		
-		
 	}
 
 	//view
@@ -95,7 +94,6 @@ public class Game extends Application {
 		cardSelected = false;
 		levelinit();
 		
-
 		//add action listeners to cards
 		advance = new Button("NEXT TURN");
 		advance.setMinSize(50, 300);
@@ -132,19 +130,6 @@ public class Game extends Application {
 	}
 
 	
-	
-	//add actionlisteners to all tiles
-	/**
-	public void tileInit() {
-		//for every tile add
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 8; j++) {
-				initTileListeners(gameboard.getSquare(new Coordinate(j,i)));
-			}
-		}
-	}
-	*/
-	
 	public void boardListenerInit(Board board) {
 		
 		//add an action listener to every tile on this board
@@ -157,15 +142,6 @@ public class Game extends Application {
 		
 	}
 	
-	/**
-	public void addCardListeners() {
-		
-		for(int i = 0;i < this.plants.length; i++) {
-			initCardListeners(plants[i]);
-		}
-	}
-	
-	*/
 	
 	//function to init actionlisteners to all cards
 	//add an action listener for a given plant card
@@ -238,6 +214,7 @@ public class Game extends Application {
 		board.addEntity(tempPlant, square.getCoordinate());
 		setSun(getSun() - tempPlant.getCost());
 	}
+	
 	/**
 	 * "Tick" the game forward and update everything
 	 */
@@ -329,6 +306,7 @@ public class Game extends Application {
 	public void setGameboard(Board gameboard) {
 		this.gameboard = gameboard;
 	}
+	
 	//view
 	public static void main(String args[]) throws InterruptedException {
 		launch(args);
