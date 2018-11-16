@@ -35,7 +35,7 @@ public class Game extends Application {
 	private int currlevel;
 	private int sun;
 	private List<GameListener> gameListeners;
-	private HashMap<String, Integer>plantCost;
+	private HashMap<String, Integer> plantCost;
 
 	private Level level;
 	private int[] zombieSpawn;
@@ -47,11 +47,11 @@ public class Game extends Application {
 	private static final int HEIGHT = 700;
 	private static final int WIDTH = 1200;
 	private int numCards;
-	private PlantCard plants[]; //list of cards
+	private PlantCard plants[]; // list of cards
 	private HBox cards;
 	private Button advance;
 	private Label sunlabel;
-	
+
 	private PlantCard selectedCard;
 	private Boolean cardSelected;
 
@@ -72,29 +72,29 @@ public class Game extends Application {
 		this.sun = 50;
 		this.tick = 0;
 		this.plantCost = new HashMap<String, Integer>();
-		
+
 		this.plantCost.put("Sunflower", 50);
 		this.plantCost.put("Peashooter", 100);
-		
+
 		this.level = new Level(1);
 		this.availablePlants = level.getPlants();
 		this.currlevel = level.getLevelNum();
 		this.zombieSpawn = level.getZombieSpawn();
 		this.numZombies = this.zombieSpawn.length;
-		
+
 	}
 
-	//view
+	// view
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root, WIDTH, HEIGHT);
 		cards = new HBox();
-		
+
 		cardSelected = false;
 		levelinit();
-		
-		//add action listeners to cards
+
+		// add action listeners to cards
 		advance = new Button("NEXT TURN");
 		advance.setMinSize(50, 300);
 
@@ -109,14 +109,14 @@ public class Game extends Application {
 		primaryStage.setTitle("PLANTS VS ZOMBIES: THE BOOTLEG EDITION");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		mainboard.addEntity(new Sunflower(), new Coordinate(2,2));
-		mainboard.addEntity(new BaseZombie(), new Coordinate(3,4));
+		mainboard.addEntity(new Sunflower(), new Coordinate(2, 2));
+		mainboard.addEntity(new BaseZombie(), new Coordinate(3, 4));
 		boardListenerInit(mainboard);
 	}
 
-	//view
+	// view
 	public void levelinit() {
-		
+
 		sunlabel = new Label("SUN: \n" + getSun());
 		sunlabel.setGraphic(null);
 		cards.getChildren().add(sunlabel);
@@ -125,37 +125,35 @@ public class Game extends Application {
 		for (int i = 0; i < availablePlants.length; i++) {
 			PlantCard temp = new PlantCard(availablePlants[i], this.plantCost.get(availablePlants[i]));
 			initCardListeners(temp);
-			//temp.setGraphic(new Image(Sunflower.getImagePath()));
+			// temp.setGraphic(new Image(Sunflower.getImagePath()));
 			cards.getChildren().add(temp);
 		}
-		
+
 	}
-	
+
 	public void run() {
 		while (true) {
-			
+
 			gameoverCheck();
 		}
 	}
 
-	
 	public void boardListenerInit(Board board) {
-		
-		//add an action listener to every tile on this board
+
+		// add an action listener to every tile on this board
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 9; j++) {
-				initTileListeners(board.getSquare(new Coordinate(j,i)), board);
-				
+				initTileListeners(board.getSquare(new Coordinate(j, i)), board);
+
 			}
 		}
-		
+
 	}
-	
-	
-	//function to init actionlisteners to all cards
-	//add an action listener for a given plant card
+
+	// function to init actionlisteners to all cards
+	// add an action listener for a given plant card
 	public void initCardListeners(PlantCard card) {
-		
+
 		card.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -163,67 +161,66 @@ public class Game extends Application {
 				// TODO Auto-generated method stub
 				cardClick(card);
 			}
-			
+
 		});
-		
+
 	}
-	
+
 	public void initTileListeners(Square square, Board board) {
 		square.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				tileClick(square,board);
+				tileClick(square, board);
 			}
-			
+
 		});
 	}
-	
-	//on click for the card, hold on temporarily to type of card
+
+	// on click for the card, hold on temporarily to type of card
 	public void cardClick(PlantCard card) {
 		this.selectedCard = card;
 		cardSelected = true;
 	}
-	
+
 	public void tileClick(Square square, Board board) {
-		
-		
-		//create temp entity
+
+		// create temp entity
 		Plant tempPlant;
-		if(!cardSelected) {
+		if (!cardSelected) {
 			return;
 		}
-		
-		if(!square.isEmpty()) {
-			
+
+		if (!square.isEmpty()) {
+
 			Alert alert = new Alert(AlertType.INFORMATION, "There's a plant here already! ", ButtonType.OK);
 			alert.showAndWait();
-			
-			if(alert.getResult() == ButtonType.OK) {
+
+			if (alert.getResult() == ButtonType.OK) {
 				return;
 			}
 		}
-		
-		if(getSun() == 0) {
+
+		if (getSun() == 0) {
 			Alert alert = new Alert(AlertType.INFORMATION, "You've Run out of sun! ", ButtonType.OK);
 			alert.showAndWait();
-			
-			if(alert.getResult() == ButtonType.OK) {
+
+			if (alert.getResult() == ButtonType.OK) {
 				return;
 			}
 		}
-		
-		if(this.selectedCard.getPlantname().equals("Sunflower")) {
+
+		if (this.selectedCard.getPlantname().equals("Sunflower")) {
 			tempPlant = new Sunflower();
 		} else {
 			tempPlant = new PeaShooter();
-		} 
-		
+		}
+
 		board.addEntity(tempPlant, square.getCoordinate());
 		setSun(getSun() - tempPlant.getCost());
 	}
-	
+
 	/**
 	 * "Tick" the game forward and update everything
 	 */
@@ -246,15 +243,14 @@ public class Game extends Application {
 	private void gameoverCheck() {
 		for (int i = 0; i < 5; i++) {
 			Coordinate curr = new Coordinate(0, i);
-			
+
 			if (!(this.gameboard.getSquare(curr).isEmpty())) {
 				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE) {
 					GameOver();
-				}				
+				}
 			}
 		}
 	}
-
 
 	/**
 	 * Get how much sun the player has
@@ -315,8 +311,8 @@ public class Game extends Application {
 	public void setGameboard(Board gameboard) {
 		this.gameboard = gameboard;
 	}
-	
-	//view
+
+	// view
 	public static void main(String args[]) throws InterruptedException {
 		launch(args);
 	}
