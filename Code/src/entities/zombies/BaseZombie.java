@@ -8,7 +8,7 @@ import controller.Game;
  *
  */
 public class BaseZombie extends Zombie {
-	private final static int HEALTH = 3;
+	private final static int HEALTH = 4;
 	private final static String NAME = "BZMB";
 	private final static int DAMAGE = 1;
 	private final static int MOVEMENT = 1;
