@@ -222,8 +222,8 @@ public class Game extends Application {
 			}
 		}
 
-		if (getSun() == 0) {
-			Alert alert = new Alert(AlertType.INFORMATION, "You've Run out of sun! ", ButtonType.OK);
+		if (getSun() < selectedCard.getCost()) {
+			Alert alert = new Alert(AlertType.INFORMATION, "You don't have enough sun! ", ButtonType.OK);
 			alert.showAndWait();
 
 			if (alert.getResult() == ButtonType.OK) {
@@ -243,7 +243,6 @@ public class Game extends Application {
 
 		this.gameListeners.add(tempPlant);
 		board.addEntity(tempPlant, square.getCoordinate());
-		setSun(getSun() - tempPlant.getCost());
 
 	}
 
