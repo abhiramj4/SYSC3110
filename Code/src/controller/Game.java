@@ -116,8 +116,10 @@ public class Game extends Application {
 	//view
 	public void levelinit() {
 		
-		sunlabel = new Label("" + getSun());
+		sunlabel = new Label("SUN: \n" + getSun());
 		sunlabel.setGraphic(null);
+		cards.getChildren().add(sunlabel);
+		cards.setMargin(sunlabel, new Insets(20, 20, 20, 20));
 
 		for (int i = 0; i < availablePlants.length; i++) {
 			PlantCard temp = new PlantCard(availablePlants[i], this.plantCost.get(availablePlants[i]));
@@ -126,6 +128,13 @@ public class Game extends Application {
 			cards.getChildren().add(temp);
 		}
 		
+	}
+	
+	public void run() {
+		while (true) {
+			
+			gameoverCheck();
+		}
 	}
 
 	
