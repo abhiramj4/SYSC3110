@@ -109,6 +109,7 @@ public class Game extends Application {
 		primaryStage.show();
 		mainboard.addEntity(new Sunflower(), new Coordinate(2,2));
 		mainboard.addEntity(new BaseZombie(), new Coordinate(3,4));
+		tileInit();
 	}
 
 	//view
@@ -123,8 +124,21 @@ public class Game extends Application {
 			//temp.setGraphic(new Image(Sunflower.getImagePath()));
 			cards.getChildren().add(temp);
 		}
+		
 	}
 
+	//add actionlisteners to all tiles
+	
+	public void tileInit() {
+		//for every tile add
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 8; j++) {
+				initTileListeners(gameboard.getSquare(new Coordinate(j,i)));
+			}
+		}
+	}
+	
+	
 	/**
 	public void addCardListeners() {
 		
@@ -151,12 +165,38 @@ public class Game extends Application {
 		
 	}
 	
+	public void initTileListeners(Square square) {
+		square.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				tileClick(square);
+			}
+			
+		});
+	}
+	
 	//on click for the card, hold on temporarily to type of card
 	public void cardClick(PlantCard card) {
 		this.selectedCard = card;
 	}
 	
-	
+	public void tileClick(Square square) {
+		
+		
+		//create temp entity
+		Plant tempPlant;
+		if(this.selectedCard.getPlantname().equals("Sunflower")) {
+			tempPlant = new Sunflower();
+		} else if (this.selectedCard.getPlantname().equals("PeaShooter")){
+			tempPlant = new PeaShooter();
+		} else {
+			return;
+		}
+		
+		this.gameboard.addEntity(tempPlant, square.getCoordinate());
+	}
 	/**
 	 * "Tick" the game forward and update everything
 	 */
