@@ -58,6 +58,7 @@ public class Square extends Button {
 				this.setGraphic(null);
 				this.setStyle("-fx-background-color: #006900;");
 			} else {
+				this.setGraphic(null);
 				this.setStyle("-fx-background-color: grey;");
 			}
 

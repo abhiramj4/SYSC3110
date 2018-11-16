@@ -46,7 +46,7 @@ public class PeaShooter extends Plant {
 			} else if (g.getGameboard().getSquare(temp).getEntity().getClass().getSuperclass().getName().toLowerCase()
 					.contains("zombie")) {
 				int orighealth = g.getGameboard().getSquare(temp).getEntity().getHealth();
-				System.out.println(orighealth);
+				
 				if ((orighealth - getDamage()) < 0) {
 					g.getGameboard().removeEntity(g, temp);
 				} else {

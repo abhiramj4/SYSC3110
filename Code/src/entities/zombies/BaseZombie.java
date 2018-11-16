@@ -38,10 +38,14 @@ public class BaseZombie extends Zombie {
 	public void update(Game g, String type) {
 		if (type == "TICK") {
 			Coordinate curr = this.getPosition();
-			Coordinate toCheck = new Coordinate(curr.getX() - 1, curr.getY());
-
-			if (g.getGameboard().getSquare(toCheck).isEmpty() && !(getPosition().getX() == 0)) {
-				System.out.println("move");
+			Coordinate toCheck;
+			if(curr.getX() == 0) {
+				toCheck = curr;
+			}else {
+				toCheck = new Coordinate(curr.getX() - 1, curr.getY());
+			}
+			
+			if (g.getGameboard().getSquare(toCheck).isEmpty() && (curr.getX() != 0)) {
 				g.getGameboard().move(curr, new Coordinate(curr.getX() - 1, curr.getY()));
 			}
 			
