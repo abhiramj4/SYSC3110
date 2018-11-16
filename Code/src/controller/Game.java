@@ -109,7 +109,7 @@ public class Game extends Application {
 		primaryStage.show();
 		mainboard.addEntity(new Sunflower(), new Coordinate(2,2));
 		mainboard.addEntity(new BaseZombie(), new Coordinate(3,4));
-		tileInit();
+		boardListenerInit(mainboard);
 	}
 
 	//view
@@ -127,8 +127,10 @@ public class Game extends Application {
 		
 	}
 
-	//add actionlisteners to all tiles
 	
+	
+	//add actionlisteners to all tiles
+	/**
 	public void tileInit() {
 		//for every tile add
 		for (int i = 0; i < 4; i++) {
@@ -137,7 +139,19 @@ public class Game extends Application {
 			}
 		}
 	}
+	*/
 	
+	public void boardListenerInit(Board board) {
+		
+		//add an action listener to every tile on this board
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 9; j++) {
+				initTileListeners(board.getSquare(new Coordinate(j,i)), board);
+				
+			}
+		}
+		
+	}
 	
 	/**
 	public void addCardListeners() {
@@ -165,13 +179,13 @@ public class Game extends Application {
 		
 	}
 	
-	public void initTileListeners(Square square) {
+	public void initTileListeners(Square square, Board board) {
 		square.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				tileClick(square);
+				tileClick(square,board);
 			}
 			
 		});
@@ -182,20 +196,22 @@ public class Game extends Application {
 		this.selectedCard = card;
 	}
 	
-	public void tileClick(Square square) {
+	public void tileClick(Square square, Board board) {
 		
 		
 		//create temp entity
 		Plant tempPlant;
-		if(this.selectedCard.getPlantname().equals("Sunflower")) {
-			tempPlant = new Sunflower();
-		} else if (this.selectedCard.getPlantname().equals("PeaShooter")){
-			tempPlant = new PeaShooter();
-		} else {
+		if(selectedCard.getPlantname() == null) {
 			return;
 		}
 		
-		this.gameboard.addEntity(tempPlant, square.getCoordinate());
+		if(this.selectedCard.getPlantname().equals("Sunflower")) {
+			tempPlant = new Sunflower();
+		} else {
+			tempPlant = new PeaShooter();
+		} 
+		
+		board.addEntity(tempPlant, square.getCoordinate());
 	}
 	/**
 	 * "Tick" the game forward and update everything
