@@ -15,7 +15,10 @@ import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -66,7 +69,7 @@ public class Game extends Application {
 	public void init() {
 		this.gameboard = new Board();
 		this.gameListeners = new ArrayList<GameListener>();
-		this.sun = 150;
+		this.sun = 50;
 		this.tick = 0;
 		this.plantCost = new HashMap<String, Integer>();
 		
@@ -78,7 +81,6 @@ public class Game extends Application {
 		this.currlevel = level.getLevelNum();
 		this.zombieSpawn = level.getZombieSpawn();
 		this.numZombies = this.zombieSpawn.length;
-		
 		
 	}
 
@@ -92,7 +94,6 @@ public class Game extends Application {
 		cardSelected = false;
 		levelinit();
 		
-
 		//add action listeners to cards
 		advance = new Button("NEXT TURN");
 		advance.setMinSize(50, 300);
@@ -138,19 +139,6 @@ public class Game extends Application {
 	}
 
 	
-	
-	//add actionlisteners to all tiles
-	/**
-	public void tileInit() {
-		//for every tile add
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 8; j++) {
-				initTileListeners(gameboard.getSquare(new Coordinate(j,i)));
-			}
-		}
-	}
-	*/
-	
 	public void boardListenerInit(Board board) {
 		
 		//add an action listener to every tile on this board
@@ -163,15 +151,6 @@ public class Game extends Application {
 		
 	}
 	
-	/**
-	public void addCardListeners() {
-		
-		for(int i = 0;i < this.plants.length; i++) {
-			initCardListeners(plants[i]);
-		}
-	}
-	
-	*/
 	
 	//function to init actionlisteners to all cards
 	//add an action listener for a given plant card
@@ -216,6 +195,25 @@ public class Game extends Application {
 			return;
 		}
 		
+		if(!square.isEmpty()) {
+			
+			Alert alert = new Alert(AlertType.INFORMATION, "There's a plant here already! ", ButtonType.OK);
+			alert.showAndWait();
+			
+			if(alert.getResult() == ButtonType.OK) {
+				return;
+			}
+		}
+		
+		if(getSun() == 0) {
+			Alert alert = new Alert(AlertType.INFORMATION, "You've Run out of sun! ", ButtonType.OK);
+			alert.showAndWait();
+			
+			if(alert.getResult() == ButtonType.OK) {
+				return;
+			}
+		}
+		
 		if(this.selectedCard.getPlantname().equals("Sunflower")) {
 			tempPlant = new Sunflower();
 		} else {
@@ -225,6 +223,7 @@ public class Game extends Application {
 		board.addEntity(tempPlant, square.getCoordinate());
 		setSun(getSun() - tempPlant.getCost());
 	}
+	
 	/**
 	 * "Tick" the game forward and update everything
 	 */
@@ -256,41 +255,6 @@ public class Game extends Application {
 		}
 	}
 
-	/**
-	 * Handle a command
-	 * 
-	 * @param option passed
-	 */
-	private void handleCommand(String option) {
-		String[] words = option.split("\\W+");
-		if (option.equals("nothing")) {
-			tick();
-		} else if (option.equals("exit")) {
-			System.out.println("Exiting...");
-		} else if (option.equals("advance")) {
-			tick();
-		} else if (words[0].equals("plant")) {
-			Plant currPlant = null;
-
-			if (words[1].equals("sunflower")) {
-				currPlant = new Sunflower();
-				// gameListeners.add(currPlant);
-			} else if (words[1].equals("peashooter")) {
-				currPlant = new PeaShooter();
-			}
-
-			if (currPlant.getCost() > this.sun) {
-				System.out.println("Sorry, you don't have enough sun to purchase this plant.");
-			} else {
-				gameListeners.add(currPlant);
-				this.sun -= currPlant.getCost();
-				int x = Integer.parseInt(words[3]);
-				int y = Integer.parseInt(words[4]);
-				Coordinate thiscoord = new Coordinate(x, y);
-				this.gameboard.addEntity(currPlant, thiscoord);
-			}
-		}
-	}
 
 	/**
 	 * Get how much sun the player has
@@ -351,6 +315,7 @@ public class Game extends Application {
 	public void setGameboard(Board gameboard) {
 		this.gameboard = gameboard;
 	}
+	
 	//view
 	public static void main(String args[]) throws InterruptedException {
 		launch(args);
