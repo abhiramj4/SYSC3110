@@ -4,7 +4,7 @@ import java.io.FileReader;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
+import java.lang.IllegalArgumentException;
 import entities.plants.Plant;
 
 /*
@@ -27,6 +27,11 @@ public class Level {
 	 * @param level  the level of the game
 	 */
 	public Level(int level) {
+		
+		if(level < 1) {
+			throw new IllegalArgumentException("Level must be greater than 0");
+		}
+		
 		JSONParser parser = new JSONParser();
 
 		try {

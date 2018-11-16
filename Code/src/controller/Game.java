@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import board.*;
+import entities.Entity.EntityType;
 import entities.plants.*;
 import entities.zombies.*;
 
@@ -88,7 +89,7 @@ public class Game extends Application {
 		advance = new Button("NEXT TURN");
 		advance.setMinSize(50, 300);
 
-		GridPane mainboard = new Board();
+		Board mainboard = new Board();
 		mainboard.setMinSize(1000, 500);
 		root.setTop(cards);
 		root.setLeft(advance);
@@ -99,6 +100,7 @@ public class Game extends Application {
 		primaryStage.setTitle("PLANTS VS ZOMBIES: THE BOOTLEG EDITION");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		mainboard.addEntity(new Sunflower(), new Coordinate(2,2));
 	}
 
 	public void levelinit() {
@@ -108,6 +110,7 @@ public class Game extends Application {
 
 		for (int i = 0; i < availablePlants.length; i++) {
 			PlantCard temp = new PlantCard(availablePlants[i], this.plantCost.get(availablePlants[i]));
+			//temp.setGraphic(new Image(Sunflower.getImagePath()));
 			cards.getChildren().add(temp);
 		}
 	}
@@ -134,13 +137,11 @@ public class Game extends Application {
 	private void gameoverCheck() {
 		for (int i = 0; i < 5; i++) {
 			Coordinate curr = new Coordinate(0, i);
+			
 			if (!(this.gameboard.getSquare(curr).isEmpty())) {
-				if (this.gameboard.getSquare(curr).getEntity().getClass().getSuperclass().getName().toLowerCase()
-						.contains("zombie")) {
+				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE) {
 					GameOver();
-				}
-
-				;
+				}				
 			}
 		}
 	}

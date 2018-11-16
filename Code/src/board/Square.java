@@ -1,11 +1,17 @@
 package board;
 
+import java.io.File;
+
 import entities.Entity;
 import entities.plants.Plant;
 import entities.zombies.Zombie;
 import enumerations.SquareType;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * @author Sai Vikranth Desu
@@ -16,6 +22,7 @@ public class Square extends Button {
 	private Coordinate coordinate;
 	private Entity entity;
 	private SquareType type;
+	private Image image;
 
 	/**
 	 * Constructor for class square
@@ -53,7 +60,19 @@ public class Square extends Button {
 			}
 
 		} else {
-			this.setGraphic(new ImageView(entity.getImage()));
+			File fr;
+			fr = new File(entity.getImagePath());
+			
+			try {
+				URL url = fr.toURI().toURL();
+				System.out.println(url);
+				this.image = new Image(url.toString());
+				this.setGraphic(new ImageView(this.image));
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 	}
 
@@ -91,6 +110,7 @@ public class Square extends Button {
 	 */
 	public void setEntity(Entity entity) {
 		this.entity = entity;
+		this.setImage();
 		if (entity instanceof Zombie) {
 			((Zombie) entity).setPosition(this.coordinate);
 		} else if (entity instanceof Plant) {
