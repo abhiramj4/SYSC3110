@@ -222,8 +222,12 @@ public class Game extends Application {
 
 		if (this.selectedCard.getPlantname().equals("Sunflower")) {
 			tempPlant = new Sunflower();
+			setSun(getSun() - tempPlant.getCost());
+			sunlabel.setText("SUN: \n" + getSun());
 		} else {
 			tempPlant = new PeaShooter();
+			setSun(getSun() - tempPlant.getCost());
+			sunlabel.setText("SUN: \n" + getSun());
 		}
 
 		board.addEntity(tempPlant, square.getCoordinate());
