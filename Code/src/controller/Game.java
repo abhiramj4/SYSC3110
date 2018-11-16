@@ -77,6 +77,7 @@ public class Game extends Application {
 		
 	}
 
+	//view
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		BorderPane root = new BorderPane();
@@ -101,8 +102,10 @@ public class Game extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		mainboard.addEntity(new Sunflower(), new Coordinate(2,2));
+		mainboard.addEntity(new BaseZombie(), new Coordinate(3,4));
 	}
 
+	//view
 	public void levelinit() {
 		
 		sunlabel = new Label("" + getSun());
@@ -241,7 +244,7 @@ public class Game extends Application {
 	public void setGameboard(Board gameboard) {
 		this.gameboard = gameboard;
 	}
-
+	//view
 	public static void main(String args[]) throws InterruptedException {
 		launch(args);
 	}

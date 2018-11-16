@@ -47,7 +47,8 @@ public class Square extends Button {
 	public Square(Coordinate coordinate, SquareType type) {
 		this.coordinate = coordinate;
 		this.type = type;
-		setMinSize(100, 100);
+		setMinSize(100,100);
+		setMaxSize(100,100);
 		setImage();
 	}
 
@@ -66,7 +67,7 @@ public class Square extends Button {
 			try {
 				URL url = fr.toURI().toURL();
 				System.out.println(url);
-				this.image = new Image(url.toString());
+				this.image = new Image(url.toString(), 100, 100, false, false);
 				this.setGraphic(new ImageView(this.image));
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
