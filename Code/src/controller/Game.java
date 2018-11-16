@@ -112,6 +112,7 @@ public class Game extends Application {
 		mainboard.addEntity(new Sunflower(), new Coordinate(2, 2));
 		mainboard.addEntity(new BaseZombie(), new Coordinate(3, 4));
 		boardListenerInit(mainboard);
+		
 	}
 
 	// view
@@ -274,6 +275,7 @@ public class Game extends Application {
 		Zombie spawn = zombie;
 		gameListeners.add(spawn);
 		getGameboard().addEntity(zombie, new Coordinate(9, row));
+		
 	}
 
 	/**
@@ -321,7 +323,7 @@ public class Game extends Application {
 	 * Game over method
 	 */
 	public void GameOver() {
-		System.out.println();
-		System.out.println("Game over!! A Zombie got to your house");
+		Alert alert = new Alert(AlertType.INFORMATION, "A Zombie got to your house! \n You lose! ", ButtonType.OK);
+		alert.showAndWait();
 	}
 }
