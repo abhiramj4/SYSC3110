@@ -43,6 +43,7 @@ public class BaseZombie extends Zombie {
 			if (g.getGameboard().getSquare(toCheck).isEmpty() && !(getPosition().getX() == 0)) {
 				System.out.println("move");
 				g.getGameboard().move(curr, new Coordinate(curr.getX() - 1, curr.getY()));
+				
 			}
 			if (g.getGameboard().getSquare(toCheck).getEntity().getClass().getSuperclass().getName().toLowerCase()
 					.contains("plant")) {
