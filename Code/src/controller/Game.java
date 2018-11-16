@@ -9,6 +9,8 @@ import entities.plants.*;
 import entities.zombies.*;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -42,10 +44,12 @@ public class Game extends Application {
 	private static final int HEIGHT = 700;
 	private static final int WIDTH = 1200;
 	private int numCards;
-	private PlantCard plants[];
+	private PlantCard plants[]; //list of cards
 	private HBox cards;
 	private Button advance;
 	private Label sunlabel;
+	
+	private PlantCard selectedCard;
 
 	/**
 	 * Different states of the game
@@ -86,7 +90,9 @@ public class Game extends Application {
 		
 
 		levelinit();
+		
 
+		//add action listeners to cards
 		advance = new Button("NEXT TURN");
 		advance.setMinSize(50, 300);
 
@@ -113,11 +119,44 @@ public class Game extends Application {
 
 		for (int i = 0; i < availablePlants.length; i++) {
 			PlantCard temp = new PlantCard(availablePlants[i], this.plantCost.get(availablePlants[i]));
+			initCardListeners(temp);
 			//temp.setGraphic(new Image(Sunflower.getImagePath()));
 			cards.getChildren().add(temp);
 		}
 	}
 
+	/**
+	public void addCardListeners() {
+		
+		for(int i = 0;i < this.plants.length; i++) {
+			initCardListeners(plants[i]);
+		}
+	}
+	
+	*/
+	
+	//function to init actionlisteners to all cards
+	//add an action listener for a given plant card
+	public void initCardListeners(PlantCard card) {
+		
+		card.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				cardClick(card);
+			}
+			
+		});
+		
+	}
+	
+	//on click for the card, hold on temporarily to type of card
+	public void cardClick(PlantCard card) {
+		this.selectedCard = card;
+	}
+	
+	
 	/**
 	 * "Tick" the game forward and update everything
 	 */
