@@ -50,6 +50,7 @@ public class Game extends Application {
 	private Label sunlabel;
 	
 	private PlantCard selectedCard;
+	private Boolean cardSelected;
 
 	/**
 	 * Different states of the game
@@ -194,6 +195,7 @@ public class Game extends Application {
 	//on click for the card, hold on temporarily to type of card
 	public void cardClick(PlantCard card) {
 		this.selectedCard = card;
+		cardSelected = true;
 	}
 	
 	public void tileClick(Square square, Board board) {
@@ -201,7 +203,7 @@ public class Game extends Application {
 		
 		//create temp entity
 		Plant tempPlant;
-		if(selectedCard.getPlantname() == null) {
+		if(!cardSelected) {
 			return;
 		}
 		
