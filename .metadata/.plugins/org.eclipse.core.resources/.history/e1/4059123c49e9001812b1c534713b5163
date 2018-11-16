@@ -1,0 +1,19 @@
+package testing;
+import entities.Entity;
+import entities.Entity.EntityType;
+import junit.framework.TestCase;
+import static org.junit.Assert.*;
+
+
+
+class SunflowerTest extends TestCase {
+	
+	protected void setUp() {
+		Entity e = new Entity(25, "test", EntityType.PLANT, "" );
+	}
+	
+	public static void main(String[] args) {
+		junit.textui.TestRunner.run(SunflowerTest.class);
+	}
+
+}

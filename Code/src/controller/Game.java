@@ -66,6 +66,7 @@ public class Game extends Application {
 	/**
 	 * Initialize the game
 	 */
+	@Override
 	public void init() {
 		this.gameboard = new Board();
 		this.gameListeners = new ArrayList<GameListener>();
@@ -114,6 +115,7 @@ public class Game extends Application {
 		boardListenerInit(mainboard);
 		
 	}
+
 
 	// view
 	public void levelinit() {

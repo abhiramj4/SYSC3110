@@ -66,7 +66,6 @@ public class Square extends Button {
 			
 			try {
 				URL url = fr.toURI().toURL();
-				System.out.println(url);
 				this.image = new Image(url.toString(), 100, 100, false, false);
 				this.setGraphic(new ImageView(this.image));
 			} catch (MalformedURLException e) {
