@@ -112,12 +112,12 @@ public class Game extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		// mainboard.addEntity(new Sunflower(), new Coordinate(2, 2));
-		//mainboard.addEntity(new BaseZombie(), new Coordinate(3, 4));
+		mainboard.addEntity(new BaseZombie(), new Coordinate(8, 4));
 
 		boardListenerInit(mainboard);
 		initNextRoundListener(); // init the next round button
 		this.gameboard = mainboard;
-		//gameListeners.add(this.getGameboard().getSquare(new Coordinate(3, 4)).getEntity());
+		gameListeners.add(this.getGameboard().getSquare(new Coordinate(8, 4)).getEntity());
 
 	}
 
