@@ -1,11 +1,9 @@
 Plants Vs. Zombies: Bootleg Version Version 2.1.0 11/16/2018
 Authors: Sai Vikranth Desu, Abhi Santhosh, Everett Soldaat, Liam Murphy
-Documentation Author: Sai Vikranth Desu
-JAVADOCS Author/Creator: Abhi Santhosh
+Documentation Author: Typed by Sai Vikranth Desu, but the voice of the whole team
 
 GENERAL USAGE NOTES
 -------------------
-
 - This text based version of plants vs. zombies is turn-based. Each turn you can choose between various commands and advance turns accordingly.
 - There is only one level, good luck though it's not easy
 - Once the game is run, there will be a lot of text before the game itself. This text will instruct you on how to play the game and give you some background information (although the manual is a better resource).
@@ -20,9 +18,9 @@ DELIVERABLES
 
 KNOWN ISSUES
 ------------
-- One issue we have right now is that in the real game zombies can "pile up" and attack plants together. Our version of the game kind of have the zombies kind of line up behind each other instead of stacking on the same square. This should be something we can fix when we make the game realtime.
-- The commands that you give the game must be pretty accurate, else the game can easily crash. This is something that shouldn't be an issue with the GUI version of the game.
-- This isn't really related to the game but we had some trouble using GitHub so our commits aren't a direct representation of the member's work. We ended up having to send one person the code to constantly update on the master branch. This will be fixed for the next milestones!
+- The main issue we have right now is that in the real game zombies can "pile up" and attack plants together. Our version of the game kind of have the zombies kind of line up behind each other instead of stacking on the same square. This should be something we can fix when we make the game realtime.
+- We were also not able to implement the cooldown timer for the plant cards. Right now, you can spam the plants and there will be nothing to stop you unfortunately.
+- There is a good amount of smelly code. We can easily make our code more efficient by instantiating fewer objects. Our goal was to get the barebones functionality to work for the game, we will make the code clean and beautiful for the next milestone.
 
 ROADMAP AHEAD
 -------------
@@ -38,10 +36,12 @@ Nice to haves:
 - A menu with play/about/controls
 - Lawnmowers
 - Nicer plant cards
+- Sound effects
+- Realtime version
 
 AUTHORS
 -------
-We didn't have as organized work distribution amongst our group members as we did for the first milestone. Sai worked on the initial barebones GUI conversion of the game. Abhi and Liam then started modifying all the entities (zombies/plants/sun/turns) to work with the GUI and everyone was participating in debugging and small tasks. Everett and Liam worked on the JUnit tests, Abhi and Sai implemented the turns and action listeners. Liam is our JSON guy so he implemented his Level class within our new GUI based Game.java class to spawn zombies. Everyone worked on the commenting and documentation.
+We didn't have as organized work distribution amongst our group members as we did for the first milestone. Sai worked on the initial barebones GUI conversion of the game. Abhi and Liam then started modifying all the entities (zombies/plants/sun/turns) to work with the GUI and everyone was participating in debugging and small tasks. Everett and Liam worked on the JUnit tests, Abhi and Sai implemented the turns and action listeners. Liam is our JSON guy so he implemented his Level class within our new GUI based Game.java class to spawn zombies. Everyone worked on the commenting and documentation, whoever made the method/wrote the code would comment it. Everett also updated our previous UML diagram and everyone worked on the sequence diagrams.
 
 INSTALLATION 
 ------------

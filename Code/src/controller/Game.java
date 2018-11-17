@@ -20,9 +20,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 /**
@@ -32,7 +30,7 @@ import javafx.scene.layout.HBox;
 public class Game extends Application {
 
 	private Board gameboard;
-	private String availablePlants[]; 	
+	private String availablePlants[];
 	private int currlevel;
 	private int sun;
 	private List<GameListener> gameListeners;
@@ -56,7 +54,7 @@ public class Game extends Application {
 	private PlantCard selectedCard;
 	private Boolean cardSelected;
 	private boolean running = false;
-	
+
 	private Stage primaryStage;
 
 	/**
@@ -115,12 +113,13 @@ public class Game extends Application {
 		primaryStage.setTitle("PLANTS VS ZOMBIES: THE BOOTLEG EDITION");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		//mainboard.addEntity(new BaseZombie(), new Coordinate(8, 4));
+		// mainboard.addEntity(new BaseZombie(), new Coordinate(8, 4));
 
 		boardListenerInit(mainboard);
 		initNextRoundListener(); // init the next round button
 		this.gameboard = mainboard;
-		//gameListeners.add(this.getGameboard().getSquare(new Coordinate(8, 4)).getEntity());
+		// gameListeners.add(this.getGameboard().getSquare(new Coordinate(8,
+		// 4)).getEntity());
 	}
 
 	// view
@@ -206,14 +205,19 @@ public class Game extends Application {
 		cardSelected = true;
 	}
 
+	/*
+	 * This is what happens after the user clicks on a plant card then a tile on the
+	 * board
+	 */
 	public void tileClick(Square square, Board board) {
-
 		// create temp entity
 		Plant tempPlant;
 		if (!cardSelected) {
 			return;
 		}
 
+		// Checking to see if there is already a plant/zombie occupying the space, if so
+		// an alert pops up
 		if (!square.isEmpty()) {
 
 			Alert alert = new Alert(AlertType.INFORMATION, "There's an entity here already! ", ButtonType.OK);
@@ -224,6 +228,8 @@ public class Game extends Application {
 			}
 		}
 
+		// Checking to see if the user does not have enough sun to purchase the desired
+		// plant, if so an alert pops up
 		if (getSun() < selectedCard.getCost()) {
 			Alert alert = new Alert(AlertType.INFORMATION, "You don't have enough sun! ", ButtonType.OK);
 			alert.showAndWait();
@@ -233,6 +239,8 @@ public class Game extends Application {
 			}
 		}
 
+		// If the user has enough sun and it is an empty tile, this following code will
+		// go ahead and plant the plant.
 		if (this.selectedCard.getPlantname().equals("Sunflower")) {
 			tempPlant = new Sunflower();
 			setSun(getSun() - tempPlant.getCost());
@@ -253,22 +261,19 @@ public class Game extends Application {
 	 */
 	public void tick() {
 		tick++;
-		
-		
-		
+
 		for (int i = 0; i < gameListeners.size(); i++) {
 			gameListeners.get(i).update(this, "TICK");
 		}
 		if (tick % 2 == 0) {
 			setSun(getSun() + 25);
 		}
-		if(tick % 2 ==0 && tick > 5 ) {
-			if(numZombies > 0) {
-				 zombieSpawn(this.zombieSpawn[this.numZombies - 1], new BaseZombie()); //
-				 //Zombie spawn based on level info
-				 numZombies -= 1;
+		if (tick % 2 == 0 && tick > 5) {
+			if (numZombies > 0) {
+				zombieSpawn(this.zombieSpawn[this.numZombies - 1], new BaseZombie()); //
+				// Zombie spawn based on level info
+				numZombies -= 1;
 			}
-
 
 		}
 	}
@@ -282,6 +287,8 @@ public class Game extends Application {
 	 * Check if the game is over
 	 */
 	private void gameoverCheck() {
+
+		// Checking to see if any zombie made it to the house, this is a game over loss
 		for (int i = 0; i < 5; i++) {
 			Coordinate curr = new Coordinate(0, i);
 
@@ -291,7 +298,8 @@ public class Game extends Application {
 				}
 			}
 		}
-		
+
+		// Checking to see if all the zombies are dead, this is a game over win
 		boolean zombiepresent = false;
 		for (Node child : gameboard.getChildren()) {
 			Square square = (Square) child;
@@ -301,7 +309,7 @@ public class Game extends Application {
 				}
 			}
 		}
-		
+
 		if (numZombies == 0 && (!(zombiepresent))) {
 			GameOver(true);
 		}
@@ -319,8 +327,7 @@ public class Game extends Application {
 	/**
 	 * Set how much sun the player has
 	 * 
-	 * @param sun
-	 *            the player will have
+	 * @param sun the player will have
 	 */
 	public void setSun(int sun) {
 		this.sun = sun;
@@ -328,6 +335,7 @@ public class Game extends Application {
 		sunlabel.setText("Sun: " + tempSun.toString());
 	}
 
+	// This method is used to spawn zombies based on level data each round
 	private void zombieSpawn(int row, Zombie zombie) {
 		Zombie spawn = zombie;
 		gameListeners.add(spawn);
@@ -347,8 +355,7 @@ public class Game extends Application {
 	/**
 	 * Set the game listeners of this game by passing a list
 	 * 
-	 * @param gameListeners
-	 *            that this game will have
+	 * @param gameListeners that this game will have
 	 */
 	public void setGameListeners(List<GameListener> gameListeners) {
 		this.gameListeners = gameListeners;
@@ -366,8 +373,7 @@ public class Game extends Application {
 	/**
 	 * Set the game board by passing a gameboard
 	 * 
-	 * @param gameboard
-	 *            to be set
+	 * @param gameboard to be set
 	 */
 	public void setGameboard(Board gameboard) {
 		this.gameboard = gameboard;
@@ -382,18 +388,24 @@ public class Game extends Application {
 	 * Game over method
 	 */
 	public void GameOver(boolean win) {
+
+		// If the gameover method was called with a true value, that means the user won
+		// and so the following alert is shown
 		if (win) {
-			Alert alert = new Alert(AlertType.INFORMATION, "Congratulations, you won. More levels to come.", ButtonType.OK);
+			Alert alert = new Alert(AlertType.INFORMATION, "Congratulations, you won. More levels to come.",
+					ButtonType.OK);
 			alert.showAndWait();
 			advance.setDisable(true);
 			primaryStage.close();
-			
+
+			// If the gameover method was called with a value of false, that means the user
+			// lost and so this alert is shown
 		} else {
 			Alert alert = new Alert(AlertType.INFORMATION, "A Zombie got to your house! \n You lose! ", ButtonType.OK);
 			alert.showAndWait();
 			this.advance.setDisable(true);
 			primaryStage.close();
 		}
-		
+
 	}
 }
