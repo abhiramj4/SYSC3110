@@ -1,0 +1,37 @@
+package testing;
+
+import entities.plants.Sunflower;
+
+import junit.framework.TestCase;
+import board.Coordinate;
+import org.junit.Test;
+
+
+
+public class SunflowerTest extends TestCase {
+	private Sunflower f = null;
+	private Coordinate c = new Coordinate(0,0);
+	
+	public SunflowerTest() {
+	}
+	
+	protected void setUp() {
+		this.f = new Sunflower();
+		f.setPosition(c);
+	}
+	
+	@Test
+	public void testSunflower() {
+		assertEquals(f.getName(), "FLWR");
+		assertEquals(f.getCost(), 50);
+		assertEquals(f.getCoolDown(), 2);
+		assertEquals(f.getDamage(), 0);
+		assertEquals(f.getPosition(), c);
+	}
+	
+	
+	public static void main(String[] args) {
+		junit.textui.TestRunner.run(SunflowerTest.class);
+	}
+
+}

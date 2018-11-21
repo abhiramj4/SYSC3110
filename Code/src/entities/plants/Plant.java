@@ -15,7 +15,6 @@ public abstract class Plant extends Entity {
 	private String name;
 	private int health; // in number of turns
 	private Coordinate position;
-	private static String imagepath = "path bitch";
 
 	public Coordinate getPosition() {
 		return position;	
@@ -34,8 +33,8 @@ public abstract class Plant extends Entity {
 	 * @param cost     of this plant in sun
 	 * @param health   of this plant
 	 */
-	public Plant(String name, int damage, int coolDown, int cost, int health) {
-		super(health, name, EntityType.PLANT, imagepath);
+	public Plant(String name, int damage, int coolDown, int cost, int health, String imagePath) {
+		super(health, name, EntityType.PLANT, imagePath);
 		this.name = name;
 		this.damage = damage;
 		this.coolDown = coolDown;

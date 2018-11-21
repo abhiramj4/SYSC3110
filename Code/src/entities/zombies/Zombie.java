@@ -13,6 +13,8 @@ public abstract class Zombie extends Entity {
 	private int health;
 	private String name;
 
+
+
 	/**
 	 * Constructor of class Zombie
 	 * 
@@ -20,8 +22,8 @@ public abstract class Zombie extends Entity {
 	 * @param name   of the zombie
 	 * @param damage this zombie deals
 	 */
-	public Zombie(int health, String name, int damage) {
-		super(health, name, EntityType.ZOMBIE);
+	public Zombie(int health, String name, int damage, String imagePath) {
+		super(health, name, EntityType.ZOMBIE, imagePath);
 		this.health = health;
 		this.name = name;
 		this.damage = damage;

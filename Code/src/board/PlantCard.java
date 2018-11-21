@@ -13,4 +13,34 @@ public class PlantCard extends Button {
 		this.cost = cost;
 		this.setText(plantname + "\n" + cost);
 	}
+
+	/**
+	 * @return the plantname
+	 */
+	public String getPlantname() {
+		return plantname;
+	}
+
+	/**
+	 * @param plantname the plantname to set
+	 */
+	public void setPlantname(String plantname) {
+		this.plantname = plantname;
+	}
+
+	/**
+	 * @return the cost
+	 */
+	public int getCost() {
+		return cost;
+	}
+
+	/**
+	 * @param cost the cost to set
+	 */
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+	
+	
 }

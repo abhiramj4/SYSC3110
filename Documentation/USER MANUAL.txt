@@ -8,20 +8,10 @@ Zombies have invaded your neighborhood. You've been developing cutting-edge biol
 
 RULES
 -----
-You start off with 150 sun and very few turns, you will be given some more sun as it is daylight. This sun can be used to buy plants and plant them on your lawn. Sunflowers will provide you with more sunlight as the turns go, whereas peashooters are your troops on the battlefield and will shoot any zombie that enters their row on the lawn. Keep in mind that your plants have limited health, so if the zombies get to them, they will start eating the plants until they are gone at which point the zombies can continue advancing towards your house. If even one zombie makes it to your house (at coordinat x = 0 so the first row of lawn), you lose the game. Make good use of your sun and invest wisely to ensure that you can defend yourself and your property from these zombies!
+You start off with 50 sun and very few turns, you will be given some more sun as it is daylight. This sun can be used to buy plants and plant them on your lawn. Sunflowers will provide you with more sunlight as the turns go, whereas peashooters are your troops on the battlefield and will shoot any zombie that enters their row on the lawn. Keep in mind that your plants have limited health, so if the zombies get to them, they will start eating the plants until they are gone at which point the zombies can continue advancing towards your house. If even one zombie makes it to your house (at coordinate x = 0 so the first row of lawn), you lose the game. Make good use of your sun and invest wisely to ensure that you can defend yourself and your property from these zombies!
 
 
-VALID COMMANDS
---------------
-On your turn, these are the valid commands:
-
-"Exit": This will exit you from the game. There is no save feature on this version of the game.
-
-"Nothing": This means you don't want to do anything or you can't do anything (not enough sun), so the turn will advance.
-
-"Advance": This means you have finished what you want to do for this turn and you are ready to advance to the next round of the level
-
-"Plant <PLANTTYPE> at (<x>, <y>)": This command can be used to plant one of the available plants (it will be notified at the beginning of each round which plants are available) at the coordinate (x,y).
-
-PLEASE NOTE: Commands should be made correctly, incorrect commands/spelling mistakes can lead to crashes so please ensure correct commands.
+YOUR TURN:
+----------
+On your turn, you can plant as many plants as you want (as long as the cost permits). Invest well in sunflowers so that you have enough sun to buy peashooters.
 

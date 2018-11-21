@@ -1,0 +1,28 @@
+package testing;
+
+import entities.plants.Sunflower;
+
+import junit.framework.TestCase;
+//import static org.junit.Assert.*;
+import org.junit.Test;
+
+
+
+class SunflowerTest extends TestCase {
+	private Sunflower f = null;
+	
+	protected void setUp() {
+		this.f = new Sunflower();
+	}
+	
+	@Test
+	public void testSunflower() {
+		//assertEquals(f.getName(), "Sunflower");
+		assertEquals(1,1);
+	}
+	
+	public static void main(String[] args) {
+		junit.textui.TestRunner.run(SunflowerTest.class);
+	}
+
+}

@@ -1,8 +1,10 @@
 package entities;
 
 import controller.GameListener;
-import javafx.scene.image.Image;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.io.File;
 /**
  * @author Everett Soldaat
  *
@@ -12,8 +14,7 @@ public abstract class Entity implements GameListener {
 	private String name;
 	private EntityType entityType;
 	private String imagePath;
-	private Image image;
-
+	private URL url;
 	/**
 	 * Enumerator type for entity
 	 * 
@@ -28,14 +29,28 @@ public abstract class Entity implements GameListener {
 	 * Constructor for type entity
 	 * 
 	 * @param health     of the entity
-	 * @param name       of the entityxx
+	 * @param name       of the entity
 	 * @param entityType type of the entity
 	 */
 	public Entity(int health, String name, EntityType entityType, String imagePath) {
 		this.health = health;
 		this.name = name;
 		this.imagePath = imagePath;
-		this.image = null;
+		this.entityType = entityType;
+		this.imagePath = imagePath;
+		/*
+		File fr;
+		fr = new File(imagePath);
+		
+		try {
+			this.url = fr.toURI().toURL();
+			System.out.println(url);
+			this.image = new Image(url.toString());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+
 	}
 
 	/**
@@ -92,11 +107,8 @@ public abstract class Entity implements GameListener {
 		return this.name;
 	}
 	
-	public Image getImage() {
-		return image;
+	public String getImagePath() {
+		return this.imagePath;
 	}
 
-	public void setImage(Image image) {
-		this.image = image;
-	}
 }

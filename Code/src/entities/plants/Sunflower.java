@@ -16,12 +16,13 @@ public class Sunflower extends Plant {
 	private final static int SUN = 25;
 	private final static int HEALTH = 4;
 	private Integer tick;
+	private final static String IMAGEPATH = "resources/images/plants/sunflower.png";
 
 	/**
 	 * Constructor for sunflowers
 	 */
 	public Sunflower() {
-		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH);
+		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH, IMAGEPATH);
 	}
 
 	/**

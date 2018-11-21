@@ -8,16 +8,17 @@ import controller.Game;
  *
  */
 public class BaseZombie extends Zombie {
-	private final static int HEALTH = 3;
+	private final static int HEALTH = 4;
 	private final static String NAME = "BZMB";
 	private final static int DAMAGE = 1;
 	private final static int MOVEMENT = 1;
+	private final static String IMAGEPATH = "resources/images/zombies/zombie_tutorial.png";
 
 	/**
 	 * Base zombie constructor
 	 */
 	public BaseZombie() {
-		super(HEALTH, NAME, DAMAGE);
+		super(HEALTH, NAME, DAMAGE, IMAGEPATH);
 	}
 
 	/**
@@ -37,12 +38,17 @@ public class BaseZombie extends Zombie {
 	public void update(Game g, String type) {
 		if (type == "TICK") {
 			Coordinate curr = this.getPosition();
-			Coordinate toCheck = new Coordinate(curr.getX() - 1, curr.getY());
-
-			if (g.getGameboard().getSquare(toCheck).isEmpty() && !(getPosition().getX() == 0)) {
-				System.out.println("move");
+			Coordinate toCheck;
+			if(curr.getX() == 0) {
+				toCheck = curr;
+			}else {
+				toCheck = new Coordinate(curr.getX() - 1, curr.getY());
+			}
+			
+			if (g.getGameboard().getSquare(toCheck).isEmpty() && (curr.getX() != 0)) {
 				g.getGameboard().move(curr, new Coordinate(curr.getX() - 1, curr.getY()));
 			}
+			
 			if (g.getGameboard().getSquare(toCheck).getEntity().getClass().getSuperclass().getName().toLowerCase()
 					.contains("plant")) {
 				System.out.println("attack");
