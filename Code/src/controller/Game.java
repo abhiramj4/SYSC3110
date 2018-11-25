@@ -323,7 +323,7 @@ public class Game extends Application {
 				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE && this.gameboard.getSquare(curr).getLawnMower()) {
 					
 					//mow over all zombies in this
-					
+					mowOver(curr.getY());
 					
 				} else {
 					GameOver(false);
@@ -347,12 +347,13 @@ public class Game extends Application {
 		}
 	}
 	
-	public void mowOver(int x, int y) {
+	public void mowOver(int y) {
 		//mow over this x and y lane
+		Coordinate curr;
 		
-			for(int i = x; i < 5; i++) {
+			for(int i = 0 ; i < 9; i++) {
 				
-				Coordinate curr = new Coordinate(i,y);
+				curr = new Coordinate(i,y);
 				if(!this.gameboard.getSquare(curr).isEmpty() && this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE)
 				getGameboard().removeEntity(this, curr);
 			}
