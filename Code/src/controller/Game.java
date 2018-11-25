@@ -347,7 +347,17 @@ public class Game extends Application {
 		}
 	}
 	
-	public void mowOver() {}
+	public void mowOver(int x, int y) {
+		//mow over this x and y lane
+		
+			for(int i = x; i < 5; i++) {
+				
+				Coordinate curr = new Coordinate(i,y);
+				if(!this.gameboard.getSquare(curr).isEmpty() && this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE)
+				getGameboard().removeEntity(this, curr);
+			}
+		
+	}
 
 	/**
 	 * Get how much sun the player has
