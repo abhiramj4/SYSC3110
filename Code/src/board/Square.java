@@ -23,7 +23,8 @@ public class Square extends Button {
 	private Entity entity;
 	private SquareType type;
 	private Image image;
-
+	private boolean lawnMower;
+	
 	/**
 	 * Constructor for class square
 	 * 
@@ -168,5 +169,13 @@ public class Square extends Button {
 		} else {
 			return this.getEntity().toString();
 		}
+	}
+	
+	public void setLawnMower() {
+		this.lawnMower = true;
+	}
+	
+	public boolean getLawnMower() {
+		return this.lawnMower;
 	}
 }

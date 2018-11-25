@@ -120,6 +120,7 @@ public class Game extends Application {
 		this.gameboard = mainboard;
 		// gameListeners.add(this.getGameboard().getSquare(new Coordinate(8,
 		// 4)).getEntity());
+		initLawnMower(); //set all lawn mower
 	}
 
 	// view
@@ -301,6 +302,12 @@ public class Game extends Application {
 		// update sun and shoot
 		tick();
 	}
+	
+	public void initLawnMower() {
+		for(int j = 0; j < 5; j++) {
+			gameboard.getBoard()[0][j].setLawnMower(); //set the lawn mower
+		}
+	}
 
 	/**
 	 * Check if the game is over
@@ -312,7 +319,13 @@ public class Game extends Application {
 			Coordinate curr = new Coordinate(0, i);
 
 			if (!(this.gameboard.getSquare(curr).isEmpty())) {
-				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE) {
+				//there's a zombie AND a lawn mower
+				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE && this.gameboard.getSquare(curr).getLawnMower()) {
+					
+					//mow over all zombies in this
+					
+					
+				} else {
 					GameOver(false);
 				}
 			}
@@ -333,6 +346,8 @@ public class Game extends Application {
 			GameOver(true);
 		}
 	}
+	
+	public void mowOver() {}
 
 	/**
 	 * Get how much sun the player has
