@@ -33,6 +33,12 @@ public class ConeheadZombie extends Zombie {
 		return NAME;
 	}
 	
+	
+	/**
+	 * Update method for the Conehead Zombie
+	 * 
+	 * Every tick the zombie moves forward if there is room to move, or attacks a plant.
+	 */
 	@Override
 	public void update(Game g, String type) {
 		if (type == "TICK") {
