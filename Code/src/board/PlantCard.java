@@ -12,6 +12,8 @@ public class PlantCard extends Button {
 
 	private final static String SUNIMAGEPATH = "resources/images/plants/sunflower.png";
 	private final static String PEAIMAGEPATH = "resources/images/plants/peashooter.png";
+	private final static String CHERRYBOMBIMAGEPATH = "resources/images/plants/cherrybomb.png";
+	private final static String WALLNUTIMAGEPATH = "resources/images/plants/wallnut.png";
 	private String plantname;
 	private int cost;
 	private Image image;
@@ -67,6 +69,16 @@ public class PlantCard extends Button {
 				this.setGraphic(new ImageView(this.image));
 			} else if (type.toLowerCase().contains("peashooter")) {
 				fr = new File(PEAIMAGEPATH);
+				url = fr.toURI().toURL();
+				this.image = new Image(url.toString(), 50, 50, false, false);
+				this.setGraphic(new ImageView(this.image));
+			}  else if (type.toLowerCase().contains("cherrybomb")) {
+				fr = new File(CHERRYBOMBIMAGEPATH);
+				url = fr.toURI().toURL();
+				this.image = new Image(url.toString(), 50, 50, false, false);
+				this.setGraphic(new ImageView(this.image));
+			}  else if (type.toLowerCase().contains("wallnut")) {
+				fr = new File(WALLNUTIMAGEPATH);
 				url = fr.toURI().toURL();
 				this.image = new Image(url.toString(), 50, 50, false, false);
 				this.setGraphic(new ImageView(this.image));
