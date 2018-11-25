@@ -325,6 +325,9 @@ public class Game extends Application {
 					
 					//mow over all zombies in this
 					this.gameboard.getSquare(curr).setLawnMower(false);
+					Alert alert = new Alert(AlertType.INFORMATION, "A lawn mower passes through the lane",
+							ButtonType.OK);
+					alert.showAndWait();
 					mowOver(curr.getY());
 					
 				} else {
