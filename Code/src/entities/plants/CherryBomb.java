@@ -72,5 +72,9 @@ public class CherryBomb extends Plant {
 		temp = new Coordinate(getPosition().getX() - 1, getPosition().getY() - 1);
 		attack(g, temp);
 		
+		/* Remove the Cherry Bomb after is has exploded */
+		temp = new Coordinate(getPosition().getX(), getPosition().getY());
+		g.getGameboard().removeEntity(g, temp);
+		
 	}
 }
