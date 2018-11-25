@@ -136,6 +136,7 @@ public class Game extends Application {
 			// temp.setGraphic(new Image(Sunflower.getImagePath()));
 			cards.getChildren().add(temp);
 		}
+		this.levelAlert(this.currlevel);
 
 	}
 
@@ -145,6 +146,10 @@ public class Game extends Application {
 		gameoverCheck();
 		update();
 
+	}
+	
+	private void levelAlert(int level) {
+		Alert alert = new Alert(AlertType.INFORMATION, "Level " + currlevel, ButtonType.OK);
 	}
 
 	public void boardListenerInit(Board board) {
