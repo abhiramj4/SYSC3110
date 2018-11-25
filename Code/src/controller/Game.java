@@ -132,6 +132,7 @@ public class Game extends Application {
 
 		for (int i = 0; i < availablePlants.length; i++) {
 			PlantCard temp = new PlantCard(availablePlants[i], this.plantCost.get(availablePlants[i]));
+			temp.setImage(availablePlants[i].toString());
 			initCardListeners(temp);
 			// temp.setGraphic(new Image(Sunflower.getImagePath()));
 			cards.getChildren().add(temp);
