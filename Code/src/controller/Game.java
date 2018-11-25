@@ -35,7 +35,7 @@ public class Game extends Application {
 	private int sun;
 	private List<GameListener> gameListeners;
 	private HashMap<String, Integer> plantCost;
-
+	private Board lastBoard; //to save last board
 	private Level level;
 	private int[] zombieSpawn;
 
@@ -132,19 +132,25 @@ public class Game extends Application {
 
 		for (int i = 0; i < availablePlants.length; i++) {
 			PlantCard temp = new PlantCard(availablePlants[i], this.plantCost.get(availablePlants[i]));
+			temp.setImage(availablePlants[i].toString());
 			initCardListeners(temp);
 			// temp.setGraphic(new Image(Sunflower.getImagePath()));
 			cards.getChildren().add(temp);
 		}
+		this.levelAlert(this.currlevel);
 
 	}
 
 	public void runRound() {
 		// call this every time a button is clicked
-
+		this.lastBoard = this.gameboard;
 		gameoverCheck();
 		update();
 
+	}
+	
+	private void levelAlert(int level) {
+		Alert alert = new Alert(AlertType.INFORMATION, "Level " + currlevel, ButtonType.OK);
 	}
 
 	public void boardListenerInit(Board board) {
@@ -173,6 +179,19 @@ public class Game extends Application {
 
 		});
 
+	}
+	
+	//function to init the Undo button
+	public void initUndoButton(Button undo) {
+		undo.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				gameboard = lastBoard;
+			}
+			
+		});
 	}
 
 	public void initTileListeners(Square square, Board board) {

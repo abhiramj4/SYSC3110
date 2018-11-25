@@ -1,17 +1,27 @@
 package board;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class PlantCard extends Button {
 
+	private final static String SUNIMAGEPATH = "resources/images/plants/sunflower.png";
+	private final static String PEAIMAGEPATH = "resources/images/plants/peashooter.png";
 	private String plantname;
 	private int cost;
+	private Image image;
 
 	public PlantCard(String plantname, int cost) {
 		this.setMinSize(100, 150);
 		this.plantname = plantname;
 		this.cost = cost;
-		this.setText(plantname + "\n" + cost);
+		this.setText("\n" + cost);
+
 	}
 
 	/**
@@ -27,6 +37,7 @@ public class PlantCard extends Button {
 	public void setPlantname(String plantname) {
 		this.plantname = plantname;
 	}
+	
 
 	/**
 	 * @return the cost
@@ -42,5 +53,30 @@ public class PlantCard extends Button {
 		this.cost = cost;
 	}
 	
-	
+	public void setImage(String type) {
+		File fr;
+		URL url;
+		//fr = new File(entity.getImagePath());
+		
+		try {
+			
+			if(type.toLowerCase().contains("sunflower")) {
+				fr = new File(SUNIMAGEPATH);
+				url = fr.toURI().toURL();
+				this.image = new Image(url.toString(), 50, 50, false, false);
+				this.setGraphic(new ImageView(this.image));
+			} else if (type.toLowerCase().contains("peashooter")) {
+				fr = new File(PEAIMAGEPATH);
+				url = fr.toURI().toURL();
+				this.image = new Image(url.toString(), 50, 50, false, false);
+				this.setGraphic(new ImageView(this.image));
+			}
+			//URL url = fr.toURI().toURL();
+			
+			
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
