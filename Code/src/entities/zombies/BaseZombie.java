@@ -32,23 +32,24 @@ public class BaseZombie extends Zombie {
 	/**
 	 * Update method for the base zombie
 	 * 
-	 * On every tick the zombie either moves forward (if there is room to move) or attacks (if a plant is in front)
+	 * On every tick the zombie either moves forward (if there is room to move) or
+	 * attacks (if a plant is in front)
 	 */
 	@Override
 	public void update(Game g, String type) {
 		if (type == "TICK") {
 			Coordinate curr = this.getPosition();
 			Coordinate toCheck;
-			if(curr.getX() == 0) {
+			if (curr.getX() == 0) {
 				toCheck = curr;
-			}else {
+			} else {
 				toCheck = new Coordinate(curr.getX() - 1, curr.getY());
 			}
-			
+
 			if (g.getGameboard().getSquare(toCheck).isEmpty() && (curr.getX() != 0)) {
 				g.getGameboard().move(curr, new Coordinate(curr.getX() - 1, curr.getY()));
 			}
-			
+
 			if (g.getGameboard().getSquare(toCheck).getEntity().getClass().getSuperclass().getName().toLowerCase()
 					.contains("plant")) {
 				System.out.println("attack");
