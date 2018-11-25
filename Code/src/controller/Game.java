@@ -35,7 +35,7 @@ public class Game extends Application {
 	private int sun;
 	private List<GameListener> gameListeners;
 	private HashMap<String, Integer> plantCost;
-
+	private Board lastBoard; //to save last board
 	private Level level;
 	private int[] zombieSpawn;
 
@@ -141,7 +141,7 @@ public class Game extends Application {
 
 	public void runRound() {
 		// call this every time a button is clicked
-
+		this.lastBoard = this.gameboard;
 		gameoverCheck();
 		update();
 
@@ -173,6 +173,19 @@ public class Game extends Application {
 
 		});
 
+	}
+	
+	//function to init the Undo button
+	public void initUndoButton(Button undo) {
+		undo.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				gameboard = lastBoard;
+			}
+			
+		});
 	}
 
 	public void initTileListeners(Square square, Board board) {
