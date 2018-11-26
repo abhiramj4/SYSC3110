@@ -1,0 +1,27 @@
+USER MANUAL
+-----------
+
+INTRO
+-----
+
+This is a "tower" defense game where homeowners use a variety of different plants to prevent an army of zombies from entering their house and eating their brains
+
+
+This is a turn based game, not real time. Each 'turn', you can call multiple commands as to what you want to do.
+
+
+
+RULES
+
+The game is set in the player's lawn, which is divided into a 4 x 8 grid
+
+Zombies move along lanes and towards the player's house, they must be defeated using plants.
+
+Planting plants costs sun, which varies between plants. Sun is recieved through the sunflower plant, and is also recieved periodically 
+
+Once a zombie reaches your last lawn tile, the game is over - your objective is to prevent this!!
+
+VALID COMMANDS
+
+To plant, follow this command: Plant <PLANTTYPE> at (<x>, <y>). As of now, you may only plant a sunflower and a peashooter. You may only use an x value from 0 to 8 and a y value from 0 to 4. The command must also be followed exactly, or the command will not be registered. 
+
