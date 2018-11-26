@@ -321,18 +321,21 @@ public class Game extends Application {
 
 			if (!(this.gameboard.getSquare(curr).isEmpty())) {
 				//there's a zombie AND a lawn mower
-				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE && this.gameboard.getSquare(curr).getLawnMower()) {
+				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE) {
 					
-					//mow over all zombies in this
-					this.gameboard.getSquare(curr).setLawnMower(false);
-					Alert alert = new Alert(AlertType.INFORMATION, "A lawn mower passes through the lane",
-							ButtonType.OK);
-					alert.showAndWait();
-					mowOver(curr.getY());
-					
-				} else {
+					if(this.gameboard.getSquare(curr).getLawnMower()) {
+						this.gameboard.getSquare(curr).setLawnMower(false);
+						Alert alert = new Alert(AlertType.INFORMATION, "A lawn mower passes through the lane",
+								ButtonType.OK);
+						alert.showAndWait();
+						mowOver(curr.getY());
+						return;
+					}
 					GameOver(false);
-				}
+					//mow over all zombies in this
+					
+					
+				} 
 			}
 		}
 
