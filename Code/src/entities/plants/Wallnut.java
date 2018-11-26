@@ -12,7 +12,7 @@ public class Wallnut extends Plant {
 
 	private final static String NAME = "WALL";
 	private final static int DAMAGE = 0;
-	private final static int COOLDOWN = 0;
+	private final static int COOLDOWN = 1;
 	private final static int COST = 50;
 	private final static int HEALTH = 15;
 	private final static String IMAGEPATH = "resources/images/plants/wallnut.png";

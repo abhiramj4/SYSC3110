@@ -45,7 +45,7 @@ public class SquareTest extends TestCase{
 		assertTrue(square.isEmpty());
 		square.setType(SquareType.SPAWN);
 		assertEquals(square.getType(),SquareType.SPAWN);
-		square.setLawnMower();
+		square.setLawnMower(true);
 		assertTrue(square.getLawnMower());
 	}
 	

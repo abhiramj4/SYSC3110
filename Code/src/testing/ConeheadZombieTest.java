@@ -1,7 +1,6 @@
 package testing;
 
 import entities.Entity.EntityType;
-import entities.zombies.BaseZombie;
 import entities.zombies.ConeheadZombie;
 
 import static org.junit.Assert.assertEquals;
