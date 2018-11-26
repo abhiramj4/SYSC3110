@@ -171,8 +171,8 @@ public class Square extends Button {
 		}
 	}
 	
-	public void setLawnMower() {
-		this.lawnMower = true;
+	public void setLawnMower(Boolean set) {
+		this.lawnMower = set;
 	}
 	
 	public boolean getLawnMower() {

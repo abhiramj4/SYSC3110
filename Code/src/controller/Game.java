@@ -113,14 +113,15 @@ public class Game extends Application {
 		primaryStage.setTitle("PLANTS VS ZOMBIES: THE BOOTLEG EDITION");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		// mainboard.addEntity(new BaseZombie(), new Coordinate(8, 4));
+		
 
 		boardListenerInit(mainboard);
 		initNextRoundListener(); // init the next round button
 		this.gameboard = mainboard;
-		// gameListeners.add(this.getGameboard().getSquare(new Coordinate(8,
-		// 4)).getEntity());
+		
 		initLawnMower(); //set all lawn mower
+		
+	
 	}
 
 	// view
@@ -305,7 +306,7 @@ public class Game extends Application {
 	
 	public void initLawnMower() {
 		for(int j = 0; j < 5; j++) {
-			gameboard.getBoard()[0][j].setLawnMower(); //set the lawn mower
+			gameboard.getBoard()[0][j].setLawnMower(true); //set the lawn mower
 		}
 	}
 
@@ -323,7 +324,11 @@ public class Game extends Application {
 				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE && this.gameboard.getSquare(curr).getLawnMower()) {
 					
 					//mow over all zombies in this
-					
+					this.gameboard.getSquare(curr).setLawnMower(false);
+					Alert alert = new Alert(AlertType.INFORMATION, "A lawn mower passes through the lane",
+							ButtonType.OK);
+					alert.showAndWait();
+					mowOver(curr.getY());
 					
 				} else {
 					GameOver(false);
@@ -347,12 +352,13 @@ public class Game extends Application {
 		}
 	}
 	
-	public void mowOver(int x, int y) {
+	public void mowOver(int y) {
 		//mow over this x and y lane
+		Coordinate curr;
 		
-			for(int i = x; i < 5; i++) {
+			for(int i = 0 ; i < 9; i++) {
 				
-				Coordinate curr = new Coordinate(i,y);
+				curr = new Coordinate(i,y);
 				if(!this.gameboard.getSquare(curr).isEmpty() && this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE)
 				getGameboard().removeEntity(this, curr);
 			}
