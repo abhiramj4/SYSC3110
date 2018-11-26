@@ -57,6 +57,9 @@ public class Game extends Application {
 
 	private Stage primaryStage;
 
+	private int mowerNum;
+	private int score;
+	
 	/**
 	 * Different states of the game
 	 *
@@ -121,6 +124,8 @@ public class Game extends Application {
 		
 		initLawnMower(); //set all lawn mower
 		
+		score = 0;
+		mowerNum = 4;
 	
 	}
 
@@ -321,18 +326,27 @@ public class Game extends Application {
 
 			if (!(this.gameboard.getSquare(curr).isEmpty())) {
 				//there's a zombie AND a lawn mower
-				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE && this.gameboard.getSquare(curr).getLawnMower()) {
+				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE) {
 					
+					if(this.gameboard.getSquare(curr).getLawnMower()) {
+						this.gameboard.getSquare(curr).setLawnMower(false);
+						Alert alert = new Alert(AlertType.INFORMATION, "A lawn mower passes through the lane",
+								ButtonType.OK);
+						alert.showAndWait();
+						mowOver(curr.getY());
+						mowerNum--;
+						return;
+					}
+					GameOver(false);
 					//mow over all zombies in this
-					this.gameboard.getSquare(curr).setLawnMower(false);
-					Alert alert = new Alert(AlertType.INFORMATION, "A lawn mower passes through the lane",
-							ButtonType.OK);
-					alert.showAndWait();
-					mowOver(curr.getY());
 					
+
 				} else if(this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE){
 					GameOver(false);
 				}
+					
+				 
+
 			}
 		}
 
@@ -442,7 +456,15 @@ public class Game extends Application {
 		// If the gameover method was called with a true value, that means the user won
 		// and so the following alert is shown
 		if (win) {
-			Alert alert = new Alert(AlertType.INFORMATION, "Congratulations, you won. More levels to come.",
+			score += 100;
+			if(mowerNum == 4) {
+				score += 50;
+			} else if (mowerNum == 0){
+				score += 10;
+			} else {
+				score += 10;
+			}
+			Alert alert = new Alert(AlertType.INFORMATION, "Congratulations, you won. Your total score is " + score,
 					ButtonType.OK);
 			alert.showAndWait();
 			advance.setDisable(true);
