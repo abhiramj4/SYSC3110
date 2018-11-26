@@ -1,10 +1,17 @@
 package testing;
 
 import controller.Game;
+
 import junit.framework.TestCase;
 import board.Coordinate;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+/**
+ * 
+ * @author Everett Soldaat
+ *
+ */
 
 public class BoardTest extends TestCase{
 

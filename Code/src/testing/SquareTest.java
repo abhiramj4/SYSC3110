@@ -10,6 +10,12 @@ import board.Square;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * 
+ * @author Everett Soldaat
+ *
+ */
+
 public class SquareTest extends TestCase{
 	
 	Coordinate c;
