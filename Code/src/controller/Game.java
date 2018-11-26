@@ -252,10 +252,10 @@ public class Game extends Application {
 		// Checking to see if the user does not have enough sun to purchase the desired
 		// plant, if so an alert pops up
 		if (getSun() < selectedCard.getCost()) {
-			Alert alert = new Alert(AlertType.INFORMATION, "You don't have enough sun! ", ButtonType.OK);
+			Alert alert = new Alert(AlertType.INFORMATION, "You don't have enough sun! ", ButtonType.OK, ButtonType.CANCEL);
 			alert.showAndWait();
 
-			if (alert.getResult() == ButtonType.OK) {
+			if (alert.getResult() == ButtonType.OK || alert.getResult() == ButtonType.CANCEL) {
 				return;
 			}
 		}
@@ -330,7 +330,7 @@ public class Game extends Application {
 					alert.showAndWait();
 					mowOver(curr.getY());
 					
-				} else {
+				} else if(this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE){
 					GameOver(false);
 				}
 			}

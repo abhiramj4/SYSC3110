@@ -6,4 +6,20 @@
 	 "zombies": [ "BaseZombie"]
 	 "spawnPoints":[0,4,3,2,1]
 	}
+	
+	{ "levelNum": 2,
+	 "rounds": 15,
+	 "numZombies": 8, 
+	 "plants": [ "Sunflower", "Peashooter, CherryBomb"], 
+	 "zombies": [ "BaseZombie, ConeheadZombie"]
+	 "spawnPoints":[0,4,3,2,1,4,1,0]
+	}
+	
+	{ "levelNum": 3,
+	 "rounds": 20,
+	 "numZombies": 12, 
+	 "plants": [ "Sunflower", "Peashooter, CherryBomb, Wallnut"], 
+	 "zombies": [ "BaseZombie, ConeheadZombie, Flagzombie"]
+	 "spawnPoints":[0,4,3,2,1,1,2,3,4,0,4,1]
+	}
 ]
