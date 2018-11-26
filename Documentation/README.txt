@@ -6,7 +6,6 @@ GENERAL USAGE NOTES
 -------------------
 - This text based version of plants vs. zombies is turn-based. Each turn you can choose between various commands and advance turns accordingly.
 - There is only one level, good luck though it's not easy
-- Once the game is run, there will be a lot of text before the game itself. This text will instruct you on how to play the game and give you some background information (although the manual is a better resource).
 
 DELIVERABLES
 ------------
@@ -26,15 +25,13 @@ ROADMAP AHEAD
 -------------
 Must haves:
 - Code needs to be cleaned up a lot.
-- More levels must be added, perhaps a bar that shows you how far into the current level you are
-- All requriements for milestone 3
+- All requriements for milestone 4
 - A lot of hardcoded stuff needs to be automated (plants/zombies)
 - We want to have the sun and peas (from the peashooter) to be their own objects that show up on the screen
 
 Nice to haves:
 - More formatting on the UI (buttons/gameboard, etc)
 - A menu with play/about/controls
-- Lawnmowers
 - Nicer plant cards
 - Sound effects
 - Realtime version
