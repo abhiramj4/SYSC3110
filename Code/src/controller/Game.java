@@ -43,7 +43,9 @@ public class Game extends Application {
 	private int[] zombieSpawn;
 
 	private int numZombies;
-
+	
+	private int roundTick = 0; //delete this
+	
 	private int tick;
 
 	private static final int HEIGHT = 700;
@@ -125,6 +127,7 @@ public class Game extends Application {
 		initNextRoundListener(); // init the next round button
 		this.gameboard = mainboard;
 
+		this.gameStates.add(gameboard);
 		initLawnMower(); // set all lawn mower
 
 		score = 0;
@@ -153,8 +156,10 @@ public class Game extends Application {
 
 	public void runRound() {
 		// call this every time a button is clicked
-		this.lastBoard = this.gameboard;
-		this.gameStates.add(this.lastBoard); // add the last game state to the list of states
+		Board lastBoard = new Board();
+		lastBoard = this.gameboard;
+		//this.lastBoard = this.gameboard;
+		this.gameStates.add(lastBoard); // add the last game state to the list of states
 		
 		/**
 		 * When the game starts the first thing in the gameStates linked list is
@@ -167,6 +172,10 @@ public class Game extends Application {
 		
 		gameoverCheck();
 		update();
+	//	roundTick++;
+	//	if(roundTick % 2 == 0) {
+	//		undoTest();
+	//	}
 
 	}
 
@@ -215,6 +224,27 @@ public class Game extends Application {
 			}
 
 		});
+	}
+	
+	public void redoTest() {
+		// TODO Auto-generated method stub
+		if(gameStates.indexOf(gameboard)!= gameStates.indexOf(gameStates.getLast())) {
+			//if the current game states is not the index of the tail state
+			gameboard = gameStates.get(gameStates.indexOf(gameboard) + 1);
+		} else {
+			//else you can't so alert
+
+			Alert alert = new Alert(AlertType.INFORMATION, "Can't redo again! You're at the current board", ButtonType.OK);
+			alert.showAndWait();
+
+			if (alert.getResult() == ButtonType.OK) {
+				return;
+			}
+		}
+	}
+	
+	public void undoTest() {
+		gameboard = gameStates.getFirst();
 	}
 
 	//function to init the redo button
