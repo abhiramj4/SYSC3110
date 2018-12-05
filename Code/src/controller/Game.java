@@ -65,7 +65,7 @@ public class Game extends Application {
 	 *
 	 */
 	public enum State {
-		ABOUT, CONTROLS, PLAY, SETTINGS, PROFILES, MENU
+		ABOUT, CONTROLS, PLAY, SETTINGS, MENU, BUILDER
 	};
 
 	/**
