@@ -35,7 +35,7 @@ public class Game extends Application {
 	private int sun;
 	private List<GameListener> gameListeners;
 	private HashMap<String, Integer> plantCost;
-	private Board lastBoard; //to save last board
+	private Board lastBoard; // to save last board
 	private Level level;
 	private int[] zombieSpawn;
 
@@ -59,7 +59,7 @@ public class Game extends Application {
 
 	private int mowerNum;
 	private int score;
-	
+
 	/**
 	 * Different states of the game
 	 *
@@ -116,17 +116,16 @@ public class Game extends Application {
 		primaryStage.setTitle("PLANTS VS ZOMBIES: THE BOOTLEG EDITION");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		
 
 		boardListenerInit(mainboard);
 		initNextRoundListener(); // init the next round button
 		this.gameboard = mainboard;
-		
-		initLawnMower(); //set all lawn mower
-		
+
+		initLawnMower(); // set all lawn mower
+
 		score = 0;
 		mowerNum = 4;
-	
+
 	}
 
 	// view
@@ -155,7 +154,7 @@ public class Game extends Application {
 		update();
 
 	}
-	
+
 	private void levelAlert(int level) {
 		Alert alert = new Alert(AlertType.INFORMATION, "Level " + currlevel, ButtonType.OK);
 	}
@@ -187,8 +186,8 @@ public class Game extends Application {
 		});
 
 	}
-	
-	//function to init the Undo button
+
+	// function to init the Undo button
 	public void initUndoButton(Button undo) {
 		undo.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -197,7 +196,7 @@ public class Game extends Application {
 				// TODO Auto-generated method stub
 				gameboard = lastBoard;
 			}
-			
+
 		});
 	}
 
@@ -257,7 +256,8 @@ public class Game extends Application {
 		// Checking to see if the user does not have enough sun to purchase the desired
 		// plant, if so an alert pops up
 		if (getSun() < selectedCard.getCost()) {
-			Alert alert = new Alert(AlertType.INFORMATION, "You don't have enough sun! ", ButtonType.OK, ButtonType.CANCEL);
+			Alert alert = new Alert(AlertType.INFORMATION, "You don't have enough sun! ", ButtonType.OK,
+					ButtonType.CANCEL);
 			alert.showAndWait();
 
 			if (alert.getResult() == ButtonType.OK || alert.getResult() == ButtonType.CANCEL) {
@@ -308,10 +308,10 @@ public class Game extends Application {
 		// update sun and shoot
 		tick();
 	}
-	
+
 	public void initLawnMower() {
-		for(int j = 0; j < 5; j++) {
-			gameboard.getBoard()[0][j].setLawnMower(true); //set the lawn mower
+		for (int j = 0; j < 5; j++) {
+			gameboard.getBoard()[0][j].setLawnMower(true); // set the lawn mower
 		}
 	}
 
@@ -325,10 +325,10 @@ public class Game extends Application {
 			Coordinate curr = new Coordinate(0, i);
 
 			if (!(this.gameboard.getSquare(curr).isEmpty())) {
-				//there's a zombie AND a lawn mower
+				// there's a zombie AND a lawn mower
 				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE) {
-					
-					if(this.gameboard.getSquare(curr).getLawnMower()) {
+
+					if (this.gameboard.getSquare(curr).getLawnMower()) {
 						this.gameboard.getSquare(curr).setLawnMower(false);
 						Alert alert = new Alert(AlertType.INFORMATION, "A lawn mower passes through the lane",
 								ButtonType.OK);
@@ -338,14 +338,11 @@ public class Game extends Application {
 						return;
 					}
 					GameOver(false);
-					//mow over all zombies in this
-					
+					// mow over all zombies in this
 
-				} else if(this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE){
+				} else if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE) {
 					GameOver(false);
 				}
-					
-				 
 
 			}
 		}
@@ -365,18 +362,19 @@ public class Game extends Application {
 			GameOver(true);
 		}
 	}
-	
+
 	public void mowOver(int y) {
-		//mow over this x and y lane
+		// mow over this x and y lane
 		Coordinate curr;
-		
-			for(int i = 0 ; i < 9; i++) {
-				
-				curr = new Coordinate(i,y);
-				if(!this.gameboard.getSquare(curr).isEmpty() && this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE)
+
+		for (int i = 0; i < 9; i++) {
+
+			curr = new Coordinate(i, y);
+			if (!this.gameboard.getSquare(curr).isEmpty()
+					&& this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE)
 				getGameboard().removeEntity(this, curr);
-			}
-		
+		}
+
 	}
 
 	/**
@@ -457,9 +455,9 @@ public class Game extends Application {
 		// and so the following alert is shown
 		if (win) {
 			score += 100;
-			if(mowerNum == 4) {
+			if (mowerNum == 4) {
 				score += 50;
-			} else if (mowerNum == 0){
+			} else if (mowerNum == 0) {
 				score += 10;
 			} else {
 				score += 10;

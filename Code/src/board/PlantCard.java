@@ -39,7 +39,6 @@ public class PlantCard extends Button {
 	public void setPlantname(String plantname) {
 		this.plantname = plantname;
 	}
-	
 
 	/**
 	 * @return the cost
@@ -54,15 +53,15 @@ public class PlantCard extends Button {
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
-	
+
 	public void setImage(String type) {
 		File fr;
 		URL url;
-		//fr = new File(entity.getImagePath());
-		
+		// fr = new File(entity.getImagePath());
+
 		try {
-			
-			if(type.toLowerCase().contains("sunflower")) {
+
+			if (type.toLowerCase().contains("sunflower")) {
 				fr = new File(SUNIMAGEPATH);
 				url = fr.toURI().toURL();
 				this.image = new Image(url.toString(), 50, 50, false, false);
@@ -72,20 +71,19 @@ public class PlantCard extends Button {
 				url = fr.toURI().toURL();
 				this.image = new Image(url.toString(), 50, 50, false, false);
 				this.setGraphic(new ImageView(this.image));
-			}  else if (type.toLowerCase().contains("cherrybomb")) {
+			} else if (type.toLowerCase().contains("cherrybomb")) {
 				fr = new File(CHERRYBOMBIMAGEPATH);
 				url = fr.toURI().toURL();
 				this.image = new Image(url.toString(), 50, 50, false, false);
 				this.setGraphic(new ImageView(this.image));
-			}  else if (type.toLowerCase().contains("wallnut")) {
+			} else if (type.toLowerCase().contains("wallnut")) {
 				fr = new File(WALLNUTIMAGEPATH);
 				url = fr.toURI().toURL();
 				this.image = new Image(url.toString(), 50, 50, false, false);
 				this.setGraphic(new ImageView(this.image));
 			}
-			//URL url = fr.toURI().toURL();
-			
-			
+			// URL url = fr.toURI().toURL();
+
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

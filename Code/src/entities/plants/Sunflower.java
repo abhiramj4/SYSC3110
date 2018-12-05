@@ -26,7 +26,7 @@ public class Sunflower extends Plant {
 	}
 
 	/**
-	 * String representation of this 
+	 * String representation of this
 	 */
 	public String toString() {
 		return NAME;

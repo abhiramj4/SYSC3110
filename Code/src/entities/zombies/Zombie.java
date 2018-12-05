@@ -13,8 +13,6 @@ public abstract class Zombie extends Entity {
 	private int health;
 	private String name;
 
-
-
 	/**
 	 * Constructor of class Zombie
 	 * 

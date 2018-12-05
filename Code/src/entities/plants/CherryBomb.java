@@ -31,14 +31,14 @@ public class CherryBomb extends Plant {
 	public String toString() {
 		return this.getName();
 	}
-	
+
 	public void attack(Game g, Coordinate c) {
 		if (g.getGameboard().getSquare(c).isEmpty()) {
 
 		} else if (g.getGameboard().getSquare(c).getEntity().getClass().getSuperclass().getName().toLowerCase()
 				.contains("zombie")) {
 			int orighealth = g.getGameboard().getSquare(c).getEntity().getHealth();
-			
+
 			if ((orighealth - getDamage()) < 0) {
 				g.getGameboard().removeEntity(g, c);
 			} else {
@@ -54,11 +54,11 @@ public class CherryBomb extends Plant {
 	 */
 	@Override
 	public void update(Game g, String type) {
-		
-		Coordinate temp = new Coordinate(getPosition().getX() + 1, getPosition().getY());	
-		attack(g, temp);	
+
+		Coordinate temp = new Coordinate(getPosition().getX() + 1, getPosition().getY());
+		attack(g, temp);
 		temp = new Coordinate(getPosition().getX() - 1, getPosition().getY());
-		attack(g, temp);	
+		attack(g, temp);
 		temp = new Coordinate(getPosition().getX(), getPosition().getY() + 1);
 		attack(g, temp);
 		temp = new Coordinate(getPosition().getX(), getPosition().getY() - 1);
@@ -71,10 +71,10 @@ public class CherryBomb extends Plant {
 		attack(g, temp);
 		temp = new Coordinate(getPosition().getX() - 1, getPosition().getY() - 1);
 		attack(g, temp);
-		
+
 		/* Remove the Cherry Bomb after is has exploded */
 		temp = new Coordinate(getPosition().getX(), getPosition().getY());
 		g.getGameboard().removeEntity(g, temp);
-		
+
 	}
 }

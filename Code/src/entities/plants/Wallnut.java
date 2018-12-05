@@ -39,7 +39,6 @@ public class Wallnut extends Plant {
 	 */
 	@Override
 	public void update(Game g, String type) {
-		
+
 	}
 }
-

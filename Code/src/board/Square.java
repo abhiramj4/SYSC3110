@@ -24,7 +24,7 @@ public class Square extends Button {
 	private SquareType type;
 	private Image image;
 	private boolean lawnMower;
-	
+
 	/**
 	 * Constructor for class square
 	 * 
@@ -48,8 +48,8 @@ public class Square extends Button {
 	public Square(Coordinate coordinate, SquareType type) {
 		this.coordinate = coordinate;
 		this.type = type;
-		setMinSize(100,100);
-		setMaxSize(100,100);
+		setMinSize(100, 100);
+		setMaxSize(100, 100);
 		setImage();
 	}
 
@@ -66,7 +66,7 @@ public class Square extends Button {
 		} else {
 			File fr;
 			fr = new File(entity.getImagePath());
-			
+
 			try {
 				URL url = fr.toURI().toURL();
 				this.image = new Image(url.toString(), 100, 100, false, false);
@@ -75,7 +75,7 @@ public class Square extends Button {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 	}
 
@@ -118,7 +118,7 @@ public class Square extends Button {
 			((Zombie) entity).setPosition(this.coordinate);
 		} else if (entity instanceof Plant) {
 			((Plant) entity).setPosition(this.coordinate);
-		} 
+		}
 	}
 
 	/**
@@ -170,11 +170,11 @@ public class Square extends Button {
 			return this.getEntity().toString();
 		}
 	}
-	
+
 	public void setLawnMower(Boolean set) {
 		this.lawnMower = set;
 	}
-	
+
 	public boolean getLawnMower() {
 		return this.lawnMower;
 	}
