@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
+import java.util.LinkedList;
+
 import board.*;
 import entities.Entity.EntityType;
 import entities.plants.*;
@@ -29,6 +31,7 @@ import javafx.scene.layout.HBox;
  */
 public class Game extends Application {
 
+	private LinkedList<Board> gameStates;
 	private Board gameboard;
 	private String availablePlants[];
 	private int currlevel;
@@ -75,6 +78,7 @@ public class Game extends Application {
 	public void init() {
 
 		this.gameListeners = new ArrayList<GameListener>();
+		this.gameStates = new LinkedList<>();
 		this.sun = 50;
 		this.tick = 0;
 		this.plantCost = new HashMap<String, Integer>();
@@ -150,6 +154,17 @@ public class Game extends Application {
 	public void runRound() {
 		// call this every time a button is clicked
 		this.lastBoard = this.gameboard;
+		this.gameStates.add(this.lastBoard); // add the last game state to the list of states
+		
+		/**
+		 * When the game starts the first thing in the gameStates linked list is
+		 * The original game state, next the player makes some moves then presses run.
+		 * After that, the changed round 0 is pushed as round 0 end or round 1 start. 
+		 * Then round 1 is started, where the undo button will bring us back to the start
+		 * of round 1. If next round is pressed, then the end of round 1 or the begining of 
+		 * round 2 is pushed, so on and so forth. 
+		 */
+		
 		gameoverCheck();
 		update();
 
@@ -194,9 +209,36 @@ public class Game extends Application {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				gameboard = lastBoard;
+				
+				gameboard = gameStates.getFirst();
+				
 			}
 
+		});
+	}
+
+	//function to init the redo button
+	public void initRedoButton(Button redo) {
+		redo.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				if(gameStates.indexOf(gameboard)!= gameStates.indexOf(gameStates.getLast())) {
+					//if the current game states is not the index of the tail state
+					gameboard = gameStates.get(gameStates.indexOf(gameboard) + 1);
+				} else {
+					//else you can't so alert
+
+					Alert alert = new Alert(AlertType.INFORMATION, "Can't redo again! You're at the current board", ButtonType.OK);
+					alert.showAndWait();
+
+					if (alert.getResult() == ButtonType.OK) {
+						return;
+					}
+				}
+			}
+			
 		});
 	}
 
@@ -389,7 +431,8 @@ public class Game extends Application {
 	/**
 	 * Set how much sun the player has
 	 * 
-	 * @param sun the player will have
+	 * @param sun
+	 *            the player will have
 	 */
 	public void setSun(int sun) {
 		this.sun = sun;
@@ -417,7 +460,8 @@ public class Game extends Application {
 	/**
 	 * Set the game listeners of this game by passing a list
 	 * 
-	 * @param gameListeners that this game will have
+	 * @param gameListeners
+	 *            that this game will have
 	 */
 	public void setGameListeners(List<GameListener> gameListeners) {
 		this.gameListeners = gameListeners;
@@ -435,7 +479,8 @@ public class Game extends Application {
 	/**
 	 * Set the game board by passing a gameboard
 	 * 
-	 * @param gameboard to be set
+	 * @param gameboard
+	 *            to be set
 	 */
 	public void setGameboard(Board gameboard) {
 		this.gameboard = gameboard;
