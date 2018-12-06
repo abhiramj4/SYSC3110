@@ -1,5 +1,8 @@
 package controller;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +27,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -97,6 +106,28 @@ public class Game {
 
 		options.getChildren().addAll(advancebutton, savebutton, menubutton);
 
+		Button undobutton = new Button("");
+		undobutton.setMinSize(50, 50);
+		undobutton.setMaxSize(60, 60);
+
+		File fr = new File("resources/images/other/redo.jpg");
+
+		try {
+			URL url = fr.toURI().toURL();
+			Image image = new Image(url.toString());
+			BackgroundImage backimage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+					new BackgroundSize(50, 50, false, false, false, false));
+			undobutton.setBackground(new Background(backimage));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Button redobutton = new Button();
+
+		options.getChildren().addAll(undobutton, redobutton);
+
 		cardSelected = false;
 		levelinit();
 
@@ -116,7 +147,6 @@ public class Game {
 		gameStates.add(gameboard);
 		score = 0;
 		mowerNum = 4;
-
 	}
 
 	public void init() {
