@@ -43,7 +43,7 @@ public class Game {
 	private int numZombies;
 	private ArrayList<Board> gameStates;
 	private int tick;
-
+	
 	private static final int HEIGHT = 700;
 	private static final int WIDTH = 1200;
 	private int numCards;
@@ -232,6 +232,35 @@ public class Game {
 			
 		});
 	}
+	
+	public void initRedoListener(Button redoButton) {
+		redoButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				if(gameStates.indexOf(gameboard) == gameStates.size() - 1) {
+					Alert alert = new Alert(AlertType.INFORMATION, "Can't go forwards!", ButtonType.OK,
+							ButtonType.CANCEL);
+					alert.showAndWait();
+
+					if (alert.getResult() == ButtonType.OK || alert.getResult() == ButtonType.CANCEL) {
+						return;
+					}
+				} //at the current round
+				
+				//if our array is greater than 1 then go forward
+				else{
+					gameboard = gameStates.get(gameStates.indexOf(gameboard)+1);
+				} 
+			}
+			
+		});
+	}
+	
+	
+	
 	public void initNextRoundListener() {
 		advance.setOnAction(new EventHandler<ActionEvent>() {
 
