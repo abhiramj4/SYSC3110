@@ -40,9 +40,9 @@ public class Game {
 	private Level level;
 	private int[] zombieSpawn;
 	private static final String header = "PLANTS VS ZOMBIES: GAME";
-
+	private Button undoButton;
 	private int numZombies;
-
+	private ArrayList<Board> gameStates;
 	private int tick;
 
 	private static final int HEIGHT = 700;
@@ -70,7 +70,7 @@ public class Game {
 	public Game(Menu menu) {
 		this.menu = menu;
 		init();
-
+		gameStates = new ArrayList<Board>();
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root, WIDTH, HEIGHT);
 		this.scene = scene;
@@ -80,7 +80,11 @@ public class Game {
 		Button advancebutton = new Button("NEXT TURN");
 		advancebutton.setMinSize(120, 50);
 		this.advance = advancebutton;
-
+		
+		Button undobutton = new Button("UNDO");
+		undobutton.setMinSize(120, 50);
+		this.undoButton = undobutton;
+		
 		Button savebutton = new Button("SAVE GAME");
 		savebutton.setMinSize(120, 50);
 
@@ -96,7 +100,7 @@ public class Game {
 			}
 		});
 
-		options.getChildren().addAll(advancebutton, savebutton, menubutton);
+		options.getChildren().addAll(advancebutton, savebutton,undobutton, menubutton);
 
 		cardSelected = false;
 		levelinit();
@@ -113,7 +117,8 @@ public class Game {
 		initNextRoundListener(); // init the next round button
 
 		initLawnMower(); // set all lawn mower
-
+		
+		gameStates.add(gameboard);
 		score = 0;
 		mowerNum = 4;
 
@@ -159,6 +164,7 @@ public class Game {
 	public void runRound() {
 		// call this every time a button is clicked
 		this.lastBoard = this.gameboard;
+		this.gameStates.add(lastBoard);
 		gameoverCheck();
 		tick();
 
