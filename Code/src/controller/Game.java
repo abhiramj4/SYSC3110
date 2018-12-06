@@ -56,6 +56,7 @@ public class Game extends Application {
 	private boolean running = false;
 
 	private Stage primaryStage;
+	private Scene scene;
 
 	private int mowerNum;
 	private int score; 
@@ -67,6 +68,16 @@ public class Game extends Application {
 	public enum State {
 		ABOUT, CONTROLS, PLAY, SETTINGS, MENU, BUILDER
 	};
+	
+	public void setScene(Scene scene) {
+		this.scene = scene;
+	}
+	
+	public Scene getScene() {
+		return this.scene;
+	}
+	
+	
 
 	/**
 	 * Initialize the game
@@ -96,6 +107,7 @@ public class Game extends Application {
 		this.primaryStage = primaryStage;
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root, WIDTH, HEIGHT);
+		this.scene = scene;
 		cards = new HBox();
 
 		cardSelected = false;
@@ -114,9 +126,9 @@ public class Game extends Application {
 		BorderPane.setMargin(mainboard, new Insets(10, 10, 10, 10));
 
 		primaryStage.setTitle("PLANTS VS ZOMBIES: THE BOOTLEG EDITION");
-		primaryStage.setScene(scene);
+		primaryStage.setScene(this.scene);
 		primaryStage.show();
-
+		
 		boardListenerInit(mainboard);
 		initNextRoundListener(); // init the next round button
 		this.gameboard = mainboard;

@@ -1,130 +1,106 @@
 package controller;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import board.Board;
-import controller.LevelCreator;
-
-import javafx.application.Application;
-import javafx.application.Platform;
+import board.PlantCard;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+public class Game2 {
+	private Board gameboard;
+	private String availablePlants[];
+	private int currlevel;
+	private int sun;
+	private List<GameListener> gameListeners;
+	private HashMap<String, Integer> plantCost;
+	private Board lastBoard; // to save last board
+	private Level level;
+	private int[] zombieSpawn;
+	private static final String header = "PLANTS VS ZOMBIES: GAME";
 
-public class Game2 extends Application{
-	
+	private int numZombies;
+
+	private int tick;
+
 	private static final int HEIGHT = 700;
-	private static final int WIDTH = 1200;	
-	private Stage primaryStage;
-	
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		this.primaryStage = primaryStage;
+	private static final int WIDTH = 1200;
+	private int numCards;
+	private PlantCard plants[]; // list of cards
+	private HBox cards;
+	private Button advance;
+	private Label sunlabel;
+
+	private PlantCard selectedCard;
+	private Boolean cardSelected;
+	private boolean running = false;
+
+	private Scene scene;
+
+	private int mowerNum;
+	private int score;
+
+	public enum State {
+		ABOUT, CONTROLS, PLAY, SETTINGS, MENU, BUILDER
+	};
+
+	public Game2() {
+		init();
+		
 		BorderPane root = new BorderPane();
-		
-		EventHandler<ActionEvent> sharedHandler = new buttonEvent(this.primaryStage);
-		
-		VBox menubuttons = new VBox();	
-		
-		Button aboutbutton = new Button("ABOUT");
-		aboutbutton.setMinSize(120, 50);
-		aboutbutton.setOnAction(sharedHandler);
-		
-		Button playbutton = new Button("PLAY");
-		playbutton.setMinSize(120, 50);
-		playbutton.setOnAction(sharedHandler);
-		
-		Button controlbutton = new Button("CONTROLS");
-		controlbutton.setMinSize(120, 50);
-		controlbutton.setOnAction(sharedHandler);
-		
-		Button buildbutton = new Button("LEVEL BUILDER");
-		buildbutton.setMinSize(120, 50);
-		buildbutton.setOnAction(sharedHandler);
-		
-		menubuttons.getChildren().addAll(aboutbutton,playbutton, controlbutton, buildbutton );
-		
-		VBox.setMargin(aboutbutton, new Insets(0, 0, 10, 10));
-		VBox.setMargin(playbutton, new Insets(0, 0, 10, 10));
-		VBox.setMargin(controlbutton, new Insets(0, 0, 10, 10));
-		VBox.setMargin(buildbutton, new Insets(0, 0, 10, 10));
-		
-		BorderPane.setMargin(menubuttons, new Insets(250, 10, 10, 540));
-		
-		
-		root.setCenter(menubuttons);
 		Scene scene = new Scene(root, WIDTH, HEIGHT);
+		this.scene = scene;
+		cards = new HBox();
+
+		cardSelected = false;
+//		levelinit();
+
+		// add action listeners to cards
+		advance = new Button("NEXT TURN");
+		advance.setMinSize(50, 300);
+
+		Board mainboard = new Board();
+		mainboard.setMinSize(1000, 500);
+		root.setTop(cards);
+		root.setLeft(advance);
+		root.setCenter(mainboard);
+		BorderPane.setMargin(advance, new Insets(110, 10, 10, 20));
+		BorderPane.setMargin(mainboard, new Insets(10, 10, 10, 10));
 		
-		File fr;
-		fr = new File("resources/images/other/menuback.jpg");
-
-		try {
-			URL url = fr.toURI().toURL();
-			Image image = new Image(url.toString());
-			BackgroundImage backimage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, 
-					BackgroundPosition.DEFAULT, new BackgroundSize(WIDTH, HEIGHT, false, false, false, false));	
-			root.setBackground(new Background(backimage));
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-//		Board mainboard = new Board();
-//		root.setCenter(mainboard);
-//		BorderPane.setMargin(mainboard, new Insets(10, 10, 10, 10));
-
-		primaryStage.setTitle("PLANTS VS ZOMBIES: THE BOOTLEG EDITION");
-		primaryStage.setScene(scene);
-		primaryStage.show();
+		this.scene = scene;
 
 	}
-	
-	
-	
-	public static void main (String args[]) {
-		launch(args);
-	}
-}
 
-class buttonEvent implements EventHandler<ActionEvent> {
+	public void init() {
 
-	private Stage primaryStage;
-	public buttonEvent(Stage stage) {
-		this.primaryStage = stage;
+		this.gameListeners = new ArrayList<GameListener>();
+		this.sun = 50;
+		this.tick = 0;
+		this.plantCost = new HashMap<String, Integer>();
+
+		this.plantCost.put("Sunflower", 50);
+		this.plantCost.put("Peashooter", 100);
+
+		this.level = new Level(1);
+		this.availablePlants = level.getPlants();
+		this.currlevel = level.getLevelNum();
+		this.zombieSpawn = level.getZombieSpawn();
+		this.numZombies = this.zombieSpawn.length;
+
 	}
-    @Override
-    public void handle(ActionEvent event) {
-        
-        Object source = event.getSource();
-        Button clickedButton = (Button)source;
-        String button = clickedButton.getText();
-        
-        if(button.equals("PLAY")) {
-        	Platform.setImplicitExit(false);
-        	Game g = new Game();
-        	this.primaryStage.setScene(null);
-        } else {
-        	LevelCreator lvlCreate = new LevelCreator();
-        	this.primaryStage.setScene(lvlCreate.getLevelCreatorScene());
-        	
-        }
-    }
-    
+
+	public Scene getScene() {
+		return this.scene;
+	}
+
+	public static String getHeader() {
+		return header;
+	}
 }
