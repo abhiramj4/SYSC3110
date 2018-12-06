@@ -36,7 +36,6 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class Game {
 	private Board gameboard;
@@ -52,7 +51,7 @@ public class Game {
 	private int numZombies;
 	private ArrayList<Board> gameStates;
 	private int tick;
-	
+
 	private static final int HEIGHT = 700;
 	private static final int WIDTH = 1200;
 	private int numCards;
@@ -63,7 +62,6 @@ public class Game {
 
 	private PlantCard selectedCard;
 	private Boolean cardSelected;
-	private boolean running = false;
 
 	private Scene scene;
 
@@ -86,9 +84,13 @@ public class Game {
 		VBox options = new VBox();
 
 		Button advancebutton = new Button("NEXT TURN");
-		advancebutton.setMinSize(120, 50);
+		advancebutton.setMinSize(120, 150);
 		this.advance = advancebutton;
-		
+
+		advancebutton.setOnAction(click -> {
+			runRound();
+		});
+
 		Button savebutton = new Button("SAVE GAME");
 		savebutton.setMinSize(120, 50);
 
@@ -96,28 +98,26 @@ public class Game {
 		menubutton.setMinSize(120, 50);
 		menubutton.setOnAction(click -> {
 			try {
-				menu.primaryStage.close();
-				menu.start(new Stage());
+				menu.menuSet();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
 
-		options.getChildren().addAll(advancebutton, savebutton, menubutton);
+		HBox undoredo = new HBox();
+		Button undobutton = new Button();
+		undobutton.setMinSize(75, 75);
+		undobutton.setMaxSize(75, 75);
 
-		Button undobutton = new Button("");
-		undobutton.setMinSize(50, 50);
-		undobutton.setMaxSize(60, 60);
-
-		File fr = new File("resources/images/other/redo.jpg");
+		File fr = new File("resources/images/other/undo.jpg");
 
 		try {
 			URL url = fr.toURI().toURL();
 			Image image = new Image(url.toString());
 			BackgroundImage backimage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
 					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-					new BackgroundSize(50, 50, false, false, false, false));
+					new BackgroundSize(75, 75, false, false, false, false));
 			undobutton.setBackground(new Background(backimage));
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -125,8 +125,27 @@ public class Game {
 		}
 
 		Button redobutton = new Button();
+		redobutton.setMinSize(75, 75);
+		redobutton.setMaxSize(75, 75);
 
-		options.getChildren().addAll(undobutton, redobutton);
+		File fs = new File("resources/images/other/redo.jpg");
+
+		try {
+			URL url = fs.toURI().toURL();
+			Image image = new Image(url.toString());
+			BackgroundImage backimage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+					new BackgroundSize(75, 75, false, false, false, false));
+			redobutton.setBackground(new Background(backimage));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		undoredo.getChildren().addAll(undobutton, redobutton);
+		HBox.setMargin(undobutton, new Insets(0, 10, 0, 0));
+		options.getChildren().addAll(menubutton, savebutton, advancebutton, undoredo);
+		VBox.setMargin(undoredo, new Insets(10, 10, 10, 10));
 
 		cardSelected = false;
 		levelinit();
@@ -135,15 +154,20 @@ public class Game {
 		root.setTop(cards);
 		root.setLeft(options);
 		root.setCenter(gameboard);
-		BorderPane.setMargin(gameboard, new Insets(10, 10, 10, 10));
+
+		VBox.setMargin(menubutton, new Insets(20, 20, 10, 20));
+		VBox.setMargin(savebutton, new Insets(10, 20, 10, 20));
+		VBox.setMargin(advancebutton, new Insets(10, 20, 10, 20));
+
+		BorderPane.setMargin(cards, new Insets(0, 0, 0, 20));
+		BorderPane.setMargin(gameboard, new Insets(10, 0, 0, 0));
 
 		this.scene = scene;
 
 		boardListenerInit(gameboard);
-		initNextRoundListener(); // init the next round button
 
 		initLawnMower(); // set all lawn mower
-		
+
 		gameStates.add(gameboard);
 		score = 0;
 		mowerNum = 4;
@@ -246,9 +270,9 @@ public class Game {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				
-				if(gameStates.size() > 1) {
-					gameboard = gameStates.get(gameStates.size()-1); //last element
+
+				if (gameStates.size() > 1) {
+					gameboard = gameStates.get(gameStates.size() - 1); // last element
 				} else {
 					Alert alert = new Alert(AlertType.INFORMATION, "Can't go backwards!", ButtonType.OK,
 							ButtonType.CANCEL);
@@ -258,46 +282,6 @@ public class Game {
 						return;
 					}
 				}
-			}
-			
-		});
-	}
-	
-	public void initRedoListener(Button redoButton) {
-		redoButton.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-				if(gameStates.indexOf(gameboard) == gameStates.size() - 1) {
-					Alert alert = new Alert(AlertType.INFORMATION, "Can't go forwards!", ButtonType.OK,
-							ButtonType.CANCEL);
-					alert.showAndWait();
-
-					if (alert.getResult() == ButtonType.OK || alert.getResult() == ButtonType.CANCEL) {
-						return;
-					}
-				} //at the current round
-				
-				//if our array is greater than 1 then go forward
-				else{
-					gameboard = gameStates.get(gameStates.indexOf(gameboard)+1);
-				} 
-			}
-			
-		});
-	}
-	
-	
-	
-	public void initNextRoundListener() {
-		advance.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				runRound(); // update
 			}
 
 		});
@@ -352,7 +336,6 @@ public class Game {
 
 		this.gameListeners.add(tempPlant);
 		board.addEntity(tempPlant, square.getCoordinate());
-
 	}
 
 	/**
@@ -411,6 +394,32 @@ public class Game {
 	public void cardClick(PlantCard card) {
 		this.selectedCard = card;
 		cardSelected = true;
+	}
+	
+	public void initRedoListener(Button redoButton) {
+		redoButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				if(gameStates.indexOf(gameboard) == gameStates.size() - 1) {
+					Alert alert = new Alert(AlertType.INFORMATION, "Can't go forwards!", ButtonType.OK,
+							ButtonType.CANCEL);
+					alert.showAndWait();
+
+					if (alert.getResult() == ButtonType.OK || alert.getResult() == ButtonType.CANCEL) {
+						return;
+					}
+				} //at the current round
+				
+				//if our array is greater than 1 then go forward
+				else{
+					gameboard = gameStates.get(gameStates.indexOf(gameboard)+1);
+				} 
+			}
+			
+		});
 	}
 
 	/**
@@ -505,11 +514,11 @@ public class Game {
 	 * @return the sun the player has
 	 */
 	public int getSun() {
-		return sun;
+		return this.sun;
 	}
 
 	public void setSun(int sun) {
-		sunlabel.setText("Sun: " + Integer.valueOf(getSun()).toString());
+		sunlabel.setText("Sun: " + Integer.valueOf(sun).toString());
 	}
 
 	public List<GameListener> getGameListeners() {
