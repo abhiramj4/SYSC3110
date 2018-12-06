@@ -58,7 +58,7 @@ public class Game extends Application {
 	private Stage primaryStage;
 
 	private int mowerNum;
-	private int score;
+	private int score; 
 
 	/**
 	 * Different states of the game
