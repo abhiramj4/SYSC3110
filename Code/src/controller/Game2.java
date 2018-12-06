@@ -57,7 +57,7 @@ public class Game2 extends Application{
 		Scene scene = new Scene(root, WIDTH, HEIGHT);
 		
 		File fr;
-		fr = new File("menuback.jpg");
+		fr = new File("resources/images/other/menuback.jpg");
 
 		try {
 			URL url = fr.toURI().toURL();
