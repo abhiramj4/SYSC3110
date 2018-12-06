@@ -24,153 +24,153 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+public class Menu extends Application {
 
-public class Menu extends Application{
-	
-	public static final int HEIGHT = 700;
-	public static final int WIDTH = 1200;	
-	private Stage primaryStage;
-	private Game2 game;
-	
-	public Game2 getGame() {
+	private static final int HEIGHT = 700;
+	private static final int WIDTH = 1200;
+	protected Stage primaryStage;
+	private Game game;
+
+	public Game getGame() {
 		return game;
 	}
 
-	public void setGame(Game2 game) {
+	public void setGame(Game game) {
 		this.game = game;
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Font font = Font.loadFont("resources/fonts/productsans.ttf", 12);
-		this.game = new Game2();
-		
+		this.game = new Game(this);
+
 		this.primaryStage = primaryStage;
 		BorderPane root = new BorderPane();
-		
-		VBox menubuttons = new VBox();	
-		
+
+		VBox menubuttons = new VBox();
+
 		Button aboutbutton = new Button("ABOUT");
 		aboutbutton.setMinSize(120, 50);
-		
+
 		Button playbutton = new Button("PLAY");
 		playbutton.setMinSize(120, 50);
-		
+
 		Button controlbutton = new Button("CONTROLS");
 		controlbutton.setMinSize(120, 50);
-		
+
 		Button buildbutton = new Button("LEVEL BUILDER");
 		buildbutton.setMinSize(120, 50);
-		
-		menubuttons.getChildren().addAll(aboutbutton,playbutton, controlbutton, buildbutton );
-		
+
+		menubuttons.getChildren().addAll(aboutbutton, playbutton, controlbutton, buildbutton);
+
 		VBox.setMargin(aboutbutton, new Insets(0, 0, 10, 10));
 		VBox.setMargin(playbutton, new Insets(0, 0, 10, 10));
 		VBox.setMargin(controlbutton, new Insets(0, 0, 10, 10));
 		VBox.setMargin(buildbutton, new Insets(0, 0, 10, 10));
-		
+
 		BorderPane.setMargin(menubuttons, new Insets(250, 10, 10, 540));
-		
+
 		root.setCenter(menubuttons);
 		Scene scene = new Scene(root, WIDTH, HEIGHT);
 		scene.getStylesheets().add("resources/styles/menu.css");
-		
+
 		File fr;
 		fr = new File("resources/images/other/menuback.jpg");
 
 		try {
 			URL url = fr.toURI().toURL();
 			Image image = new Image(url.toString());
-			BackgroundImage backimage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, 
-					BackgroundPosition.DEFAULT, new BackgroundSize(WIDTH, HEIGHT, false, false, false, false));	
+			BackgroundImage backimage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+					new BackgroundSize(WIDTH, HEIGHT, false, false, false, false));
 			root.setBackground(new Background(backimage));
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//Button OnClicks
+
+		// Button OnClicks
 		aboutbutton.setOnAction(click -> {
 			BorderPane about = new BorderPane();
-        	Text title = new Text("DOCUMENTATION");
-        	ScrollPane body = new ScrollPane();     
-        	body.setBorder(null);
-        	
-        	Button backbutton = new Button("MENU");
-        	backbutton.setMinSize(120, 50);
-        	backbutton.setOnAction(click2 -> {
-        		try {
+			Text title = new Text("DOCUMENTATION");
+			ScrollPane body = new ScrollPane();
+			body.setBorder(null);
+
+			Button backbutton = new Button("MENU");
+			backbutton.setMinSize(120, 50);
+			backbutton.setOnAction(click2 -> {
+				try {
 					start(primaryStage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-        	});
-        	
-        	about.setTop(title);
-        	about.setCenter(body);
-        	about.setBottom(backbutton);
-        	
-        	BorderPane.setMargin(backbutton, new Insets(0, 0, 20, 1030));
-        	
-        	Scene scene2 = new Scene(about, Menu.WIDTH, Menu.HEIGHT);
-        	
-        	primaryStage.setTitle("PLANTS VS ZOMBIES: DOCUMENTATION");
-        	primaryStage.setScene(scene2);
+			});
+
+			about.setTop(title);
+			about.setCenter(body);
+			about.setBottom(backbutton);
+
+			BorderPane.setMargin(backbutton, new Insets(0, 0, 20, 1030));
+
+			Scene scene2 = new Scene(about, WIDTH, HEIGHT);
+
+			primaryStage.setTitle("PLANTS VS ZOMBIES: DOCUMENTATION");
+			primaryStage.setScene(scene2);
 		});
-		
+
 		playbutton.setOnAction(click -> {
 			HBox options = new HBox();
-        	
-        	Button backbutton = new Button("MENU");
-        	backbutton.setMinSize(120, 50);
-        	backbutton.setOnAction(click2 -> {
-        		try {
+
+			Button backbutton = new Button("MENU");
+			backbutton.setMinSize(120, 50);
+			backbutton.setOnAction(click2 -> {
+				try {
 					start(primaryStage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-        	});
-        	
-        	Button classicmode = new Button("CLASSIC");
-    		classicmode.setMinSize(120, 50);
-    		classicmode.setOnAction(click2 -> {
-    			this.primaryStage.setScene(game.getScene());
-    		});
-    		
-    		Button custommode = new Button("CUSTOM LEVELS");
-    		custommode.setMinSize(120, 50);
-    		
-    		options.getChildren().add(classicmode);
-        	options.getChildren().add(custommode);
-    		
-    		HBox.setMargin(classicmode, new Insets(0, 10, 0, 0));
-    		HBox.setMargin(custommode, new Insets(0, 0, 0, 10));
-    		
-    		BorderPane.setMargin(options, new Insets(325, 10, 10, 470));
-        	BorderPane.setMargin(backbutton, new Insets(0, 0, 20, 1030));
-    		
-    		((BorderPane) primaryStage.getScene().getRoot()).setCenter(options);
-    		((BorderPane) primaryStage.getScene().getRoot()).setBottom(backbutton);
+			});
+
+			Button classicmode = new Button("CLASSIC");
+			classicmode.setMinSize(120, 50);
+			classicmode.setOnAction(click2 -> {
+				this.primaryStage.setScene(game.getScene());
+			});
+
+			Button custommode = new Button("CUSTOM LEVELS");
+			custommode.setMinSize(120, 50);
+
+			Button loadgame = new Button("LOAD GAME");
+			loadgame.setMinSize(120, 50);
+
+			options.getChildren().addAll(classicmode, custommode, loadgame);
+
+			HBox.setMargin(classicmode, new Insets(0, 10, 0, 0));
+			HBox.setMargin(custommode, new Insets(0, 10, 0, 10));
+			HBox.setMargin(loadgame, new Insets(0, 0, 0, 10));
+
+			BorderPane.setMargin(options, new Insets(325, 10, 10, 405));
+			BorderPane.setMargin(backbutton, new Insets(0, 0, 20, 1030));
+
+			((BorderPane) primaryStage.getScene().getRoot()).setCenter(options);
+			((BorderPane) primaryStage.getScene().getRoot()).setBottom(backbutton);
 		});
-		
+
 		buildbutton.setOnAction(click -> {
 			LevelCreator lvlCreate = new LevelCreator();
-        	this.primaryStage.setTitle("PLANTS VS ZOMBIES: LEVEL BUILDER");
-        	this.primaryStage.setScene(lvlCreate.getLevelCreatorScene());
+			this.primaryStage.setTitle("PLANTS VS ZOMBIES: LEVEL BUILDER");
+			this.primaryStage.setScene(lvlCreate.getLevelCreatorScene());
 		});
 
 		primaryStage.setTitle("PLANTS VS ZOMBIES: THE BOOTLEG EDITION");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-	}	
-	
-	public static void main (String args[]) {
-		launch(args);
-	}		
-}
+	}
 
+	public static void main(String args[]) {
+		launch(args);
+	}
+}

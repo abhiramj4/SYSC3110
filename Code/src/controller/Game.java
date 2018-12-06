@@ -1,34 +1,35 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashMap;
-import board.*;
-import entities.Entity.EntityType;
-import entities.plants.*;
-import entities.zombies.*;
+import java.util.List;
 
-import javafx.application.Application;
+import board.Board;
+import board.Coordinate;
+import board.PlantCard;
+import board.Square;
+import entities.Entity.EntityType;
+import entities.plants.PeaShooter;
+import entities.plants.Plant;
+import entities.plants.Sunflower;
+import entities.zombies.BaseZombie;
+import entities.zombies.Zombie;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-/**
- * @author Liam Murphy, Sai Vikranth Desu, Abhi Santhosh
- *
- */
-public class Game extends Application {
-
+public class Game {
 	private Board gameboard;
 	private String availablePlants[];
 	private int currlevel;
@@ -38,6 +39,7 @@ public class Game extends Application {
 	private Board lastBoard; // to save last board
 	private Level level;
 	private int[] zombieSpawn;
+	private static final String header = "PLANTS VS ZOMBIES: GAME";
 
 	private int numZombies;
 
@@ -55,34 +57,68 @@ public class Game extends Application {
 	private Boolean cardSelected;
 	private boolean running = false;
 
-	private Stage primaryStage;
 	private Scene scene;
 
 	private int mowerNum;
-	private int score; 
+	private int score;
+	private Menu menu;
 
-	/**
-	 * Different states of the game
-	 *
-	 */
 	public enum State {
 		ABOUT, CONTROLS, PLAY, SETTINGS, MENU, BUILDER
 	};
-	
-	public void setScene(Scene scene) {
-		this.scene = scene;
-	}
-	
-	public Scene getScene() {
-		return this.scene;
-	}
-	
-	
 
-	/**
-	 * Initialize the game
-	 */
-	@Override
+	public Game(Menu menu) {
+		this.menu = menu;
+		init();
+
+		BorderPane root = new BorderPane();
+		Scene scene = new Scene(root, WIDTH, HEIGHT);
+		this.scene = scene;
+		cards = new HBox();
+		VBox options = new VBox();
+
+		Button advancebutton = new Button("NEXT TURN");
+		advancebutton.setMinSize(120, 50);
+		this.advance = advancebutton;
+
+		Button savebutton = new Button("SAVE GAME");
+		savebutton.setMinSize(120, 50);
+
+		Button menubutton = new Button("MENU");
+		menubutton.setMinSize(120, 50);
+		menubutton.setOnAction(click -> {
+			try {
+				menu.primaryStage.close();
+				menu.start(new Stage());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+
+		options.getChildren().addAll(advancebutton, savebutton, menubutton);
+
+		cardSelected = false;
+		levelinit();
+
+		gameboard.setMinSize(1000, 500);
+		root.setTop(cards);
+		root.setLeft(options);
+		root.setCenter(gameboard);
+		BorderPane.setMargin(gameboard, new Insets(10, 10, 10, 10));
+
+		this.scene = scene;
+
+		boardListenerInit(gameboard);
+		initNextRoundListener(); // init the next round button
+
+		initLawnMower(); // set all lawn mower
+
+		score = 0;
+		mowerNum = 4;
+
+	}
+
 	public void init() {
 
 		this.gameListeners = new ArrayList<GameListener>();
@@ -98,55 +134,16 @@ public class Game extends Application {
 		this.currlevel = level.getLevelNum();
 		this.zombieSpawn = level.getZombieSpawn();
 		this.numZombies = this.zombieSpawn.length;
+		this.gameboard = new Board();
 
 	}
 
-	// view
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		this.primaryStage = primaryStage;
-		BorderPane root = new BorderPane();
-		Scene scene = new Scene(root, WIDTH, HEIGHT);
-		this.scene = scene;
-		cards = new HBox();
-
-		cardSelected = false;
-		levelinit();
-
-		// add action listeners to cards
-		advance = new Button("NEXT TURN");
-		advance.setMinSize(50, 300);
-
-		Board mainboard = new Board();
-		mainboard.setMinSize(1000, 500);
-		root.setTop(cards);
-		root.setLeft(advance);
-		root.setCenter(mainboard);
-		BorderPane.setMargin(advance, new Insets(110, 10, 10, 20));
-		BorderPane.setMargin(mainboard, new Insets(10, 10, 10, 10));
-
-		primaryStage.setTitle("PLANTS VS ZOMBIES: THE BOOTLEG EDITION");
-		primaryStage.setScene(this.scene);
-		primaryStage.show();
-		
-		boardListenerInit(mainboard);
-		initNextRoundListener(); // init the next round button
-		this.gameboard = mainboard;
-
-		initLawnMower(); // set all lawn mower
-
-		score = 0;
-		mowerNum = 4;
-
-	}
-
-	// view
 	public void levelinit() {
 
 		sunlabel = new Label("SUN: \n" + getSun());
 		sunlabel.setGraphic(null);
 		cards.getChildren().add(sunlabel);
-		cards.setMargin(sunlabel, new Insets(20, 20, 20, 20));
+		HBox.setMargin(sunlabel, new Insets(20, 20, 20, 20));
 
 		for (int i = 0; i < availablePlants.length; i++) {
 			PlantCard temp = new PlantCard(availablePlants[i], this.plantCost.get(availablePlants[i]));
@@ -163,28 +160,13 @@ public class Game extends Application {
 		// call this every time a button is clicked
 		this.lastBoard = this.gameboard;
 		gameoverCheck();
-		update();
+		tick();
 
 	}
 
-	private void levelAlert(int level) {
-		Alert alert = new Alert(AlertType.INFORMATION, "Level " + currlevel, ButtonType.OK);
-	}
-
-	public void boardListenerInit(Board board) {
-
-		// add an action listener to every tile on this board
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 9; j++) {
-				initTileListeners(board.getSquare(new Coordinate(j, i)), board);
-
-			}
-		}
-
-	}
-
-	// function to init actionlisteners to all cards
-	// add an action listener for a given plant card
+	/*
+	 * function to init actionlisteners to all cards
+	 */
 	public void initCardListeners(PlantCard card) {
 
 		card.setOnAction(new EventHandler<ActionEvent>() {
@@ -199,17 +181,20 @@ public class Game extends Application {
 
 	}
 
-	// function to init the Undo button
-	public void initUndoButton(Button undo) {
-		undo.setOnAction(new EventHandler<ActionEvent>() {
+	public void boardListenerInit(Board board) {
 
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				gameboard = lastBoard;
+		// add an action listener to every tile on this board
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 9; j++) {
+				initTileListeners(board.getSquare(new Coordinate(j, i)), board);
+
 			}
+		}
 
-		});
+	}
+
+	private void levelAlert(int level) {
+		Alert alert = new Alert(AlertType.INFORMATION, "Level " + currlevel, ButtonType.OK);
 	}
 
 	public void initTileListeners(Square square, Board board) {
@@ -234,12 +219,6 @@ public class Game extends Application {
 			}
 
 		});
-	}
-
-	// on click for the card, hold on temporarily to type of card
-	public void cardClick(PlantCard card) {
-		this.selectedCard = card;
-		cardSelected = true;
 	}
 
 	/*
@@ -316,15 +295,40 @@ public class Game extends Application {
 		}
 	}
 
-	public void update() {
-		// update sun and shoot
-		tick();
+	/*
+	 * This method is used to spawn zombies based on level data each round
+	 */
+	private void zombieSpawn(int row, Zombie zombie) {
+		Zombie spawn = zombie;
+		gameListeners.add(spawn);
+		getGameboard().addEntity(zombie, new Coordinate(9, row));
+
 	}
 
 	public void initLawnMower() {
 		for (int j = 0; j < 5; j++) {
 			gameboard.getBoard()[0][j].setLawnMower(true); // set the lawn mower
 		}
+	}
+
+	public void mowOver(int y) {
+		// mow over this x and y lane
+		Coordinate curr;
+
+		for (int i = 0; i < 9; i++) {
+
+			curr = new Coordinate(i, y);
+			if (!this.gameboard.getSquare(curr).isEmpty()
+					&& this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE) {
+				getGameboard().removeEntity(this, curr);
+			}
+		}
+	}
+
+	// on click for the card, hold on temporarily to type of card
+	public void cardClick(PlantCard card) {
+		this.selectedCard = card;
+		cardSelected = true;
 	}
 
 	/**
@@ -375,92 +379,6 @@ public class Game extends Application {
 		}
 	}
 
-	public void mowOver(int y) {
-		// mow over this x and y lane
-		Coordinate curr;
-
-		for (int i = 0; i < 9; i++) {
-
-			curr = new Coordinate(i, y);
-			if (!this.gameboard.getSquare(curr).isEmpty()
-					&& this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE)
-				getGameboard().removeEntity(this, curr);
-		}
-
-	}
-
-	/**
-	 * Get how much sun the player has
-	 * 
-	 * @return the sun the player has
-	 */
-	public int getSun() {
-		return sun;
-	}
-
-	/**
-	 * Set how much sun the player has
-	 * 
-	 * @param sun the player will have
-	 */
-	public void setSun(int sun) {
-		this.sun = sun;
-		Integer tempSun = getSun();
-		sunlabel.setText("Sun: " + tempSun.toString());
-	}
-
-	// This method is used to spawn zombies based on level data each round
-	private void zombieSpawn(int row, Zombie zombie) {
-		Zombie spawn = zombie;
-		gameListeners.add(spawn);
-		getGameboard().addEntity(zombie, new Coordinate(9, row));
-
-	}
-
-	/**
-	 * Get the game listeners of this game
-	 * 
-	 * @return the gamelisteners
-	 */
-	public List<GameListener> getGameListeners() {
-		return gameListeners;
-	}
-
-	/**
-	 * Set the game listeners of this game by passing a list
-	 * 
-	 * @param gameListeners that this game will have
-	 */
-	public void setGameListeners(List<GameListener> gameListeners) {
-		this.gameListeners = gameListeners;
-	}
-
-	/**
-	 * Get the gameboard as a Board object
-	 * 
-	 * @return the gameBoard
-	 */
-	public Board getGameboard() {
-		return gameboard;
-	}
-
-	/**
-	 * Set the game board by passing a gameboard
-	 * 
-	 * @param gameboard to be set
-	 */
-	public void setGameboard(Board gameboard) {
-		this.gameboard = gameboard;
-	}
-
-	// view
-	public static void main(String args[]) throws InterruptedException {
-		launch(args);
-	}
-
-	/**
-	 * Game over method
-	 */
 	public void GameOver(boolean win) {
 
 		// If the gameover method was called with a true value, that means the user won
@@ -478,7 +396,7 @@ public class Game extends Application {
 					ButtonType.OK);
 			alert.showAndWait();
 			advance.setDisable(true);
-			primaryStage.close();
+//			primaryStage.close();
 
 			// If the gameover method was called with a value of false, that means the user
 			// lost and so this alert is shown
@@ -486,8 +404,46 @@ public class Game extends Application {
 			Alert alert = new Alert(AlertType.INFORMATION, "A Zombie got to your house! \n You lose! ", ButtonType.OK);
 			alert.showAndWait();
 			this.advance.setDisable(true);
-			primaryStage.close();
+//			primaryStage.close();
 		}
 
+	}
+
+	public Scene getScene() {
+		return this.scene;
+	}
+
+	public static String getHeader() {
+		return header;
+	}
+
+	/**
+	 * Get how much sun the player has
+	 * 
+	 * @return the sun the player has
+	 */
+	public int getSun() {
+		return sun;
+	}
+
+	public void setSun(int sun) {
+		sunlabel.setText("Sun: " + Integer.valueOf(getSun()).toString());
+	}
+
+	public List<GameListener> getGameListeners() {
+		return gameListeners;
+	}
+
+	public void setGameListeners(List<GameListener> gameListeners) {
+		this.gameListeners = gameListeners;
+	}
+
+	/**
+	 * Get the gameboard as a Board object
+	 * 
+	 * @return the gameBoard
+	 */
+	public Board getGameboard() {
+		return gameboard;
 	}
 }
