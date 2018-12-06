@@ -1,0 +1,60 @@
+package controller;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+
+public class LevelCreator {
+	
+	public LevelCreator() {
+		
+		
+	}
+	
+	public Scene getLevelCreatorScene() {
+		Region spacer = new Region();
+		HBox.setHgrow(spacer, Priority.ALWAYS);
+		VBox.setVgrow(spacer, Priority.ALWAYS);
+		Pane root =  new VBox();  
+        Pane plantPane = new HBox();
+        Pane zombiePane = new HBox();
+        Pane numberPane = new VBox();
+        
+        Scene scene = new Scene(root, 250, 50);
+        root.getChildren().addAll(plantPane, zombiePane, numberPane);
+        
+        ObservableList<String> options = 
+    	    FXCollections.observableArrayList(
+    	        "Option 1",
+    	        "Option 2",
+    	        "Option 3"
+    	    );
+    	final ComboBox comboBox = new ComboBox(options);
+    	plantPane.getChildren().addAll(this.makeLabel("Plants"), spacer, comboBox);
+        	
+    	ObservableList<String> options2 = 
+        	    FXCollections.observableArrayList(
+        	        "BaseZombie",
+        	        "ConeHeadZombie",
+        	        "FlagZombie"
+        	    );
+        	final ComboBox comboBox2 = new ComboBox(options2);
+        	plantPane.getChildren().addAll(this.makeLabel("Zombies"), spacer, comboBox2);
+        	
+		return scene;
+	}
+	
+	private Label makeLabel(String name) {
+		Label label = new Label(name);
+		label.setMinSize(5.0, 5.0);
+		//label.setMaxSize(5.0, 5.0);
+		return new Label(name);
+	}
+}
