@@ -45,6 +45,11 @@ public class Menu extends Application {
 		this.game = new Game(this);
 
 		this.primaryStage = primaryStage;
+		menuSet();
+		this.primaryStage.show();
+	}
+
+	public void menuSet() {
 		BorderPane root = new BorderPane();
 
 		VBox menubuttons = new VBox();
@@ -115,8 +120,8 @@ public class Menu extends Application {
 
 			Scene scene2 = new Scene(about, WIDTH, HEIGHT);
 
-			primaryStage.setTitle("PLANTS VS ZOMBIES: DOCUMENTATION");
-			primaryStage.setScene(scene2);
+			this.primaryStage.setTitle("PLANTS VS ZOMBIES: DOCUMENTATION");
+			this.primaryStage.setScene(scene2);
 		});
 
 		playbutton.setOnAction(click -> {
@@ -166,7 +171,6 @@ public class Menu extends Application {
 
 		primaryStage.setTitle("PLANTS VS ZOMBIES: THE BOOTLEG EDITION");
 		primaryStage.setScene(scene);
-		primaryStage.show();
 
 	}
 

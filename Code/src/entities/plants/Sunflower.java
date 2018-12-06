@@ -39,6 +39,7 @@ public class Sunflower extends Plant {
 	 */
 	@Override
 	public void update(Game g, String type) {
+		System.out.println("yes");
 		if (type == "TICK") {
 			if (tick == null) {
 				tick = new Integer(0);
