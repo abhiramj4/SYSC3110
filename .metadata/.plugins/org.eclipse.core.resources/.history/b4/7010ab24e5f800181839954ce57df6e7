@@ -1,0 +1,36 @@
+package controller;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+
+
+public class LevelCreator {
+	
+	public LevelCreator() {
+		
+		
+	}
+	
+	public Scene getLevelCreatorScene() {
+		Pane root =  new VBox();  
+        Pane digitPane = new HBox();
+        Pane bottomPane = new HBox();
+        
+        Scene scene = new Scene(root, 250, 50);
+        root.getChildren().addAll(digitPane, bottomPane);
+        
+        ObservableList<String> options = 
+        	    FXCollections.observableArrayList(
+        	        "Option 1",
+        	        "Option 2",
+        	        "Option 3"
+        	    );
+        	final ComboBox comboBox = new ComboBox(options);
+		return scene;
+	}
+}

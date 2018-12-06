@@ -1,0 +1,29 @@
+package menu;
+
+import board.Board;
+import controller.Level;
+
+import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class main {
+
+	
+	
+	
+	public static void main(String[] args) {
+		Board b = new Board();
+		
+	}
+}

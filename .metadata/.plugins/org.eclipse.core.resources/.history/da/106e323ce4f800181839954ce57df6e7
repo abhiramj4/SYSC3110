@@ -1,0 +1,19 @@
+package controller;
+
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+
+
+public class LevelCreator {
+	
+	public LevelCreator() {
+		
+		
+	}
+	
+	public Pane setLevelCreatorScene() {
+		
+		return null;
+	}
+}
