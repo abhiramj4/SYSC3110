@@ -395,15 +395,15 @@ public class Game {
 		this.selectedCard = card;
 		cardSelected = true;
 	}
-	
+
 	public void initRedoListener(Button redoButton) {
 		redoButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				
-				if(gameStates.indexOf(gameboard) == gameStates.size() - 1) {
+
+				if (gameStates.indexOf(gameboard) == gameStates.size() - 1) {
 					Alert alert = new Alert(AlertType.INFORMATION, "Can't go forwards!", ButtonType.OK,
 							ButtonType.CANCEL);
 					alert.showAndWait();
@@ -411,14 +411,14 @@ public class Game {
 					if (alert.getResult() == ButtonType.OK || alert.getResult() == ButtonType.CANCEL) {
 						return;
 					}
-				} //at the current round
-				
-				//if our array is greater than 1 then go forward
-				else{
-					gameboard = gameStates.get(gameStates.indexOf(gameboard)+1);
-				} 
+				} // at the current round
+
+				// if our array is greater than 1 then go forward
+				else {
+					gameboard = gameStates.get(gameStates.indexOf(gameboard) + 1);
+				}
 			}
-			
+
 		});
 	}
 
