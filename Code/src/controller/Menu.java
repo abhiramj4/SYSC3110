@@ -164,7 +164,7 @@ public class Menu extends Application {
 		});
 
 		buildbutton.setOnAction(click -> {
-			LevelCreator lvlCreate = new LevelCreator();
+			LevelCreator lvlCreate = new LevelCreator(this);
 			this.primaryStage.setTitle("PLANTS VS ZOMBIES: LEVEL BUILDER");
 			this.primaryStage.setScene(lvlCreate.getLevelCreatorScene());
 		});

@@ -24,16 +24,18 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class LevelCreator extends Menu{
+public class LevelCreator{
 	private static final int HEIGHT = 700;
 	private static final int WIDTH = 1200;
+	private Menu menu;
 	
 	private int nRounds = -1;
 	private int nZomb = -1;
 	private ArrayList<String> plantChoice = new ArrayList<String>();
 	private ArrayList<String> zombChoice = new ArrayList<String>();
-	public LevelCreator() {
-		
+	
+	public LevelCreator(Menu menu) {
+		this.menu = menu;
 		
 	}
 	
@@ -46,19 +48,34 @@ public class LevelCreator extends Menu{
         Pane zombiePane = new HBox();
         Pane numZomb = new HBox();
         Pane numRound = new HBox();
+        Pane buttonPane = new HBox();
         
         Button menuButton = new Button("Menu");
         menuButton.setMinSize(120, 50);
 		menuButton.setOnAction(click2 -> {
 			try {
-				this.writeToJSON();
+				menu.menuSet();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
+		
+		Button saveButton = new Button("Save");
+		saveButton.setMinSize(120,50);
+		saveButton.setOnAction(click2 ->{
+			try {
+				this.writeToJSON();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		});
+		
+		buttonPane.getChildren().addAll(menuButton, saveButton);
         Scene scene = new Scene(root, WIDTH, HEIGHT);
-        root.getChildren().addAll(plantPane, zombiePane, numZomb, numRound, menuButton);
+        root.getChildren().addAll(plantPane, zombiePane, numZomb, numRound, buttonPane);
+        
         
         ObservableList<String> options = 
     	    FXCollections.observableArrayList(
@@ -177,7 +194,7 @@ public class LevelCreator extends Menu{
 	}
 	
 	public static void main(String[] args) {
-		LevelCreator lc = new LevelCreator();
+		LevelCreator lc = new LevelCreator(null);
 		try{
 			lc.writeToJSON();
 		} catch(Exception e) {

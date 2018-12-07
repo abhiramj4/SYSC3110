@@ -67,7 +67,7 @@ public class Level {
 				this.zombieSpawn = new int[this.numZombies];
 				Random r = new Random();
 				for(int i = 0; i < this.numZombies; i++) {
-					this.zombieSpawn[i] = r.nextInt(4);
+					this.zombieSpawn[i] = r.nextInt(5);
 				}
 			}
 
