@@ -23,6 +23,7 @@ public class Sunflower extends Plant {
 	 */
 	public Sunflower() {
 		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH, IMAGEPATH);
+		tick = 0;
 	}
 
 	/**
@@ -41,15 +42,14 @@ public class Sunflower extends Plant {
 	public void update(Game g, String type) {
 		System.out.println("yes");
 		if (type == "TICK") {
-			if (tick == null) {
-				tick = new Integer(0);
-			} else if (tick == 0) {
+
+			if (tick == 0) {
 				tick++;
-			} else if (tick == 1) {
+			} else if (tick % 2 == 1) {
 				tick++;
-			} else if (tick == 2) {
+			} else if (tick % 2 == 0) {
 				g.setSun(g.getSun() + SUN);
-				tick = 0;
+				tick++;
 			}
 		}
 	}

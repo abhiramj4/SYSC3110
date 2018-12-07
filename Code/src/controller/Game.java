@@ -350,9 +350,7 @@ public class Game {
 		for (int i = 0; i < gameListeners.size(); i++) {
 			gameListeners.get(i).update(this, "TICK");
 		}
-		if (tick % 2 == 0) {
-			setSun(getSun() + 25);
-		}
+
 		if (tick % 2 == 0 && tick > 5) {
 			if (numZombies > 0) {
 				zombieSpawn(this.zombieSpawn[this.numZombies - 1], new BaseZombie()); //
@@ -515,6 +513,7 @@ public class Game {
 	}
 
 	public void setSun(int sun) {
+		this.sun = sun;
 		sunlabel.setText("Sun: " + Integer.valueOf(sun).toString());
 	}
 
