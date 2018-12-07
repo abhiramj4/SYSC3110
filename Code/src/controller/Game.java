@@ -66,6 +66,7 @@ public class Game {
 	private Scene scene;
 
 	private int mowerNum;
+	private Boolean mowerUsed;
 	private int score;
 	private Menu menu;
 
@@ -180,6 +181,7 @@ public class Game {
 		gameStates.add(this);
 		score = 0;
 		mowerNum = 4;
+		mowerUsed = false;
 	}
 
 	public void init() {
@@ -387,6 +389,7 @@ public class Game {
 			if (!this.gameboard.getSquare(curr).isEmpty()
 					&& this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE) {
 				getGameboard().removeEntity(this, curr);
+				mowerUsed = true; 
 			}
 		}
 	}
@@ -430,7 +433,7 @@ public class Game {
 				// there's a zombie AND a lawn mower
 				if (this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE) {
 
-					if (this.gameboard.getSquare(curr).getLawnMower()) {
+					if (this.gameboard.getSquare(curr).getLawnMower() && mowerUsed == false) {
 						this.gameboard.getSquare(curr).setLawnMower(false);
 						Alert alert = new Alert(AlertType.INFORMATION, "A lawn mower passes through the lane",
 								ButtonType.OK);
@@ -439,6 +442,7 @@ public class Game {
 						mowerNum--;
 						return;
 					}
+
 					GameOver(false);
 					// mow over all zombies in this
 
