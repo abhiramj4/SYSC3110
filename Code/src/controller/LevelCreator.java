@@ -143,7 +143,7 @@ public class LevelCreator extends Menu{
 		JSONObject obj = new JSONObject();
 		
 		//random unused level number
-		obj.put("levelNum", "24");
+		obj.put("levelNum", 24);
 		
 		if(this.nRounds < 0) {
 			throw new Exception("Number of Rounds has not been selected yet!");

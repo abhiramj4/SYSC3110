@@ -1,11 +1,14 @@
 package controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 
 import board.Board;
 import board.Coordinate;
@@ -51,9 +54,13 @@ public class Game {
 	private int numZombies;
 	private ArrayList<Game> gameStates;
 	private int tick;
+	private int numsaves;
 
 	private static final int HEIGHT = 700;
 	private static final int WIDTH = 1200;
+	private static final String SAVEPATH = "src/savefiles";
+	
+	private Stack<Game> gamestates;	
 	private int numCards;
 	private PlantCard plants[]; // list of cards
 	private HBox cards;
@@ -94,6 +101,9 @@ public class Game {
 
 		Button savebutton = new Button("SAVE GAME");
 		savebutton.setMinSize(120, 50);
+		savebutton.setOnAction(click -> {
+			saveGame(this);
+		});
 
 		Button menubutton = new Button("MENU");
 		menubutton.setMinSize(120, 50);
@@ -190,17 +200,17 @@ public class Game {
 		this.sun = 50;
 		this.tick = 0;
 		this.plantCost = new HashMap<String, Integer>();
+		this.gamestates = new Stack<Game>();
 
 		this.plantCost.put("Sunflower", 50);
 		this.plantCost.put("Peashooter", 100);
 
-		this.level = new Level(1);
+		this.level = new Level(24);
 		this.availablePlants = level.getPlants();
 		this.currlevel = level.getLevelNum();
 		this.zombieSpawn = level.getZombieSpawn();
 		this.numZombies = this.zombieSpawn.length;
 		this.gameboard = new Board();
-
 	}
 
 	public void levelinit() {
@@ -218,16 +228,16 @@ public class Game {
 			cards.getChildren().add(temp);
 		}
 		this.levelAlert(this.currlevel);
-
 	}
 
 	public void runRound() {
 		// call this every time advance is clicked
 	
 		this.gameStates.add(this);
+		Game copy = this;
+		gamestates.push(copy);
 		gameoverCheck();
 		tick();
-
 	}
 
 	/*
@@ -244,7 +254,6 @@ public class Game {
 			}
 
 		});
-
 	}
 
 	public void boardListenerInit(Board board) {
@@ -253,10 +262,8 @@ public class Game {
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 9; j++) {
 				initTileListeners(board.getSquare(new Coordinate(j, i)), board);
-
 			}
 		}
-
 	}
 
 	private void levelAlert(int level) {
@@ -271,7 +278,6 @@ public class Game {
 				// TODO Auto-generated method stub
 				tileClick(square, board);
 			}
-
 		});
 	}
 
@@ -279,16 +285,42 @@ public class Game {
 
 		// TODO Auto-generated method stub
 
-		if (gameStates.size() > 0) {
-			Game temp = gameStates.get(gameStates.size() - 1); // last element
-			this.scene = temp.getScene();
+//		if (gameStates.size() > 0) {
+//			Game temp = gameStates.get(gameStates.size() - 1); // last element
+//			this.scene = temp.getScene();
+//		} else {
+//			Alert alert = new Alert(AlertType.INFORMATION, "Can't go backwards!", ButtonType.OK, ButtonType.CANCEL);
+//			alert.showAndWait();
+//
+//			if (alert.getResult() == ButtonType.OK || alert.getResult() == ButtonType.CANCEL) {
+//				return;
+//			}
+//		}
+		
+		if (gamestates.size() > 0) {
+			Game prev = gamestates.pop();
+			this.menu.setGame(prev);
 		} else {
-			Alert alert = new Alert(AlertType.INFORMATION, "Can't go backwards!", ButtonType.OK, ButtonType.CANCEL);
-			alert.showAndWait();
-
-			if (alert.getResult() == ButtonType.OK || alert.getResult() == ButtonType.CANCEL) {
-				return;
-			}
+			System.out.println("youfuck");
+		}
+	}
+	
+	private void saveGame(Game game) {
+		if (tick == 0) {
+			Alert alert = new Alert(AlertType.ERROR, "Nothing to save though!");
+			alert.show();
+		}
+		try {
+			
+			FileOutputStream savefile = new FileOutputStream(SAVEPATH + "/save" + this.numsaves);		
+			ObjectOutputStream saveobject = new ObjectOutputStream(savefile);
+			saveobject.writeObject(game);
+			saveobject.close();
+			Alert alert = new Alert(AlertType.INFORMATION, "Game Saved");
+			numsaves++;
+		} catch (Exception e) {
+			e.printStackTrace();
+			Alert alert = new Alert(AlertType.ERROR, "Error saving!");
 		}
 	}
 
