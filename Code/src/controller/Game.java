@@ -203,7 +203,7 @@ public class Game {
 		this.plantCost.put("Sunflower", 50);
 		this.plantCost.put("Peashooter", 100);
 
-		this.level = new Level(1);
+		this.level = new Level(24);
 		this.availablePlants = level.getPlants();
 		this.currlevel = level.getLevelNum();
 		this.zombieSpawn = level.getZombieSpawn();

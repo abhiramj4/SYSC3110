@@ -5,6 +5,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.lang.IllegalArgumentException;
+import java.util.Random;
+
 import entities.plants.Plant;
 
 /*
@@ -21,6 +23,7 @@ public class Level {
 
 	private int rounds;
 	private int levelNum;
+	
 
 	/**
 	 * The level constructor
@@ -28,19 +31,27 @@ public class Level {
 	 * @param level the level of the game
 	 */
 	public Level(int level) {
-
+		String file = "resources/files/Levels.json";
+		
 		if (level < 1) {
 			throw new IllegalArgumentException("Level must be greater than 0");
+		}
+		if (level == 24) {
+			file = "resources/files/test.json";
 		}
 
 		JSONParser parser = new JSONParser();
 
 		try {
-
-			Object obj = parser.parse(new FileReader("resources/files/Levels.json"));
-
-			JSONArray jsonArr = (JSONArray) obj;
-			JSONObject jsonObject = (JSONObject) jsonArr.get(level - 1);
+			JSONObject jsonObject = null;
+			Object obj = parser.parse(new FileReader(file));
+			if(file.equals("resources/files/Levels.json")) {
+				JSONArray jsonArr = (JSONArray) obj;
+				jsonObject = (JSONObject) jsonArr.get(level - 1);
+			}else {
+				jsonObject = (JSONObject)obj;
+			}
+			
 
 			this.levelNum = (int) ((long) jsonObject.get("levelNum"));
 			this.numZombies = (int) (long) jsonObject.get("numZombies");
@@ -52,6 +63,13 @@ public class Level {
 			this.zombieTypes = toStringArray(zombies);
 			this.availablePlants = toStringArray(plants);
 			this.zombieSpawn = toIntArray(zombSpawn);
+			if(this.zombieSpawn == null) {
+				this.zombieSpawn = new int[this.numZombies];
+				Random r = new Random();
+				for(int i = 0; i < this.numZombies; i++) {
+					this.zombieSpawn[i] = r.nextInt(4);
+				}
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
