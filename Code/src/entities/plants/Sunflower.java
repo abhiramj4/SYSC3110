@@ -23,7 +23,7 @@ public class Sunflower extends Plant {
 	 */
 	public Sunflower() {
 		super(NAME, DAMAGE, COOLDOWN, COST, HEALTH, IMAGEPATH);
-		tick = 0;
+		tick = 1;
 	}
 
 	/**
