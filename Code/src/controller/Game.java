@@ -110,6 +110,10 @@ public class Game {
 		undobutton.setMinSize(75, 75);
 		undobutton.setMaxSize(75, 75);
 
+		undobutton.setOnAction(click->{
+			undo();
+		});
+		
 		File fr = new File("resources/images/other/undo.jpg");
 
 		try {
@@ -125,8 +129,13 @@ public class Game {
 		}
 
 		Button redobutton = new Button();
+
 		redobutton.setMinSize(75, 75);
 		redobutton.setMaxSize(75, 75);
+
+		redobutton.setOnAction(click -> {
+			redo();
+		});
 
 		File fs = new File("resources/images/other/redo.jpg");
 
@@ -264,27 +273,20 @@ public class Game {
 		});
 	}
 
-	public void initUndoListener(Button undoButton) {
-		undoButton.setOnAction(new EventHandler<ActionEvent>() {
+	public void undo() {
 
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
 
-				if (gameStates.size() > 1) {
-					gameboard = gameStates.get(gameStates.size() - 1); // last element
-				} else {
-					Alert alert = new Alert(AlertType.INFORMATION, "Can't go backwards!", ButtonType.OK,
-							ButtonType.CANCEL);
-					alert.showAndWait();
+		if (gameStates.size() > 1) {
+			gameboard = gameStates.get(gameStates.size() - 1); // last element
+		} else {
+			Alert alert = new Alert(AlertType.INFORMATION, "Can't go backwards!", ButtonType.OK, ButtonType.CANCEL);
+			alert.showAndWait();
 
-					if (alert.getResult() == ButtonType.OK || alert.getResult() == ButtonType.CANCEL) {
-						return;
-					}
-				}
+			if (alert.getResult() == ButtonType.OK || alert.getResult() == ButtonType.CANCEL) {
+				return;
 			}
-
-		});
+		}
 	}
 
 	/*
@@ -396,30 +398,23 @@ public class Game {
 		cardSelected = true;
 	}
 
-	public void initRedoListener(Button redoButton) {
-		redoButton.setOnAction(new EventHandler<ActionEvent>() {
+	public void redo() {
 
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
 
-				if (gameStates.indexOf(gameboard) == gameStates.size() - 1) {
-					Alert alert = new Alert(AlertType.INFORMATION, "Can't go forwards!", ButtonType.OK,
-							ButtonType.CANCEL);
-					alert.showAndWait();
+		if (gameStates.indexOf(gameboard) == gameStates.size() - 1) {
+			Alert alert = new Alert(AlertType.INFORMATION, "Can't go forwards!", ButtonType.OK, ButtonType.CANCEL);
+			alert.showAndWait();
 
-					if (alert.getResult() == ButtonType.OK || alert.getResult() == ButtonType.CANCEL) {
-						return;
-					}
-				} // at the current round
-
-				// if our array is greater than 1 then go forward
-				else {
-					gameboard = gameStates.get(gameStates.indexOf(gameboard) + 1);
-				}
+			if (alert.getResult() == ButtonType.OK || alert.getResult() == ButtonType.CANCEL) {
+				return;
 			}
+		} // at the current round
 
-		});
+		// if our array is greater than 1 then go forward
+		else {
+			gameboard = gameStates.get(gameStates.indexOf(gameboard) + 1);
+		}
 	}
 
 	/**
@@ -487,7 +482,7 @@ public class Game {
 					ButtonType.OK);
 			alert.showAndWait();
 			advance.setDisable(true);
-//			primaryStage.close();
+			// primaryStage.close();
 
 			// If the gameover method was called with a value of false, that means the user
 			// lost and so this alert is shown
@@ -495,7 +490,7 @@ public class Game {
 			Alert alert = new Alert(AlertType.INFORMATION, "A Zombie got to your house! \n You lose! ", ButtonType.OK);
 			alert.showAndWait();
 			this.advance.setDisable(true);
-//			primaryStage.close();
+			// primaryStage.close();
 		}
 
 	}
