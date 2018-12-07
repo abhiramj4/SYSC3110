@@ -220,7 +220,7 @@ public class Game {
 	}
 
 	public void runRound() {
-		// call this every time a button is clicked
+		// call this every time advance is clicked
 	
 		this.gameStates.add(this);
 		gameoverCheck();
