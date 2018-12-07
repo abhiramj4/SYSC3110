@@ -49,7 +49,7 @@ public class Game {
 	private int[] zombieSpawn;
 	private static final String header = "PLANTS VS ZOMBIES: GAME";
 	private int numZombies;
-	private ArrayList<Board> gameStates;
+	private ArrayList<Game> gameStates;
 	private int tick;
 
 	private static final int HEIGHT = 700;
@@ -76,7 +76,7 @@ public class Game {
 	public Game(Menu menu) {
 		this.menu = menu;
 		init();
-		gameStates = new ArrayList<Board>();
+		gameStates = new ArrayList<Game>();
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root, WIDTH, HEIGHT);
 		this.scene = scene;
@@ -175,9 +175,9 @@ public class Game {
 
 		boardListenerInit(gameboard);
 
-		initLawnMower(); // set all lawn mower
-
-		gameStates.add(gameboard);
+		initLawnMower(); // set all lawn mower;
+		
+		gameStates.add(this);
 		score = 0;
 		mowerNum = 4;
 	}
@@ -221,8 +221,8 @@ public class Game {
 
 	public void runRound() {
 		// call this every time a button is clicked
-		this.lastBoard = this.gameboard;
-		this.gameStates.add(lastBoard);
+	
+		this.gameStates.add(this);
 		gameoverCheck();
 		tick();
 
@@ -277,8 +277,9 @@ public class Game {
 
 		// TODO Auto-generated method stub
 
-		if (gameStates.size() > 1) {
-			gameboard = gameStates.get(gameStates.size() - 1); // last element
+		if (gameStates.size() > 0) {
+			Game temp = gameStates.get(gameStates.size() - 1); // last element
+			this.scene = temp.getScene();
 		} else {
 			Alert alert = new Alert(AlertType.INFORMATION, "Can't go backwards!", ButtonType.OK, ButtonType.CANCEL);
 			alert.showAndWait();
@@ -402,7 +403,7 @@ public class Game {
 
 		// TODO Auto-generated method stub
 
-		if (gameStates.indexOf(gameboard) == gameStates.size() - 1) {
+		if (gameStates.indexOf(this) == gameStates.size() - 1) {
 			Alert alert = new Alert(AlertType.INFORMATION, "Can't go forwards!", ButtonType.OK, ButtonType.CANCEL);
 			alert.showAndWait();
 
@@ -413,7 +414,8 @@ public class Game {
 
 		// if our array is greater than 1 then go forward
 		else {
-			gameboard = gameStates.get(gameStates.indexOf(gameboard) + 1);
+			Game temp = gameStates.get(gameStates.indexOf(this) + 1);
+			this.scene = temp.getScene();
 		}
 	}
 
