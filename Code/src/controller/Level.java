@@ -39,7 +39,7 @@ public class Level {
 		if (level == 24) {
 			file = "resources/files/test.json";
 		}
-
+		System.out.println(file);
 		JSONParser parser = new JSONParser();
 
 		try {
@@ -61,6 +61,7 @@ public class Level {
 			JSONArray zombSpawn = (JSONArray) jsonObject.get("spawnPoints");
 
 			this.zombieTypes = toStringArray(zombies);
+			System.out.println("plants");
 			this.availablePlants = toStringArray(plants);
 			this.zombieSpawn = toIntArray(zombSpawn);
 			if(this.zombieSpawn == null) {
@@ -103,11 +104,12 @@ public class Level {
 		if (array == null) {
 			return null;
 		}
-
+		
 		String[] arr = new String[array.size()];
 		for (int i = 0; i < arr.length; i++) {
 			arr[i] = (String) array.get(i);
 		}
+		System.out.println("json arr: "+ array.size() + " string arr: " + arr.length);
 		return arr;
 	}
 

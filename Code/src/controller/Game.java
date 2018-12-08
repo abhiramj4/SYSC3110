@@ -15,9 +15,7 @@ import board.Coordinate;
 import board.PlantCard;
 import board.Square;
 import entities.Entity.EntityType;
-import entities.plants.PeaShooter;
-import entities.plants.Plant;
-import entities.plants.Sunflower;
+import entities.plants.*;
 import entities.zombies.BaseZombie;
 import entities.zombies.Zombie;
 import javafx.event.ActionEvent;
@@ -204,13 +202,16 @@ public class Game {
 
 		this.plantCost.put("Sunflower", 50);
 		this.plantCost.put("Peashooter", 100);
+		this.plantCost.put("CherryBomb", 150);
+		this.plantCost.put("Wallnut", 50);
 
-		this.level = new Level(24);
+		this.level = new Level(1);
 		this.availablePlants = level.getPlants();
 		this.currlevel = level.getLevelNum();
 		this.zombieSpawn = level.getZombieSpawn();
 		this.numZombies = this.zombieSpawn.length;
 		this.gameboard = new Board();
+
 	}
 
 	public void levelinit() {
@@ -222,9 +223,9 @@ public class Game {
 
 		for (int i = 0; i < availablePlants.length; i++) {
 			PlantCard temp = new PlantCard(availablePlants[i], this.plantCost.get(availablePlants[i]));
+			
 			temp.setImage(availablePlants[i].toString());
 			initCardListeners(temp);
-			// temp.setGraphic(new Image(Sunflower.getImagePath()));
 			cards.getChildren().add(temp);
 		}
 		this.levelAlert(this.currlevel);
@@ -361,12 +362,21 @@ public class Game {
 
 		// If the user has enough sun and it is an empty tile, this following code will
 		// go ahead and plant the plant.
-		if (this.selectedCard.getPlantname().equals("Sunflower")) {
+		String tname = this.selectedCard.getPlantname();
+		if (tname.equals("Sunflower")) {
 			tempPlant = new Sunflower();
 			setSun(getSun() - tempPlant.getCost());
 			sunlabel.setText("SUN: \n" + getSun());
-		} else {
+		} else if(tname.equals("Peashooter")) {
 			tempPlant = new PeaShooter();
+			setSun(getSun() - tempPlant.getCost());
+			sunlabel.setText("SUN: \n" + getSun());
+		}else if(tname.equals("CherryBomb")) {
+			tempPlant = new CherryBomb();
+			setSun(getSun() - tempPlant.getCost());
+			sunlabel.setText("SUN: \n" + getSun());
+		}else {
+			tempPlant = new Wallnut();
 			setSun(getSun() - tempPlant.getCost());
 			sunlabel.setText("SUN: \n" + getSun());
 		}
