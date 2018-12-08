@@ -1,8 +1,14 @@
 package controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Optional;
 
 import controller.LevelCreator;
 
@@ -10,6 +16,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -147,6 +154,36 @@ public class Menu extends Application {
 
 			Button loadgame = new Button("LOAD GAME");
 			loadgame.setMinSize(120, 50);
+			loadgame.setOnAction(click2 -> {
+				String[] savedgames = new File("src/savefiles").list();
+
+				ChoiceDialog<String> dialog = new ChoiceDialog<>("", savedgames);
+				dialog.setTitle("Load Game");
+				dialog.setContentText("Select a Saved game file");
+
+				Optional<String> result = dialog.showAndWait();
+				result.ifPresent(option -> {
+					ObjectInputStream input;
+					try {
+						input = new ObjectInputStream(new FileInputStream("src/savefiles/" + result.get()));
+						Game loadedgame = (Game) input.readObject();
+						this.primaryStage.setScene(loadedgame.getScene());
+						this.primaryStage.show();
+						dialog.close();
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				});
+
+			});
 
 			options.getChildren().addAll(classicmode, custommode, loadgame);
 

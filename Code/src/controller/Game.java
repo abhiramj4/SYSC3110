@@ -1,8 +1,12 @@
 package controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,7 +42,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class Game {
+public class Game implements Serializable {
+
 	private Board gameboard;
 	private String availablePlants[];
 	private int currlevel;
@@ -57,8 +62,8 @@ public class Game {
 	private static final int HEIGHT = 700;
 	private static final int WIDTH = 1200;
 	private static final String SAVEPATH = "src/savefiles";
-	
-	private Stack<Game> gamestates;	
+
+	private Stack<Game> gamestates;
 	private int numCards;
 	private PlantCard plants[]; // list of cards
 	private HBox cards;
@@ -119,10 +124,10 @@ public class Game {
 		undobutton.setMinSize(75, 75);
 		undobutton.setMaxSize(75, 75);
 
-		undobutton.setOnAction(click->{
+		undobutton.setOnAction(click -> {
 			undo();
 		});
-		
+
 		File fr = new File("resources/images/other/undo.jpg");
 
 		try {
@@ -185,7 +190,7 @@ public class Game {
 		boardListenerInit(gameboard);
 
 		initLawnMower(); // set all lawn mower;
-		
+
 		gameStates.add(this);
 		score = 0;
 		mowerNum = 4;
@@ -233,7 +238,7 @@ public class Game {
 
 	public void runRound() {
 		// call this every time advance is clicked
-	
+
 		this.gameStates.add(this);
 		Game copy = this;
 		gamestates.push(copy);
@@ -241,6 +246,31 @@ public class Game {
 		tick();
 	}
 
+	public Object makeDeepCopy(Object obj2Copy) throws Exception {
+		
+		
+		ObjectOutputStream outStream = null;
+		ObjectInputStream inStream = null;
+		
+		try {
+			ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+			outStream = new ObjectOutputStream(byteOut);
+			outStream.writeObject(obj2Copy);
+			//flush stream
+			outStream.flush();
+			ByteArrayInputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());
+			inStream = new ObjectInputStream(byteIn);
+			
+			return inStream.readObject();
+		} catch(Exception e) {
+			throw(e);
+		}
+		finally {
+			outStream.close();
+			inStream.close();
+		}
+	
+	}
 	/*
 	 * function to init actionlisteners to all cards
 	 */
@@ -297,7 +327,7 @@ public class Game {
 //				return;
 //			}
 //		}
-		
+
 		if (gamestates.size() > 0) {
 			Game prev = gamestates.pop();
 			this.menu.setGame(prev);
@@ -305,15 +335,15 @@ public class Game {
 			System.out.println("youfuck");
 		}
 	}
-	
+
 	private void saveGame(Game game) {
 		if (tick == 0) {
 			Alert alert = new Alert(AlertType.ERROR, "Nothing to save though!");
 			alert.show();
 		}
 		try {
-			
-			FileOutputStream savefile = new FileOutputStream(SAVEPATH + "/save" + this.numsaves);		
+
+			FileOutputStream savefile = new FileOutputStream(SAVEPATH + "/save" + this.numsaves);
 			ObjectOutputStream saveobject = new ObjectOutputStream(savefile);
 			saveobject.writeObject(game);
 			saveobject.close();
@@ -431,7 +461,7 @@ public class Game {
 			if (!this.gameboard.getSquare(curr).isEmpty()
 					&& this.gameboard.getSquare(curr).getEntity().getEntityType() == EntityType.ZOMBIE) {
 				getGameboard().removeEntity(this, curr);
-				mowerUsed = true; 
+				mowerUsed = true;
 			}
 		}
 	}
