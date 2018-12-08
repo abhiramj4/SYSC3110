@@ -1,0 +1,22 @@
+Pros of Code
+------------
+-Entities are broken down nicely and are easy to understand
+-Using javafx over swing, saved time and was more concise
+-Use of real game graphics looks professional
+-Breaking down of the game into the sub modules of board and coordinate and elements
+
+Cons of Code
+--------------
+-Game class got big and needs some more attention
+-Game is slow to boot up, could be more efficient
+
+Pros of Process
+------------------
+-Working together with an awesome team to create a large product 
+-Spliting up the tasks into bite size pieces
+-Learning and using github for source control
+
+Cons of Process
+-----------------
+-Confusion about due dates and marking schemes
+-Underestimating the amount of work to be done and rushing to finish at the end 
