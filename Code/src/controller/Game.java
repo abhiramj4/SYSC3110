@@ -238,9 +238,14 @@ public class Game implements Serializable {
 	public void runRound() {
 		// call this every time advance is clicked
 
-		this.gameStates.add(this);
-		Game copy = this;
-		gamestates.push(copy);
+		try {
+			this.gameStates.add((Game) makeDeepCopy(this));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//Game copy = this;
+		//gamestates.push(copy);
 		gameoverCheck();
 		tick();
 	}
