@@ -84,9 +84,9 @@ public class Game implements Serializable {
 		ABOUT, CONTROLS, PLAY, SETTINGS, MENU, BUILDER
 	};
 
-	public Game(Menu menu) {
+	public Game(Menu menu, int lvl) {
 		this.menu = menu;
-		init();
+		init(lvl);
 		gameStates = new ArrayList<Game>();
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root, WIDTH, HEIGHT);
@@ -197,7 +197,7 @@ public class Game implements Serializable {
 		mowerUsed = false;
 	}
 
-	public void init() {
+	public void init(int lvl) {
 
 		this.gameListeners = new ArrayList<GameListener>();
 		this.sun = 50;
@@ -210,7 +210,7 @@ public class Game implements Serializable {
 		this.plantCost.put("CherryBomb", 150);
 		this.plantCost.put("Wallnut", 50);
 
-		this.level = new Level(1);
+		this.level = new Level(lvl);
 		this.availablePlants = level.getPlants();
 		this.currlevel = level.getLevelNum();
 		this.zombieSpawn = level.getZombieSpawn();

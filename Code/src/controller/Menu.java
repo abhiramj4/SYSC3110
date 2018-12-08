@@ -48,7 +48,7 @@ public class Menu extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		this.game = new Game(this);
+		//this.game = new Game(this);
 
 		this.primaryStage = primaryStage;
 		menuSet();
@@ -146,10 +146,15 @@ public class Menu extends Application {
 			Button classicmode = new Button("CLASSIC");
 			classicmode.setMinSize(120, 50);
 			classicmode.setOnAction(click2 -> {
+				this.game = new Game(this, 1);
 				this.primaryStage.setScene(game.getScene());
 			});
 
 			Button custommode = new Button("CUSTOM LEVELS");
+			custommode.setOnAction(click2 -> {
+				this.game = new Game(this, 24);
+				this.primaryStage.setScene(game.getScene());
+			});
 			custommode.setMinSize(120, 50);
 
 			Button loadgame = new Button("LOAD GAME");
@@ -167,9 +172,10 @@ public class Menu extends Application {
 					try {
 						input = new ObjectInputStream(new FileInputStream("src/savefiles/" + result.get()));
 						Game loadedgame = (Game) input.readObject();
+						dialog.close();
 						this.primaryStage.setScene(loadedgame.getScene());
 						this.primaryStage.show();
-						dialog.close();
+						
 					} catch (FileNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
