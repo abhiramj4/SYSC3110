@@ -44,41 +44,41 @@ import javafx.scene.layout.VBox;
 
 public class Game implements Serializable {
 
-	private Board gameboard;
-	private String availablePlants[];
-	private int currlevel;
-	private int sun;
-	private List<GameListener> gameListeners;
-	private HashMap<String, Integer> plantCost;
-	private Board lastBoard; // to save last board
-	private Level level;
-	private int[] zombieSpawn;
-	private static final String header = "PLANTS VS ZOMBIES: GAME";
-	private int numZombies;
-	private ArrayList<Game> gameStates;
-	private int tick;
-	private int numsaves;
+	private transient Board gameboard;
+	private transient String availablePlants[];
+	private transient int currlevel;
+	private transient int sun;
+	private transient List<GameListener> gameListeners;
+	private transient HashMap<String, Integer> plantCost;
+	private transient Board lastBoard; // to save last board
+	private transient Level level;
+	private transient int[] zombieSpawn;
+	private transient static final String header = "PLANTS VS ZOMBIES: GAME";
+	private transient int numZombies;
+	private transient ArrayList<Game> gameStates;
+	private transient int tick;
+	private transient int numsaves;
 
-	private static final int HEIGHT = 700;
-	private static final int WIDTH = 1200;
-	private static final String SAVEPATH = "src/savefiles";
+	private transient static final int HEIGHT = 700;
+	private transient static final int WIDTH = 1200;
+	private transient static final String SAVEPATH = "src/savefiles";
 
-	private Stack<Game> gamestates;
-	private int numCards;
-	private PlantCard plants[]; // list of cards
-	private HBox cards;
-	private Button advance;
-	private Label sunlabel;
+	private transient Stack<Game> gamestates;
+	private transient int numCards;
+	private transient PlantCard plants[]; // list of cards
+	private transient HBox cards;
+	private transient Button advance;
+	private transient Label sunlabel;
 
-	private PlantCard selectedCard;
-	private Boolean cardSelected;
+	private transient PlantCard selectedCard;
+	private transient Boolean cardSelected;
 
-	private Scene scene;
+	private transient Scene scene;
 
-	private int mowerNum;
-	private Boolean mowerUsed;
-	private int score;
-	private Menu menu;
+	private transient int mowerNum;
+	private transient Boolean mowerUsed;
+	private transient int score;
+	private transient Menu menu;
 
 	public enum State {
 		ABOUT, CONTROLS, PLAY, SETTINGS, MENU, BUILDER
@@ -239,38 +239,33 @@ public class Game implements Serializable {
 	public void runRound() {
 		// call this every time advance is clicked
 
-		this.gameStates.add(this);
-		Game copy = this;
-		gamestates.push(copy);
+		try {
+			this.gameStates.add((Game) deepCopy(this));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//Game copy = this;
+		//gamestates.push(copy);
 		gameoverCheck();
 		tick();
 	}
 
-	public Object makeDeepCopy(Object obj2Copy) throws Exception {
-		
-		
-		ObjectOutputStream outStream = null;
-		ObjectInputStream inStream = null;
-		
-		try {
-			ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-			outStream = new ObjectOutputStream(byteOut);
-			outStream.writeObject(obj2Copy);
-			//flush stream
-			outStream.flush();
-			ByteArrayInputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());
-			inStream = new ObjectInputStream(byteIn);
-			
-			return inStream.readObject();
-		} catch(Exception e) {
-			throw(e);
-		}
-		finally {
-			outStream.close();
-			inStream.close();
-		}
+	private static Object deepCopy(Object object) {
+		   try {
+		     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		     ObjectOutputStream outputStrm = new ObjectOutputStream(outputStream);
+		     outputStrm.writeObject(object);
+		     ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+		     ObjectInputStream objInputStream = new ObjectInputStream(inputStream);
+		     return objInputStream.readObject();
+		   }
+		   catch (Exception e) {
+		     e.printStackTrace();
+		     return null;
+		   }
+		 }
 	
-	}
 	/*
 	 * function to init actionlisteners to all cards
 	 */
