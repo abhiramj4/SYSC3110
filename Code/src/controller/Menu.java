@@ -38,14 +38,25 @@ public class Menu extends Application {
 	protected Stage primaryStage;
 	private Game game;
 
+	/**
+	 * Returns the PvZ game
+	 * @return  the PvZ game
+	 */
 	public Game getGame() {
 		return game;
 	}
 
+	/**
+	 * Sets the PvZ game
+	 * @param game  the game to be played
+	 */
 	public void setGame(Game game) {
 		this.game = game;
 	}
 
+	/**
+	 * Starts the application
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		//this.game = new Game(this);
@@ -55,6 +66,9 @@ public class Menu extends Application {
 		this.primaryStage.show();
 	}
 
+	/**
+	 * Sets the scene of the menu
+	 */
 	public void menuSet() {
 		BorderPane root = new BorderPane();
 
@@ -152,7 +166,7 @@ public class Menu extends Application {
 
 			Button custommode = new Button("CUSTOM LEVELS");
 			custommode.setOnAction(click2 -> {
-				this.game = new Game(this, 24);
+				this.game = new Game(this, 24);  //set to 24 as this is the number the loader expects for the custom game
 				this.primaryStage.setScene(game.getScene());
 			});
 			custommode.setMinSize(120, 50);

@@ -35,11 +35,19 @@ public class LevelCreator {
 	private ArrayList<String> plantChoice = new ArrayList<String>();
 	private ArrayList<String> zombChoice = new ArrayList<String>();
 
+	/**
+	 * creates a ref to the menu in order to return to it later
+	 * @param menu   menu to return to
+	 */
 	public LevelCreator(Menu menu) {
 		this.menu = menu;
 
 	}
 
+	/**
+	 * Creates and returns a scene for the javafx to load and stage
+	 * @return  the scene to be displayed
+	 */
 	public Scene getLevelCreatorScene() {
 		Pane root = new VBox();
 		Pane plantPane = new HBox();
@@ -147,14 +155,23 @@ public class LevelCreator {
 
 		return scene;
 	}
-
+	
+	/**
+	 * method to make javafx labels easier
+	 * @param name  String of the label
+	 * @return  the new label
+	 */
 	private Label makeLabel(String name) {
 		Label label = new Label(name);
 		label.setMinSize(5.0, 5.0);
 		// label.setMaxSize(5.0, 5.0);
 		return new Label(name);
 	}
-
+	
+	/**
+	 * function that writes a json file that the level class can then read and load
+	 * @throws Exception  if some of the parameters are dodgy throws an exception
+	 */
 	public void writeToJSON() throws Exception {
 		JSONObject obj = new JSONObject();
 
@@ -192,12 +209,4 @@ public class LevelCreator {
 		}
 	}
 
-	public static void main(String[] args) {
-		LevelCreator lc = new LevelCreator(null);
-		try {
-			lc.writeToJSON();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
 }
