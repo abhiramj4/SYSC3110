@@ -41,7 +41,6 @@ public class Menu extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Font font = Font.loadFont("resources/fonts/productsans.ttf", 12);
 		this.game = new Game(this);
 
 		this.primaryStage = primaryStage;
@@ -99,7 +98,6 @@ public class Menu extends Application {
 			BorderPane about = new BorderPane();
 			Text title = new Text("DOCUMENTATION");
 			ScrollPane body = new ScrollPane();
-			body.setBorder(null);
 
 			Button backbutton = new Button("MENU");
 			backbutton.setMinSize(120, 50);
@@ -171,7 +169,6 @@ public class Menu extends Application {
 
 		primaryStage.setTitle("PLANTS VS ZOMBIES: THE BOOTLEG EDITION");
 		primaryStage.setScene(scene);
-		
 
 	}
 
