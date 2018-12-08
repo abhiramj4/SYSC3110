@@ -54,27 +54,23 @@ public class CherryBomb extends Plant {
 	 */
 	@Override
 	public void update(Game g, String type) {
-
-		Coordinate temp = new Coordinate(getPosition().getX() + 1, getPosition().getY());
-		attack(g, temp);
-		temp = new Coordinate(getPosition().getX() - 1, getPosition().getY());
-		attack(g, temp);
-		temp = new Coordinate(getPosition().getX(), getPosition().getY() + 1);
-		attack(g, temp);
-		temp = new Coordinate(getPosition().getX(), getPosition().getY() - 1);
-		attack(g, temp);
-		temp = new Coordinate(getPosition().getX() + 1, getPosition().getY() + 1);
-		attack(g, temp);
-		temp = new Coordinate(getPosition().getX() + 1, getPosition().getY() - 1);
-		attack(g, temp);
-		temp = new Coordinate(getPosition().getX() - 1, getPosition().getY() - 1);
-		attack(g, temp);
-		temp = new Coordinate(getPosition().getX() - 1, getPosition().getY() - 1);
-		attack(g, temp);
-
+		
+		Coordinate curr = new Coordinate(getPosition().getX(), getPosition().getY());
+		int i = curr.getX() - 1;
+		if(i < 0) {
+			i = 0;
+		}
+		int j = curr.getY() - 1;
+		if(j < 0) {
+			j = 0;
+		}
+		for(; (i <= 4 &&  i <= curr.getX() + 1); i++ ) {
+			for(; (j<=4 && j <= curr.getY() + 1);j++) {
+				attack(g, new Coordinate(i, j));
+			}
+		}
 		/* Remove the Cherry Bomb after is has exploded */
-		temp = new Coordinate(getPosition().getX(), getPosition().getY());
-		g.getGameboard().removeEntity(g, temp);
+		g.getGameboard().removeEntity(g, curr);
 
 	}
 }

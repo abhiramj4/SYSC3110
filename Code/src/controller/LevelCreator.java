@@ -94,7 +94,7 @@ public class LevelCreator {
 			if (plantChoice.contains(choice)) {
 				plantChoice.remove(choice);
 			} else {
-				plantChoice.add(choice + ", ");
+				plantChoice.add(choice);
 			}
 			plantText.setText(""); // so that it only prints the current list and not prev + curr list
 			for (String s : plantChoice) {
@@ -113,7 +113,7 @@ public class LevelCreator {
 			if (zombChoice.contains(choice)) {
 				zombChoice.remove(choice);
 			} else {
-				zombChoice.add(choice + ", ");
+				zombChoice.add(choice);
 			}
 			zombText.setText(""); // so that it only prints the current list and not prev + curr list
 			for (String s : zombChoice) {
