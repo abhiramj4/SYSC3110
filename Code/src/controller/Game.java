@@ -1,7 +1,10 @@
 package controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.MalformedURLException;
@@ -242,6 +245,31 @@ public class Game implements Serializable {
 		tick();
 	}
 
+	public Object makeDeepCopy(Object obj2Copy) throws Exception {
+		
+		
+		ObjectOutputStream outStream = null;
+		ObjectInputStream inStream = null;
+		
+		try {
+			ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+			outStream = new ObjectOutputStream(byteOut);
+			outStream.writeObject(obj2Copy);
+			//flush stream
+			outStream.flush();
+			ByteArrayInputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());
+			inStream = new ObjectInputStream(byteIn);
+			
+			return inStream.readObject();
+		} catch(Exception e) {
+			throw(e);
+		}
+		finally {
+			outStream.close();
+			inStream.close();
+		}
+	
+	}
 	/*
 	 * function to init actionlisteners to all cards
 	 */
