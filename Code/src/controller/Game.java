@@ -323,10 +323,16 @@ public class Game implements Serializable {
 //		}
 
 		if (gamestates.size() > 0) {
-			Game prev = gamestates.pop();
-			this.menu.setGame(prev);
+			//Game prev = gamestates.pop();
+			//this.menu.setGame(prev);
+			this.scene = this.gameStates.get(gameStates.size()-1).getScene();
 		} else {
-			System.out.println("youfuck");
+			Alert alert = new Alert(AlertType.INFORMATION, "Can't go back!", ButtonType.OK, ButtonType.CANCEL);
+			alert.showAndWait();
+
+			if (alert.getResult() == ButtonType.OK || alert.getResult() == ButtonType.CANCEL) {
+				return;
+			}
 		}
 	}
 
